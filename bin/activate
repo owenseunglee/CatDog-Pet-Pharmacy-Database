@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/nfs/stak/users/leeowe/cs340_database"
+VIRTUAL_ENV="/nfs/stak/users/lyjes/cs340_database"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
