@@ -1,0 +1,35 @@
+<h1>Browse Pet</h1>
+  {% include 'navbar.html' %}
+
+  <table>
+    <table border="1" cellpadding="5">
+    <thead>
+    <tr>
+        <!-- Iterate through each key in the first entry to get the
+        column name -->
+        {% for key in Pets[0].keys() %}
+
+        <!-- Create a <th> tag with the key inside of it, this will be
+        our header row -->
+        <th>{{ key }}</th>
+
+        <!-- End of this for loop -->
+        {% endfor %}
+    </tr>
+    <tbody>
+
+    <!-- Now, iterate through every pet in Pets -->
+    {% for pet in Pets %}
+    <tr>
+        <!-- Then iterate through every key in the current medication dictionary -->
+        {% for key in pet.keys() %}
+
+        <!-- Create a <td> element with the value of that key in it -->
+        <td>{{pet[key]}}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+    </table>
+
+<a href="/add_pet">Add Pet</a>
+<a href="/del_pet">Delete Pet</a>

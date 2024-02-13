@@ -48,19 +48,19 @@ def vets():
     cursor = db.execute_query(db_connection=db_connection, query=query)
     results = cursor.fetchall()
 
-    return render_template("vets.j2", Vets=results)
+    return render_template("vets/vets.j2", Vets=results)
 
 # adding vet page
 @app.route("/add_vet")
 def add_vets():
     
-    return render_template("add_vet.j2")
+    return render_template("vets/add_vet.j2")
 
 # deleting vet page
 @app.route("/del_vet")
 def delete_vets():
 
-    return render_template("del_vet.j2")
+    return render_template("vets/del_vet.j2")
 
 # owners page
 @app.route("/owners")
@@ -69,19 +69,48 @@ def owners():
     cursor = db.execute_query(db_connection=db_connection, query=query)
     results = cursor.fetchall()
 
-    return render_template("owners.j2", Owners=results)
+    return render_template("owners/owners.j2", Owners=results)
 
 # adding owner page
 @app.route("/add_owner")
 def add_owner():
     
-    return render_template("add_owner.j2")
+    return render_template("owners/add_owner.j2")
 
 # deleting owner page
 @app.route("/del_owner")
 def del_owner():
 
-    return render_template("del_owner.j2")
+    return render_template("owners/del_owner.j2")
+
+# medications page
+@app.route("/meds")
+def meds():
+    query = "SELECT * FROM Medications;"
+    cursor = db.execute_query(db_connection=db_connection, query=query)
+    results = cursor.fetchall()
+
+    return render_template("medications/meds.j2", Medications=results)
+
+# adding med page
+@app.route("/add_med")
+def add_meds():
+
+    return render_template("medications/add_med.j2")
+
+# deleting med page
+@app.route("/del_med")
+def del_meds():
+
+    return render_template("medications/del_med.j2")
+
+@app.route("/pets")
+def pets():
+    query = "SELECT * FROM Pets;"
+    cursor = db.execute_query(db_connection=db_connection, query=query)
+    results = cursor.fetchall()
+
+    return render_template("pets/pets.j2", Pets=results)
 
 
 if __name__ == "__main__":
