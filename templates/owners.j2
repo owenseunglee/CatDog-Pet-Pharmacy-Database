@@ -1,4 +1,4 @@
-  <h1>Browse Veterinarians</h1>
+<h1>Browse Owners</h1>
   {% include 'navbar.html' %}
 
   <table>
@@ -7,7 +7,7 @@
     <tr>
         <!-- Iterate through each key in the first entry to get the
         column name -->
-        {% for key in Vets[0].keys() %}
+        {% for key in Owners[0].keys() %}
 
         <!-- Create a <th> tag with the key inside of it, this will be
         our header row -->
@@ -19,17 +19,17 @@
     <tbody>
 
     <!-- Now, iterate through every veterinarian in Vets -->
-    {% for veterinarian in Vets %}
+    {% for owner in Owners %}
     <tr>
         <!-- Then iterate through every key in the current veterinarian dictionary -->
-        {% for key in veterinarian.keys() %}
+        {% for key in owner.keys() %}
 
         <!-- Create a <td> element with the value of that key in it -->
-        <td>{{veterinarian[key]}}</td>
+        <td>{{owner[key]}}</td>
         {% endfor %}
     </tr>
     {% endfor %}
     </table>
 
-<a href="/add_vet">Add a veterinarian</a>
-<a href="/del_vet">Delete a veterinarian</a>
+<a href="/add_owner">Add an owner</a>
+<a href="/del_owner">Delete an owner</a>
