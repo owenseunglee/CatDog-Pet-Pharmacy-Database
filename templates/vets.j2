@@ -1,4 +1,4 @@
-  <h1>Browse Vetenerians</h1>
+  <h1>Browse Veterinarians</h1>
   {% include 'navbar.html' %}
 
   <table>
@@ -18,18 +18,18 @@
     </tr>
     <tbody>
 
-    <!-- Now, iterate through every vetenerian in Vets -->
-    {% for vetenerian in Vets %}
+    <!-- Now, iterate through every veterinarian in Vets -->
+    {% for veterinarian in Vets %}
     <tr>
-        <!-- Then iterate through every key in the current vetenerian dictionary -->
-        {% for key in vetenerian.keys() %}
+        <!-- Then iterate through every key in the current veterinarian dictionary -->
+        {% for key in veterinarian.keys() %}
 
         <!-- Create a <td> element with the value of that key in it -->
-        <td>{{vetenerian[key]}}</td>
+        <td>{{veterinarian[key]}}</td>
         {% endfor %}
     </tr>
     {% endfor %}
     </table>
 
-<a href="/add_vet">Add a vetenerian</a>
-<a href="/del_vet">Delete a vetenerian</a>
+<a href="/add_vet">Add a veterinarian</a>
+<a href="/del_vet">Delete a veterinarian</a>

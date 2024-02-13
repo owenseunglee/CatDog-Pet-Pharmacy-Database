@@ -24,7 +24,7 @@ def root():
 
     return render_template("main.j2")
 
-@app.route("/vetenerians", methods=["POST", "GET"])
+@app.route("/veterinarians", methods=["POST", "GET"])
 def browse_vets():
     if request.method == "GET":
 
