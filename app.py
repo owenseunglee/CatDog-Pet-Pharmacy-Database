@@ -1,23 +1,16 @@
-from flask import Flask, render_template, json
-from flask import request, redirect
+from flask import Flask, render_template, json, redirect
 from flask_mysqldb import MySQL
-from database.db_connector import connect_to_database, execute_query
+from flask import request
+import os
 import database.db_connector as db
-from dotenv import load_dotenv
-import os;
-
-load_dotenv()
+db_connection = db.connect_to_database()
 
 app = Flask(__name__)
-
-app.config['MYSQL_HOST'] = os.getenv('340DBHOST')
-app.config['MYSQL_USER'] = os.getenv('340DBUSER')
-app.config['MYSQL_PASSWORD'] = os.getenv('340DBPW')
-app.config['MYSQL_DB'] = os.getenv('340DB')
-mysql = MySQL(app)
-
-
-db_connection = db.connect_to_database()
+app.config['MYSQL_HOST'] = 'classmysql.engr.oregonstate.edu'
+app.config['MYSQL_USER'] = 'cs340_lyjes'
+app.config['MYSQL_PASSWORD'] = '7125' #last 4 of onid
+app.config['MYSQL_DB'] = 'cs340_lyjes'
+app.config['MYSQL_CURSORCLASS'] = "DictCursor"
 
 @app.route("/")
 def root():
@@ -51,11 +44,13 @@ def vets():
     return render_template("vets.j2", Vets=results)
 
 # adding vet page
+# adding vet page
 @app.route("/add_vet")
 def add_vets():
     
     return render_template("add_vet.j2")
 
+# deleting vet page
 # deleting vet page
 @app.route("/del_vet")
 def delete_vets():
@@ -83,9 +78,9 @@ def del_owner():
 
     return render_template("del_owner.j2")
 
-
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 8200))
-
-
-    app.run(port=port, debug = True)
+    port = int(os.environ.get('PORT', 58580)) 
+    #                                 ^^^^
+    #              You can replace this number with any valid port
+    
+    app.run(port=port, debug = True) 
