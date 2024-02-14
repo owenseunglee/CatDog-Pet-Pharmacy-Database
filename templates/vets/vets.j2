@@ -1,6 +1,10 @@
-  <h1>Browse Veterinarians</h1>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  
   {% include 'navbar.html' %}
 
+  <h2>Browse Veterinarians</h2>
+
+ <body id="addDelLink">
   <table>
     <table border="1" cellpadding="5">
     <thead>
@@ -29,7 +33,8 @@
         {% endfor %}
     </tr>
     {% endfor %}
-    </table>
+  </table>
 
-<a href="/add_vet">Add a veterinarian</a>
-<a href="/del_vet">Delete a veterinarian</a>
+    <a href="/add_vet" class="navPage">Add a veterinarian</a>
+    <a href="/del_vet" class="navPage">Delete a veterinarian</a>
+ </body>

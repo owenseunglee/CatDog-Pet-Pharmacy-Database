@@ -1,10 +1,30 @@
 <html>
     <head>
         <title>CS340 Group12 CatDog Pharmacy</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
-        <h1>CatDog Pharmacy Database</h1>
         {% include 'navbar.html' %}
+
+        <h1>The Overview</h1>
+        <article>
+            <p id="overview">
+                The CatDog Pet Pharmacy, working closely with a network of 10 local Veterinarians, provides services to an average of 500 pet clients annually. 
+            These services are exclusively for owned pets; the pharmacy and its associated veterinarians do not cater to stray animals. Additionally, 
+            it is assumed that each pet client is assigned to only one veterinarian to ensure consistency and personalized care.The pharmacy offers a range 
+            of Medications, dispensing approximately 1,000 Prescriptions per year, generating an average annual revenue of $50,000. CatDog Pet Pharmacy 
+            hopes to deploy a website that will record prescriptions dispensed per year, number of prescriptions that are picked up, annual total revenue, 
+            and most frequently prescribed medications. The website will also document the number of Pets each veterinary clinic has with the pharmacy. 
+            Furthermore, the system lists the contact information for Veterinarians and Owners, medication information, and pet demographics. Since all clients 
+            are based in the United States, there is no need to consider international dialing codes for contact numbers. If the veterinarians are located 
+            abroad, they can be reached via their provided email addresses. With this website, CatDog Pet Pharmacy will be able to better understand and meet 
+            the needs of their clients. Note there are some limitations to our website. In a real world scenario, our database would have additional transaction 
+            type tables but for simplicity, cost is given for each set quantity of medication and a total prescription_cost is calculated for the cost of all 
+            medications in a prescription. Furthermore, our practice strives to uphold privacy practices, such that medication and prescription records are 
+            deleted completely for clients that we no longer serve.
+            </p>
+        </article>
+
     </body>
 </html>
 

@@ -126,7 +126,7 @@ def add_pets():
     return render_template("pets/add_pet.j2")
 
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 8200)) 
+    port = int(os.environ.get('PORT', 8202)) 
     #                                 ^^^^
     #              You can replace this number with any valid port
     

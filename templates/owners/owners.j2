@@ -1,6 +1,11 @@
-<h1>Browse Owners</h1>
-  {% include 'navbar.html' %}
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
+
+{% include 'navbar.html' %}
+
+<h2>Browse Owners</h2>
+
+<body id="addDelLink">
   <table>
     <table border="1" cellpadding="5">
     <thead>
@@ -31,5 +36,6 @@
     {% endfor %}
     </table>
 
-<a href="/add_owner">Add an owner</a>
-<a href="/del_owner">Delete an owner</a>
+<a href="/add_owner" class="navPage">Add an owner</a>
+<a href="/del_owner" class="navPage">Delete an owner</a>
+</body>
