@@ -4,37 +4,32 @@ SELECT * FROM Vets
 -- gets all attributes for the Owners page
 SELECT * FROM Owners
 
+-- get all pet and their owner's name
+SELECT Pets.id_pet, name, breed, age, gender, Owners.name AS owner_name
+FROM Pets
+INNER JOIN Owners ON Pets.id_owner = Owners.id_owner;
 
+-- get a single pet's data
+SELECT id_pet, name, breed, age, gender, id_vet, id_owner
+FROM Pets
+WHERE id_pet = :pet_ID_selected_from_browse_pet_page
 
--- get all characters and their homeworld name for the List People page
-SELECT bsg_people.character_id, fname, lname, bsg_planets.name AS homeworld, age FROM bsg_people INNER JOIN bsg_planets ON homeworld = bsg_planets.planet_id
+-- get all pets with their current associated vets
+SELECT id_pet, id_vet, Pets.name AS pet_name, Vets.name AS vet_name
+FROM Pets
+INNER JOIN Vets ON Pets.id_vet = Vets.id_vet
+ORDER BY pet_name, vet_name;
 
--- get a single character's data for the Update People form
-SELECT character_id, fname, lname, homeworld, age FROM bsg_people WHERE character_id = :character_ID_selected_from_browse_character_page
+-- add a new pet. list of vets and owners will be displayed in dropdown 
+INSERT INTO Pets (name, breed, age, gender, id_vet, id_owner)
+VALUES (:nameInput, :breedInput, :ageInput, :genderInput, :vet_id_from_dropdown_Input, :owner_id_from_dropdown_Input)
 
--- get all character's data to populate a dropdown for associating with a certificate  
-SELECT character_id AS pid, fname, lname FROm bsg_people 
--- get all certificates to populate a dropdown for associating with people
-SELECT certification_id AS cid, title FROM bsg_cert
+-- update pets, list of pets will be displayed in dropdown 
+UPDATE Pets SET name = :nameInput, breed = :breedInput, age = :ageInput, gender = :genderInput, id_vet = :vet_id_from_dropdown_Input, id_owner = :owner_id_from_dropdown_Input
+WHERE id_pet = :pet_ID_selected_from_browse_pet_page
 
--- get all peoople with their current associated certificates to list
-SELECT pid, cid, CONCAT(fname,' ',lname) AS name, title AS certificate 
-FROM bsg_people 
-INNER JOIN bsg_cert_people ON bsg_people.character_id = bsg_cert_people.pid 
-INNER JOIN bsg_cert on bsg_cert.certification_id = bsg_cert_people.cid 
-ORDER BY name, certificate
+-- delete a pet
+DELETE FROM Pets WHERE id = :character_ID_selected_from_browse_pet_page
 
--- add a new character
-INSERT INTO bsg_people (fname, lname, homeworld, age) VALUES (:fnameInput, :lnameInput, :homeworld_id_from_dropdown_Input, :ageInput)
-
--- associate a character with a certificate (M-to-M relationship addition)
-INSERT INTO bsg_cert_people (pid, cid) VALUES (:character_id_from_dropdown_Input, :certification_id_from_dropdown_Input)
-
--- update a character's data based on submission of the Update Character form 
-UPDATE bsg_people SET fname = :fnameInput, lname= :lnameInput, homeworld = :homeworld_id_from_dropdown_Input, age= :ageInput WHERE id= :character_ID_from_the_update_form
-
--- delete a character
-DELETE FROM bsg_people WHERE id = :character_ID_selected_from_browse_character_page
-
--- dis-associate a certificate from a person (M-to-M relationship deletion)
-DELETE FROM bsg_cert_people WHERE pid = :character_ID_selected_from_certificate_and_character_list AND cid = :certification_ID_selected_from-certificate_and_character_list
+-- dis-associate a prescription from a medication (M-to-M relationship deletion)
+DELETE FROM PrescriptionMedications WHERE id_prescription = :prescriptionIdInput AND id_medication = :medicationIdInput
