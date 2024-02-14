@@ -1,0 +1,27 @@
+<html>
+<h1>Add Prescription</h1>
+<div id="insert" style="display: block">
+    <form id="addPrescription">
+        <legend><strong>Add Prescription</strong></legend>
+          <fieldset class="fields">
+            <label> Order Date </label> <input type="text" name="order date">
+            <label> Prescription Cost </label> <input type="number" name="cost">
+            <label> Was Picked Up </label> 
+            <select name="picked_up">
+                <option value="">--Select--</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+            <label>Select Pet:</label> 
+            <select name="Pet">
+                <option>--Select--</option>
+                <option value="Fido">Fido</option>
+                <option value="Spot">Spot</option>
+            </select>
+          </fieldset>
+          <input class="btn" type="submit" id="addPrescriptionBtn" value="Add Prescription">
+          <input class="btn" type="button" value="cancel">
+	</form> 
+</div>
+
+</html>
