@@ -1,3 +1,8 @@
+-- Citation for DML.SQL file
+-- Date: 2/13/24
+-- Adapted from: Professor's bsg_sample_data_manipulation_queries.sql
+-- Source URL: https://canvas.oregonstate.edu/courses/1946034/assignments/9456216?module_item_id=23809330
+
 -- gets all attributes for the Vets page
 SELECT * FROM Vets
 
