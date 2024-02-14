@@ -1,23 +1,22 @@
-{# Citation for del_owner.js
+{# Citation for del_prescription.js
  --Date: 2/13/24
  --Adapted from: Professor's planets.html file
  --Source URL: https://canvas.oregonstate.edu/courses/1946034/assignments/9456216?module_item_id=23809330
  #}
- 
+
 <html>
-{% include 'navbar.html' %}
-<h2>Delete Owner</h2>
+<h1>Delete Prescription</h1>
 <body>
 <div id="delete" style="display: block">
-  <form id="deleteOwner">
-      <legend><strong>Delete Owner</strong></legend>
+  <form id="deletePrescription">
+      <legend><strong>Delete Prescription</strong></legend>
           <fieldset class="fields">
           <p>Are you sure you wish to delete the following?</p>
-          <label>ID:</label> 1
-            <label> Name </label> Dr. John Doe
+          <label>Prescription ID</label> 1
+          <label>Order Date:</label> 2023-05-06 10:00:00
             
     </fieldset>
-    <input class="btn" type="submit" id="DeleteOwner" value="Delete Owner">
+    <input class="btn" type="submit" id="DeletePrescription" value="Delete Prescription">
           <input class="btn" type="button" value="cancel" >
   </form> 
 </div><!-- delete -->

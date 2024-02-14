@@ -1,3 +1,8 @@
+# Citation for app.py
+# Date: 2/13/24
+# Adapted from: Flask Starter App Guide
+# Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app
+
 from flask import Flask, render_template, json
 from flask import request, redirect
 from flask_mysqldb import MySQL
@@ -52,13 +57,11 @@ def vets():
     return render_template("vets/vets.j2", Vets=results)
 
 # adding vet page
-# adding vet page
 @app.route("/add_vet")
 def add_vets():
     
     return render_template("vets/add_vet.j2")
 
-# deleting vet page
 # deleting vet page
 @app.route("/del_vet")
 def delete_vets():
@@ -125,8 +128,30 @@ def add_pets():
 
     return render_template("pets/add_pet.j2")
 
+@app.route("/prescriptions")
+def prescriptions():
+    query = "SELECT * FROM Prescriptions;"
+    cursor = db.execute_query(db_connection=db_connection, query=query)
+    results = cursor.fetchall()
+
+    return render_template("prescriptions/prescriptions.j2", Prescriptions=results)
+
+@app.route("/del_prescription")
+def del_prescriptions():
+    
+    return render_template("prescriptions/del_prescription.j2")
+
+@app.route("/add_prescription")
+def add_prescriptions():
+
+    return render_template("prescriptions/add_prescription.j2")
+
+
+
+
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 8202)) 
+    port = int(os.environ.get('PORT', 58580)) 
+
     #                                 ^^^^
     #              You can replace this number with any valid port
     

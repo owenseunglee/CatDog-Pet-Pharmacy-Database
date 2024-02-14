@@ -1,7 +1,13 @@
+
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
-{% include 'navbar.html' %}
-<h2>Browse Pet</h2>
+{# Citation for meds.js
+ --Date: 2/13/24
+ --Adapted from: Flask Starter App Guide
+ --Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app #}
+
+<h1>Browse Pet</h1>
+  {% include 'navbar.html' %}
 
 <body id="addDelLink">
   <table>

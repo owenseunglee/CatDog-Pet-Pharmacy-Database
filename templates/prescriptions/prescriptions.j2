@@ -1,26 +1,18 @@
-
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-
-{# Citation for owners.js
+{# Citation for prescriptions.js
  --Date: 2/13/24
  --Adapted from: Flask Starter App Guide
  --Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app #}
 
-<h1>Browse Owners</h1>
+<h1>Browse Prescriptions</h1>
   {% include 'navbar.html' %}
 
-{% include 'navbar.html' %}
-
-<h2>Browse Owners</h2>
-
-<body id="addDelLink">
   <table>
     <table border="1" cellpadding="5">
     <thead>
     <tr>
         <!-- Iterate through each key in the first entry to get the
         column name -->
-        {% for key in Owners[0].keys() %}
+        {% for key in Prescriptions[0].keys() %}
 
         <!-- Create a <th> tag with the key inside of it, this will be
         our header row -->
@@ -31,19 +23,18 @@
     </tr>
     <tbody>
 
-    <!-- Now, iterate through every owner in Owners -->
-    {% for owner in Owners %}
+    <!-- Now, iterate through every prescription in Prescriptions -->
+    {% for prescription in Prescriptions %}
     <tr>
-        <!-- Then iterate through every key in the current veterinarian dictionary -->
-        {% for key in owner.keys() %}
+        <!-- Then iterate through every key in the current medication dictionary -->
+        {% for key in prescription.keys() %}
 
         <!-- Create a <td> element with the value of that key in it -->
-        <td>{{owner[key]}}</td>
+        <td>{{prescription[key]}}</td>
         {% endfor %}
     </tr>
     {% endfor %}
     </table>
 
-<a href="/add_owner" class="navPage">Add an owner</a>
-<a href="/del_owner" class="navPage">Delete an owner</a>
-</body>
+<a href="/add_prescription">Add Prescription</a>
+<a href="/del_prescription">Delete Prescription</a>
