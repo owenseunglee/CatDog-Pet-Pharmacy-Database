@@ -1,3 +1,6 @@
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
 {# Citation for meds.js
  --Date: 2/13/24
  --Adapted from: Flask Starter App Guide, Professor's planets.html file
@@ -7,6 +10,11 @@
 <h1>Browse Medications</h1>
   {% include 'navbar.html' %}
 
+
+{% include 'navbar.html' %}
+<h2>Browse Medications</h2>
+
+<body id="addDelLink">
   <table>
     <table border="1" cellpadding="5">
     <thead>
@@ -37,8 +45,9 @@
     {% endfor %}
     </table>
 
-<a href="/add_med">Add a medication</a>
-<a href="/del_med">Delete a medication</a>
+<a href="/add_med" class="navPage">Add a medication</a>
+<a href="/del_med" class="navPage">Delete a medication</a>
+</body>
 
 <p>&nbsp;</p>
 <div id="update" style="display: block">
