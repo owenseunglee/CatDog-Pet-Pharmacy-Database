@@ -31,7 +31,6 @@ CREATE OR REPLACE TABLE Medications (
 CREATE OR REPLACE TABLE Pets (
     id_pet int NOT NULL AUTO_INCREMENT,
     name VARCHAR(145) NOT NULL,
-    species VARCHAR(145) NOT NULL,
     breed VARCHAR(145) NOT NULL,
     age INT NOT NULL,
     gender CHAR(1) NOT NULL,
@@ -94,11 +93,11 @@ INSERT INTO Medications (name, cost) VALUES
 ('Furosemide 12.5mg, 30 tablets', 5.00); -- Illustrates an optional relationship between Medications and Prescriptions
 -- This medication exists without a prescription.
 
-INSERT INTO Pets (name, species, breed, age, gender, id_vet, id_owner) VALUES
-('Fido', 'Dog', 'Labrador Retriever', 5, 'M', 1, 1),
-('Whiskers', 'Cat', 'Siamese', 3, 'F', 2, 2), -- Illustrates how an owner (id_owner = 2) can have multiple pets (id_pet = 2, 4) 
-('Rex', 'Dog', 'German Shepherd', 7, 'M', 3, 3), -- Illustrates how a vet (id_vet = 3) can have multiple patients (id_pet = 3, 4) 
-('Boots', 'Cat', 'British Shorthair', 1, 'F', 3, 2); -- Illustrates an optional relationship between Pet and Prescription
+INSERT INTO Pets (name, breed, age, gender, id_vet, id_owner) VALUES
+('Fido', 'Labrador Retriever', 5, 'M', 1, 1),
+('Whiskers', 'Siamese', 3, 'F', 2, 2), -- Illustrates how an owner (id_owner = 2) can have multiple pets (id_pet = 2, 4) 
+('Rex', 'German Shepherd', 7, 'M', 3, 3), -- Illustrates how a vet (id_vet = 3) can have multiple patients (id_pet = 3, 4) 
+('Boots', 'British Shorthair', 1, 'F', 3, 2); -- Illustrates an optional relationship between Pet and Prescription
 -- This pet does not have a prescription.
 
 INSERT INTO Prescriptions (order_date, prescription_cost, was_picked_up, id_pet) VALUES
