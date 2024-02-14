@@ -91,9 +91,9 @@ INSERT INTO Vets (name, clinic, email, no_of_patients) VALUES (:nameInput, :clin
 INSERT INTO PrescriptionMedications (id_prescription, id_medication, quantity) 
 VALUES (:prescription_info_from_dropdown_Input, :medication_id_from_dropdown_Input, :quantityInput);
 
--- update pets
-UPDATE Pets SET name = :nameInput, breed = :breedInput, age = :ageInput, gender = :genderInput, id_vet = :vet_id_from_dropdown_Input, id_owner = :owner_id_from_dropdown_Input
-WHERE id_pet = :pet_ID_selected_from_browse_pet_page
+-- update vets
+UPDATE Vets SET name = :nameInput, clinic = :clinicInput, email = :emailInput, no_of_patients = :no_of_patientsInput
+WHERE id_vet = :vet_ID_selected_from_browse_vet_page
 
 -- update Medications 
 UPDATE Medications SET name = :nameInput, cost = :costInput
