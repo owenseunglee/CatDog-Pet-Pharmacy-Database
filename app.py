@@ -1,3 +1,8 @@
+# Citation for app.py
+# Date: 2/13/24
+# Adapted from: Flask Starter App Guide
+# Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app
+
 from flask import Flask, render_template, json
 from flask import request, redirect
 from flask_mysqldb import MySQL
