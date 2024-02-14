@@ -4,6 +4,8 @@
  --Source URL: https://canvas.oregonstate.edu/courses/1946034/assignments/9456216?module_item_id=23809330
  #}
  
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
 <html>
 {% include 'navbar.html' %}
 <h2>Delete Owner</h2>
@@ -12,9 +14,9 @@
   <form id="deleteOwner">
       <legend><strong>Delete Owner</strong></legend>
           <fieldset class="fields">
-          <p>Are you sure you wish to delete the following?</p>
-          <label>ID:</label> 1
-            <label> Name </label> Dr. John Doe
+          <p>Please enter first and last name of the owner to be deleted from the database</p>
+          <label> First Name: </lable> <input type="text" value="Jake" fname="fname">
+          <label> Last Name: </label> <input type="text" value="Jill" name="lname">
             
     </fieldset>
     <input class="btn" type="submit" id="DeleteOwner" value="Delete Owner">

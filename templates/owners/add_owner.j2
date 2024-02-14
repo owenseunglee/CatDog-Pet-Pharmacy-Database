@@ -4,9 +4,12 @@
  --Source URL: https://canvas.oregonstate.edu/courses/1946034/assignments/9456216?module_item_id=23809330
  #}
  
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
 <html>
+{% include 'navbar.html' %}
 <h1>Add Owner</h1>
-<div id="insert" style="display: block">
+<div id="insert">
     <form id="addOwner">
         <legend><strong>Add Owner</strong></legend>
           <fieldset class="fields">

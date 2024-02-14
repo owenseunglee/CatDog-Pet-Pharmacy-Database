@@ -6,8 +6,9 @@
  --Adapted from: Flask Starter App Guide
  --Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app #}
 
+
+{% include 'navbar.html' %}
 <h1>Browse Pet</h1>
-  {% include 'navbar.html' %}
 
 <body id="addDelLink">
   <table>
@@ -43,3 +44,20 @@
 <a href="/add_pet" class="navPage">Add Pet</a>
 <a href="/del_pet" class="navPage">Delete Pet</a>
 </body>
+
+<p>&nbsp;</p>
+<div id="update">
+  <form id="updatePet">
+      <legend><strong>Update Pet</strong></legend>
+          <fieldset class="fields">
+          <p>Please enter the following information of the pet to be updated</p>
+          <label> Name: </label> <input type="text" value="Mia" name="name" size="45">
+          <label> Breed: </label> <input type="text" value="Domestic" name="name" size="45">
+          <label> Age: </label> <input type="number" value="2" min="0" name="name" size="45">
+          <label> Gender: </label> <input type="text" value="F" name="name" size="45">
+    </fieldset>
+    <input class="btn" type="submit" id="UpdatePet" value="Update Pet">
+          <input class="btn" type="button" value="Cancel" >
+  </form> 
+</div><!-- update -->
+<p>&nbsp;</p>
