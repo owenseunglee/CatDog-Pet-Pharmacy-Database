@@ -1,7 +1,7 @@
--- Citation for DML.SQL file
--- Date: 2/13/24
--- Adapted from: Professor's bsg_sample_data_manipulation_queries.sql
--- Source URL: https://canvas.oregonstate.edu/courses/1946034/assignments/9456216?module_item_id=23809330
+ --Citation for DML.SQL file
+ --Date: 2/13/24
+ --Adapted from: Professor's bsg_sample_data_manipulation_queries file
+ --Source URL: https://canvas.oregonstate.edu/courses/1946034/assignments/9456216?module_item_id=23809330
 
 -- gets all attributes for the Vets page
 SELECT * FROM Vets
@@ -9,37 +9,101 @@ SELECT * FROM Vets
 -- gets all attributes for the Owners page
 SELECT * FROM Owners
 
+-- gets all attributes for the Medications page
+SELECT * FROM Medications
+
+-- gets all Prescriptions information and the corresponding pet's name for the Prescriptions page
+SELECT Prescriptions.id_prescription, Prescriptions.order_date, 
+    SUM(Medications.cost * PrescriptionMedications.quantity) as prescription_cost,
+    Prescriptions.was_picked_up, Pets.name AS pet_name
+    FROM Prescriptions
+    INNER JOIN PrescriptionMedications ON Prescriptions.id_prescription = PrescriptionMedications.id_prescription
+    INNER JOIN Medications ON PrescriptionMedications.id_medication = Medications.id_medication
+    INNER JOIN Pets ON Prescriptions.id_pet = Pets.id_pet
+    GROUP BY 
+        Prescriptions.id_prescription, 
+        Prescriptions.order_date, 
+        Prescriptions.was_picked_up, 
+        Pets.name;
+
+-- gets all attributes for the PrescriptionMedications page
+SELECT * FROM PrescriptionMedications
+
+-- get all pets and their owner's name and vet's name
+SELECT Pets.id_pet, name, breed, age, gender, Owners.name AS owner_name, Vets.name AS vet_name
+FROM Pets
+INNER JOIN Owners ON Pets.id_owner = Owners.id_owner
+INNER JOIN Vets ON Pets.id_vet = Vets.id_vet;
+
+-- get a single pet's data
+SELECT id_pet, name, breed, age, gender, id_vet, id_owner
+FROM Pets
+WHERE id_pet = :pet_ID_selected_from_browse_pet_page
+
+-- get all pets with their current associated vets
+SELECT id_pet, id_vet, Pets.name AS pet_name, Vets.name AS vet_name
+FROM Pets
+INNER JOIN Vets ON Pets.id_vet = Vets.id_vet
+ORDER BY pet_name, vet_name;
+
+-- get all vet IDs and names to populate the vet dropdown
+SELECT id_vet, name FROM Vets
+
+-- get all owner IDs and names to populate the owner dropdown
+SELECT id_owner, name FROM Owners
+
+-- get all pet IDs and names to populate the pet dropdown
+SELECT id_pet, name FROM Pets
+
+-- gets all medication IDs and names to populate the medication dropdown
+SELECT id_medication, name FROM Medications
+
+-- gets prescription name and pet name to populate the prescription dropdown in the intersection table
+SELECT CONCAT(Pets.name, ' - ', order_date) AS prescription_info
+FROM Prescriptions
+JOIN Pets ON Prescriptions.id_pet = Pets.id_pet;
+
+-- add a new pet. list of vets and owners will be displayed in dropdown 
+INSERT INTO Pets (name, breed, age, gender, id_vet, id_owner)
+VALUES (:nameInput, :breedInput, :ageInput, :genderInput, :vet_id_from_dropdown_Input, :owner_id_from_dropdown_Input)
+
+-- add a new prescription. the prescription cost is calculated from Medications and PrescriptionMedications
+INSERT INTO Prescriptions (order_date, prescription_cost, was_picked_up, id_pet)
+VALUES (:order_date_Input,
+        (SELECT SUM(Medications.cost * PrescriptionMedications.quantity)
+        FROM PrescriptionMedications
+        INNER JOIN Medications ON PrescriptionMedications.id_medication = Medications.id_medication
+        WHERE PrescriptionMedications.id_prescription = :newly_inserted_prescription_id),
+    :was_picked_up_Input,
+    :pet_id_from_dropdown_Input);
+
+-- add a new medication
+INSERT INTO Medications (name, cost) VALUES (:nameInput, :costInput);
+
+-- add a new owner
+INSERT INTO Owneres (name, address, phone_number) VALUES (:nameInput, :addressInput, :phone_numberInput);
 
 
--- get all characters and their homeworld name for the List People page
-SELECT bsg_people.character_id, fname, lname, bsg_planets.name AS homeworld, age FROM bsg_people INNER JOIN bsg_planets ON homeworld = bsg_planets.planet_id
+-- add a new vet
+INSERT INTO Vets (name, clinic, email, no_of_patients) VALUES (:nameInput, :clinicInput, :emailInput, :no_of_patientsInput);
 
--- get a single character's data for the Update People form
-SELECT character_id, fname, lname, homeworld, age FROM bsg_people WHERE character_id = :character_ID_selected_from_browse_character_page
+-- add a new entry to the PrescriptionMedications table
+INSERT INTO PrescriptionMedications (id_prescription, id_medication, quantity) 
+VALUES (:prescription_info_from_dropdown_Input, :medication_id_from_dropdown_Input, :quantityInput);
 
--- get all character's data to populate a dropdown for associating with a certificate  
-SELECT character_id AS pid, fname, lname FROm bsg_people 
--- get all certificates to populate a dropdown for associating with people
-SELECT certification_id AS cid, title FROM bsg_cert
+-- update pets
+UPDATE Pets SET name = :nameInput, breed = :breedInput, age = :ageInput, gender = :genderInput, id_vet = :vet_id_from_dropdown_Input, id_owner = :owner_id_from_dropdown_Input
+WHERE id_pet = :pet_ID_selected_from_browse_pet_page
 
--- get all peoople with their current associated certificates to list
-SELECT pid, cid, CONCAT(fname,' ',lname) AS name, title AS certificate 
-FROM bsg_people 
-INNER JOIN bsg_cert_people ON bsg_people.character_id = bsg_cert_people.pid 
-INNER JOIN bsg_cert on bsg_cert.certification_id = bsg_cert_people.cid 
-ORDER BY name, certificate
+-- update Medications 
+UPDATE Medications SET name = :nameInput, cost = :costInput
+WHERE id_medication = :medication_ID_selected_from_browse_medication_page
 
--- add a new character
-INSERT INTO bsg_people (fname, lname, homeworld, age) VALUES (:fnameInput, :lnameInput, :homeworld_id_from_dropdown_Input, :ageInput)
+-- delete a pet
+DELETE FROM Pets WHERE id = :pet_ID_selected_from_browse_pet_page
 
--- associate a character with a certificate (M-to-M relationship addition)
-INSERT INTO bsg_cert_people (pid, cid) VALUES (:character_id_from_dropdown_Input, :certification_id_from_dropdown_Input)
+-- delete a medication
+DELETE FROM Medications WHERE id = :medication_ID_selected_from_browse_medication_page
 
--- update a character's data based on submission of the Update Character form 
-UPDATE bsg_people SET fname = :fnameInput, lname= :lnameInput, homeworld = :homeworld_id_from_dropdown_Input, age= :ageInput WHERE id= :character_ID_from_the_update_form
-
--- delete a character
-DELETE FROM bsg_people WHERE id = :character_ID_selected_from_browse_character_page
-
--- dis-associate a certificate from a person (M-to-M relationship deletion)
-DELETE FROM bsg_cert_people WHERE pid = :character_ID_selected_from_certificate_and_character_list AND cid = :certification_ID_selected_from-certificate_and_character_list
+-- deletes a prescription from a medication (M-to-M relationship deletion)
+DELETE FROM PrescriptionMedications WHERE id_prescription = :prescriptionIdInput AND id_medication = :medicationIdInput
