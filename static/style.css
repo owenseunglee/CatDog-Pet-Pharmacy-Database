@@ -64,3 +64,23 @@ table {
 .navPage:hover {
     background-color: #111111;
 }
+
+.btn {
+    color: white;
+    background-color: #333333;
+    padding: 10px;
+    display: inline-block;
+    font-size: medium;
+    margin-top: 5px;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background-color: #111111;
+}
+
+#update,
+#delete,
+#insert {
+    display: block;
+}

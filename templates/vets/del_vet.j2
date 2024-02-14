@@ -4,20 +4,22 @@
  --Source URL: https://canvas.oregonstate.edu/courses/1946034/assignments/9456216?module_item_id=23809330
  #}
 
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
 <html>
+{% include 'navbar.html' %}
 <h1>Delete Veterinarian</h1>
 <body>
-<div id="delete" style="display: block">
+<div id="delete">
   <form id="deleteVet">
       <legend><strong>Delete Veterinarian</strong></legend>
           <fieldset class="fields">
-          <p>Are you sure you wish to delete the following?</p>
-          <label>ID:</label> 1
-            <label> Name </label> Dr. John Doe
-            
+          <p>Please enter first and last name of the veterinarian to be deleted from the database</p>
+          <label> First Name: </lable> <input type="text" value="John" fname="fname">
+          <label> Last Name: </label> <input type="text" value="Kim" name="lname">
     </fieldset>
     <input class="btn" type="submit" id="DeleteVet" value="Delete Veterinarian">
-          <input class="btn" type="button" value="cancel" >
+          <input class="btn" type="button" value="Cancel" >
   </form> 
 </div><!-- delete -->
 </body>

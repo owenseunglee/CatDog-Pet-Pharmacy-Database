@@ -4,14 +4,18 @@
  --Source URL: https://canvas.oregonstate.edu/courses/1946034/assignments/9456216?module_item_id=23809330
  #}
 
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
 <html>
+{% include 'navbar.html' %}
 <h1>Add Medication</h1>
-<div id="insert" style="display: block">
+<div id="insert">
     <form id="addMedication">
         <legend><strong>Add Medication</strong></legend>
           <fieldset class="fields">
-            <label> Name </label> <input type="text" name="name">
-            <label> Cost </label> <input type="number" name="cost">
+            <p>Please enter the name of the medication to be added</p>
+            <label> Name: </label> <input type="text" name="name">
+            <label> Cost: </label> <input type="number" min="0" name="cost">
           </fieldset>
           <input class="btn" type="submit" id="addMedBtn" value="Add Medication">
           <input class="btn" type="button" value="cancel">

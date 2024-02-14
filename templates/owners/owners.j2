@@ -1,16 +1,11 @@
-
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-
 {# Citation for owners.js
  --Date: 2/13/24
  --Adapted from: Flask Starter App Guide
  --Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app #}
 
-<h1>Browse Owners</h1>
-  {% include 'navbar.html' %}
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
 {% include 'navbar.html' %}
-
 <h2>Browse Owners</h2>
 
 <body id="addDelLink">
@@ -47,3 +42,20 @@
 <a href="/add_owner" class="navPage">Add an owner</a>
 <a href="/del_owner" class="navPage">Delete an owner</a>
 </body>
+
+<p>&nbsp;</p>
+<div id="update">
+  <form id="updateOwner">
+      <legend><strong>Update Owner</strong></legend>
+          <fieldset class="fields">
+          <p>Please enter the following information of the owner to be updated</p>
+            <label> First Name: </label> <input type="text" value="John" name="fname" size="45">
+            <label> Last Name: </label> <input type="text" value="Doe" name="lname" size="45">
+            <label> Address: </label> <input type="text" name="address" value="1234 abcd, efg">
+            <label> Phone Number: </label> <input type="number" name="phone number" min="0" value="2132132134">
+    </fieldset>
+    <input class="btn" type="submit" id="UpdateOwner" value="Update Owner">
+          <input class="btn" type="button" value="Cancel" >
+  </form> 
+</div><!-- update -->
+<p>&nbsp;</p>

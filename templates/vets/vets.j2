@@ -1,5 +1,5 @@
 
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   
 
 {# Citation for vets.js
@@ -53,14 +53,15 @@
   <form id="updateVet">
       <legend><strong>Update Veterinarian</strong></legend>
           <fieldset class="fields">
-          <label>ID:</label> 1
-            <label> name </label> <input type="text" value="Dr. Johnson" name="name">
-            <label> clinic </label> <input type="text" value="PetCare Clinic" name="clinic">
-            <label> email </label> <input type="text" value="johnson@petcare.com" name="email">
-            <label> no_of_patients </label> <input type="number" name="no_of_patients" value="200">
+          <p>Please enter the following information of the veterinarian to be updated</p>
+            <label> First Name: </label> <input type="text" value="Johnson" name="fname">
+            <label> Last Name: </label> <input type="text" value="Owens" name="lname>
+            <label> Clinic: </label> <input type="text" value="PetCare Clinic" name="clinic">
+            <label> Email: </label> <input type="text" value="johnson@petcare.com" name="email">
+            <label> No_Of_Patients: </label> <input type="number" name="no_of_patients" value="200">
     </fieldset>
     <input class="btn" type="submit" id="UpdateVet" value="Update Veterinarian">
-          <input class="btn" type="button" value="cancel" >
+          <input class="btn" type="button" value="Cancel" >
   </form> 
 </div><!-- update -->
 <p>&nbsp;</p>

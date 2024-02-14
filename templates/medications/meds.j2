@@ -1,4 +1,3 @@
-
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
 {# Citation for meds.js
@@ -6,10 +5,6 @@
  --Adapted from: Flask Starter App Guide, Professor's planets.html file
  --Source URL: https://canvas.oregonstate.edu/courses/1946034/assignments/9456216?module_item_id=23809330,
  https://github.com/osu-cs340-ecampus/flask-starter-app #}
-
-<h1>Browse Medications</h1>
-  {% include 'navbar.html' %}
-
 
 {% include 'navbar.html' %}
 <h2>Browse Medications</h2>
@@ -54,12 +49,12 @@
   <form id="updateMedication">
       <legend><strong>Update Medication</strong></legend>
           <fieldset class="fields">
-          <label>ID:</label> 1
-            <label> name </label> <input type="text" value="Mirtazapine 15mg, 30 tablets" name="name" size="45">
-            <label> cost </label> <input type="number" name="cost" value="4.50">
+          <p>Please enter the following information of the medication to be updated</p>
+          <label> Name: </label> <input type="text" value="Mirtazapine 15mg, 30 tablets" name="name" size="45">
+          <label> Cost: </label> <input type="number" name="cost" value="4.50">
     </fieldset>
     <input class="btn" type="submit" id="UpdateSavePlanet" value="Update Medication">
-          <input class="btn" type="button" value="cancel" >
+          <input class="btn" type="button" value="Cancel" >
   </form> 
 </div><!-- update -->
 <p>&nbsp;</p>

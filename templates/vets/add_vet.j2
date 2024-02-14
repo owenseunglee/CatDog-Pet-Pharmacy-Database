@@ -4,17 +4,20 @@
  --Source URL: https://canvas.oregonstate.edu/courses/1946034/assignments/9456216?module_item_id=23809330
  #}
 
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
 <html>
+{% include 'navbar.html' %}
 <h1>Add Veterinarian</h1>
 <div id="insert" style="display: block">
     <form id="addVet">
         <legend><strong>Add Veterinarian</strong></legend>
           <fieldset class="fields">
-            <label> First Name </label> <input type="text" name="Fname">
-            <label> Last Name </label> <input type="text" name="Lname">
-            <label> Clinic </label> <input type="text" name="clinic">
-            <label> Email </label> <input type="email" name="email">
-            <label> No. of Patients </label> <input type="number" min="0" name="no_of_patients">
+            <label> First Name: </label> <input type="text" name="Fname">
+            <label> Last Name: </label> <input type="text" name="Lname">
+            <label> Clinic: </label> <input type="text" name="clinic">
+            <label> Email: </label> <input type="email" name="email">
+            <label> No. of Patients: </label> <input type="number" min="0" name="no_of_patients">
           </fieldset>
           <input class="btn" type="submit" id="addVetBtn" value="Add a Veterinarian">
           <input class="btn" type="button" value="cancel">

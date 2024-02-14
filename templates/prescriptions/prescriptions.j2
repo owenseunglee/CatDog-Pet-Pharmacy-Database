@@ -3,9 +3,12 @@
  --Adapted from: Flask Starter App Guide
  --Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app #}
 
-<h1>Browse Prescriptions</h1>
-  {% include 'navbar.html' %}
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
+{% include 'navbar.html' %}
+<h1>Browse Prescriptions</h1>
+
+<body id="addDelLink">
   <table>
     <table border="1" cellpadding="5">
     <thead>
@@ -36,5 +39,6 @@
     {% endfor %}
     </table>
 
-<a href="/add_prescription">Add Prescription</a>
-<a href="/del_prescription">Delete Prescription</a>
+<a href="/add_prescription" class="navPage">Add Prescription</a>
+<a href="/del_prescription" class="navPage">Delete Prescription</a>
+</body>
