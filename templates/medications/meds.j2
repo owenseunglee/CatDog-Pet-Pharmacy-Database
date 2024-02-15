@@ -25,6 +25,7 @@
         <!-- End of this for loop -->
         {% endfor %}
     </tr>
+    </thead>
     <tbody>
 
     <!-- Now, iterate through every medication in Medications -->
@@ -36,7 +37,7 @@
         <!-- Create a <td> element with the value of that key in it -->
         <td>{{medication[key]}}</td>
         {% endfor %}
-
+        <td> <a href="/edit_med" class="btn edit-btn">Edit</a> </td>
         <td><button class="btn">Delete</button></td>
     </tr>
     {% endfor %}

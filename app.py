@@ -110,6 +110,11 @@ def del_meds():
 
     return render_template("medications/del_med.j2")
 
+@app.route("/edit_med")
+def edit_meds():
+
+    return render_template("medications/edit_med.j2")
+
 @app.route("/pets")
 def pets():
     query = "SELECT * FROM Pets;"
@@ -160,8 +165,10 @@ def add_prescriptMeds():
     return render_template("intersection/add_prescriptMeds.j2")
 
 
+
+
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 58580)) 
+    port = int(os.environ.get('PORT', 5834)) 
     #                                 ^^^^
     #              You can replace this number with any valid port
     

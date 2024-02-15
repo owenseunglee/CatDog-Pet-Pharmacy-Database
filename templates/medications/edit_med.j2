@@ -1,0 +1,20 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<html>
+{% include 'navbar.html' %}
+<h1>Update Medication</h1>
+<body>
+<div id="update" style="display: block">
+  <form id="updateMedication">
+      <legend><strong>Update Medication</strong></legend>
+          <fieldset class="fields">
+          <p>Please enter the following information of the medication to be updated</p>
+          <label> Name: </label> <input type="text" value="Mirtazapine 15mg, 30 tablets" name="name" size="45">
+          <label> Cost: </label> <input type="number" name="cost" value="4.50">
+    </fieldset>
+    <input class="btn" type="submit" id="UpdateSavePlanet" value="Update Medication">
+          <input class="btn" type="button" value="Cancel" >
+  </form> 
+</div><!-- update -->
+</body>
+</html>
