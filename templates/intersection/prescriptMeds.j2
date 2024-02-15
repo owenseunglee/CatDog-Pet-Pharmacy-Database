@@ -1,0 +1,33 @@
+{# Citation for owners.js
+ --Date: 2/13/24
+ --Adapted from: Flask Starter App Guide
+ --Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app #}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+{% include 'navbar.html' %}
+<h1>PrescriptionMedications Intersection Table</h1>
+
+<body id="addDelLink">
+<table border="1" cellpadding="5">
+    <thead>
+        <tr>
+            {% for key in PrescriptionMedications[0].keys() %}
+            <th>{{ key }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for prescription in PrescriptionMedications %}
+        <tr>
+            {% for key in prescription.keys() %}
+            <td>{{ prescription[key] }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="/add_prescriptMeds" class="navPage">Add an PrescriptionMedications</a>
+</body>
+

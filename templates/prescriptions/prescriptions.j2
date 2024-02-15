@@ -35,10 +35,32 @@
         <!-- Create a <td> element with the value of that key in it -->
         <td>{{prescription[key]}}</td>
         {% endfor %}
+
+        <td><button class="btn">Delete</button></td>
     </tr>
     {% endfor %}
     </table>
 
 <a href="/add_prescription" class="navPage">Add Prescription</a>
-<a href="/del_prescription" class="navPage">Delete Prescription</a>
 </body>
+
+<p>&nbsp;</p>
+<div id="update" >
+  <form id="updatePrescription">
+      <legend><strong>Update Prescription</strong></legend>
+        <fieldset class="fields">
+          <label> Order Date: </label> <input type="text" name="order date">
+            <label> Prescription Cost: </label> <input type="number" min="0" name="cost">
+            <label> Was Picked Up: </label> 
+            <select name="picked_up">
+                <option value="">--Select--</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+            <label>Pet ID:</label> <input type="number" min="0" name="petID>
+    </fieldset>
+    <input class="btn" type="submit" id="UpdateSavePlanet" value="Update Medication">
+          <input class="btn" type="button" value="Cancel" >
+  </form> 
+</div><!-- update -->
+<p>&nbsp;</p>

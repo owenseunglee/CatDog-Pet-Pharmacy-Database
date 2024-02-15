@@ -4,15 +4,20 @@
  --Source URL: https://canvas.oregonstate.edu/courses/1946034/assignments/9456216?module_item_id=23809330
  #}
 
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
 <html>
+
+{% include 'navbar.html' %}
 <h1>Add Prescription</h1>
-<div id="insert" style="display: block">
+
+<div id="insert">
     <form id="addPrescription">
         <legend><strong>Add Prescription</strong></legend>
           <fieldset class="fields">
-            <label> Order Date </label> <input type="text" name="order date">
-            <label> Prescription Cost </label> <input type="number" name="cost">
-            <label> Was Picked Up </label> 
+            <label> Order Date: </label> <input type="text" name="order date">
+            <label> Prescription Cost: </label> <input type="number" min="0" name="cost">
+            <label> Was Picked Up: </label> 
             <select name="picked_up">
                 <option value="">--Select--</option>
                 <option value="1">Yes</option>

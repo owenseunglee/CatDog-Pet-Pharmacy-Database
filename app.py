@@ -146,11 +146,22 @@ def add_prescriptions():
 
     return render_template("prescriptions/add_prescription.j2")
 
+@app.route("/prescriptMeds")
+def intersection():
+    query = "SELECT * FROM PrescriptionMedications;"
+    cursor = db.execute_query(db_connection=db_connection, query=query)
+    results = cursor.fetchall()
 
+    return render_template("intersection/prescriptMeds.j2", PrescriptionMedications=results)
+
+@app.route("/add_prescriptMeds")
+def add_prescriptMeds():
+
+    return render_template("intersection/add_prescriptMeds.j2")
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 58583)) 
+    port = int(os.environ.get('PORT', 58580)) 
     #                                 ^^^^
     #              You can replace this number with any valid port
     
