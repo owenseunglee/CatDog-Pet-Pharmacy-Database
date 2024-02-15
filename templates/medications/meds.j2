@@ -10,36 +10,37 @@
 <h1>Browse Medications</h1>
 
 <body id="addDelLink">
-  <table>
     <table border="1" cellpadding="5">
-    <thead>
-    <tr>
-        <!-- Iterate through each key in the first entry to get the
-        column name -->
-        {% for key in Medications[0].keys() %}
+        <thead>
+          <tr>
+              <!-- Iterate through each key in the first entry to get the
+              column name -->
+              {% for key in Medications[0].keys() %}
 
-        <!-- Create a <th> tag with the key inside of it, this will be
-        our header row -->
-        <th>{{ key }}</th>
+              <!-- Create a <th> tag with the key inside of it, this will be
+              our header row -->
+              <th>{{ key }}</th>
 
-        <!-- End of this for loop -->
-        {% endfor %}
-    </tr>
-    <tbody>
+              <!-- End of this for loop -->
+              {% endfor %}
+          </tr>
+        </thead>
 
-    <!-- Now, iterate through every medication in Medications -->
-    {% for medication in Medications %}
-    <tr>
-        <!-- Then iterate through every key in the current medication dictionary -->
-        {% for key in medication.keys() %}
+      <tbody>
+      <!-- Now, iterate through every medication in Medications -->
+      {% for medication in Medications %}
+        <tr>
+            <!-- Then iterate through every key in the current medication dictionary -->
+            {% for key in medication.keys() %}
 
-        <!-- Create a <td> element with the value of that key in it -->
-        <td>{{medication[key]}}</td>
-        {% endfor %}
+            <!-- Create a <td> element with the value of that key in it -->
+            <td>{{medication[key]}}</td>
+            {% endfor %}
 
-        <td><button class="btn">Delete</button></td>
-    </tr>
-    {% endfor %}
+            <td><button class="btn">Delete</button></td>
+        </tr>
+      {% endfor %}
+      </tbody>
     </table>
 
 <a href="/add_med" class="navPage">Add a medication</a>
