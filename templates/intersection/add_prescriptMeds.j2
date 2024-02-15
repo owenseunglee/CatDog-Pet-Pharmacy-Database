@@ -1,0 +1,27 @@
+{# Citation for add_prescription.js
+ --Date: 2/13/24
+ --Adapted from: Professor's planets.html file
+ --Source URL: https://canvas.oregonstate.edu/courses/1946034/assignments/9456216?module_item_id=23809330
+ #}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<html>
+
+{% include 'navbar.html' %}
+<h1>Add PrescriptionMedications</h1>
+
+<div id="insert">
+    <form id="addPrescriptionMedications">
+        <legend><strong>Add PrescriptionMedications</strong></legend>
+          <fieldset class="fields">
+            <label> Prescription ID: </label> <input type="number" min="1" name="prescriptID">
+            <label> Medication ID: </label> <input type="number" min="1" name="medsID">
+            <label> Quantity: </label> <input type="number" min="0" name="quantity">
+          </fieldset>
+          <input class="btn" type="submit" id="addPrescriptionMedsBtn" value="Add PrescriptionMedications">
+          <input class="btn" type="button" value="cancel">
+	</form> 
+</div>
+
+</html>

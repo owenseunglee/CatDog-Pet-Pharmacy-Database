@@ -23,6 +23,7 @@
 
         <!-- End of this for loop -->
         {% endfor %}
+
     </tr>
     <tbody>
 
@@ -35,12 +36,12 @@
         <!-- Create a <td> element with the value of that key in it -->
         <td>{{owner[key]}}</td>
         {% endfor %}
+        <td><button class="btn">Delete</button></td>
     </tr>
     {% endfor %}
     </table>
 
 <a href="/add_owner" class="navPage">Add an owner</a>
-<a href="/del_owner" class="navPage">Delete an owner</a>
 </body>
 
 <p>&nbsp;</p>

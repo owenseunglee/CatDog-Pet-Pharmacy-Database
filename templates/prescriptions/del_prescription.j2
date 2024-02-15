@@ -4,16 +4,19 @@
  --Source URL: https://canvas.oregonstate.edu/courses/1946034/assignments/9456216?module_item_id=23809330
  #}
 
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
 <html>
+{% include 'navbar.html' %}
 <h1>Delete Prescription</h1>
+
 <body>
-<div id="delete" style="display: block">
+<div id="delete">
   <form id="deletePrescription">
       <legend><strong>Delete Prescription</strong></legend>
           <fieldset class="fields">
-          <p>Are you sure you wish to delete the following?</p>
-          <label>Prescription ID</label> 1
-          <label>Order Date:</label> 2023-05-06 10:00:00
+          <p>Please enter the prescription ID to be deleted</p>
+          <label>Prescription ID: </label> <input type="number" min= "1" value="1" name="del_prescript">
             
     </fieldset>
     <input class="btn" type="submit" id="DeletePrescription" value="Delete Prescription">
