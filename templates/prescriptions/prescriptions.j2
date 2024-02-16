@@ -9,6 +9,77 @@
 <h1>Browse Prescriptions</h1>
 
 <body id="addDelLink">
+    <table border="1" cellpadding="5">
+    <thead>
+            <tr>
+                <th>Order Date</th>
+                <th>Prescription Cost</th>
+                <th>Was Picked Up</th>
+                <th>Pet ID</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>2023-05-06 10:00:00</td>
+                <td>29.64</td>
+                <td>Yes</td>
+                <td>1</td>
+                <td><button class="btn">Delete</button></td>
+            </tr>
+            <tr>
+                <td>2023-12-14 11:00:00</td>
+                <td>8.70</td>
+                <td>No</td>
+                <td>2</td>
+                <td><button class="btn">Delete</button></td>
+            </tr>
+            <tr>
+                <td>2024-02-01 12:00:00</td>
+                <td>20.49</td>
+                <td>Yes</td>
+                <td>1</td>
+                <td><button class="btn">Delete</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+<a href="/add_prescription" class="navPage">Add Prescription</a>
+</body>
+
+<p>&nbsp;</p>
+<div id="update" >
+  <form id="updatePrescription">
+      <legend><strong>Update Prescription</strong></legend>
+        <fieldset class="fields">
+          <label> Order Date: </label> <input type="text" name="order date">
+            <label> Prescription Cost: </label> <input type="number" min="0" name="cost">
+            <label> Was Picked Up: </label> 
+            <select name="picked_up">
+                <option value="">--Select--</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+            <label>Pet ID:</label> <input type="number" min="0" name="petID">
+    </fieldset>
+    <input class="btn" type="submit" id="UpdateSaveMed" value="Update Medication">
+          <input class="btn" type="button" value="Cancel" >
+  </form> 
+</div><!-- update -->
+<p>&nbsp;</p>
+
+
+
+
+
+{# THIS CODE USES THE DATABASE
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+{% include 'navbar.html' %}
+<h1>Browse Prescriptions</h1>
+
+<body id="addDelLink">
   <table>
     <table border="1" cellpadding="5">
     <thead>
@@ -57,10 +128,11 @@
                 <option value="1">Yes</option>
                 <option value="0">No</option>
             </select>
-            <label>Pet ID:</label> <input type="number" min="0" name="petID>
+            <label>Pet ID:</label> <input type="number" min="0" name="petID">
     </fieldset>
     <input class="btn" type="submit" id="UpdateSavePlanet" value="Update Medication">
           <input class="btn" type="button" value="Cancel" >
   </form> 
 </div><!-- update -->
 <p>&nbsp;</p>
+#}

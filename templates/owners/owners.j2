@@ -12,6 +12,82 @@
     <table border="1" cellpadding="5">
       <thead>
         <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Phone Number</th>
+            <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr>
+            <td>John Doe</td>
+            <td>123 Main St, Anytown</td>
+            <td>1234567890</td>
+            <td><button class="btn">Delete</button></td>
+        </tr>
+        <tr>
+                <td>Jane Doe</td>
+                <td>456 Oak Ave, Anytown</td>
+                <td>9876543210</td>
+                <td><button class="btn">Delete</button></td>
+            </tr>
+            <tr>
+                <td>Jack Doe</td>
+                <td>789 Elm St, Anytown</td>
+                <td>5555555555</td>
+                <td><button class="btn">Delete</button></td>
+            </tr>
+            <tr>
+                <td>Sarah Lee</td>
+                <td>321 Pine Rd, Anytown</td>
+                <td>1111111111</td>
+                <td><button class="btn">Delete</button></td>
+            </tr>
+            <tr>
+                <td>Mike Chen</td>
+                <td>654 Cedar Ln, Anytown</td>
+                <td>9999999999</td>
+                <td><button class="btn">Delete</button></td>
+            </tr>
+      </tbody>
+    </table>
+
+<a href="/add_owner" class="navPage">Add Owner</a>
+</body>
+
+<p>&nbsp;</p>
+<div id="update">
+  <form id="updateOwner">
+      <legend><strong>Update Owner</strong></legend>
+          <fieldset class="fields">
+          <p>Please enter the following information of the owner to be updated</p>
+            <label> First Name: </label> <input type="text" value="John" name="fname" size="45">
+            <label> Last Name: </label> <input type="text" value="Doe" name="lname" size="45">
+            <label> Address: </label> <input type="text" name="address" value="1234 abcd, efg">
+            <label> Phone Number: </label> <input type="number" name="phone number" min="0" value="2132132134">
+    </fieldset>
+    <input class="btn" type="submit" id="UpdateOwner" value="Update Owner">
+          <input class="btn" type="button" value="Cancel" >
+  </form> 
+</div><!-- update -->
+<p>&nbsp;</p>
+
+
+
+
+{# THIS CODE USES THE DATABASE
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+{% include 'navbar.html' %}
+<h1>Browse Owners</h1>
+
+<body id="addDelLink">
+    <table border="1" cellpadding="5">
+      <thead>
+        <tr>
             <!-- Iterate through each key in the first entry to get the
             column name -->
             {% for key in Owners[0].keys() %}
@@ -62,3 +138,4 @@
   </form> 
 </div><!-- update -->
 <p>&nbsp;</p>
+#}
