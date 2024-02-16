@@ -104,6 +104,10 @@ def add_meds():
 
     return render_template("medications/add_med.j2")
 
+@app.route("/edit_med")
+def edit_meds():
+    return render_template("medications/edit_med.j2")
+
 # deleting med page
 @app.route("/del_med")
 def del_meds():
