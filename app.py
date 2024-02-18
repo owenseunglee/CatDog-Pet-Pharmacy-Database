@@ -50,11 +50,13 @@ def root():
 # veterinarian page
 @app.route("/vets")
 def vets():
-    query = "SELECT * FROM Vets;"
-    cursor = db.execute_query(db_connection=db_connection, query=query)
-    results = cursor.fetchall()
+    # query = "SELECT * FROM Vets;"
+    # cursor = db.execute_query(db_connection=db_connection, query=query)
+    # results = cursor.fetchall()
 
-    return render_template("vets/vets.j2", Vets=results)
+    # return render_template("vets/vets.j2", Vets=results)
+    return render_template("vets/vets.j2")
+
 
 # adding vet page
 @app.route("/add_vet")
@@ -71,11 +73,11 @@ def delete_vets():
 # owners page
 @app.route("/owners")
 def owners():
-    query = "SELECT * FROM Owners;"
-    cursor = db.execute_query(db_connection=db_connection, query=query)
-    results = cursor.fetchall()
-
-    return render_template("owners/owners.j2", Owners=results)
+    # query = "SELECT * FROM Owners;"
+    # cursor = db.execute_query(db_connection=db_connection, query=query)
+    # results = cursor.fetchall()
+    return render_template("owners/owners.j2")
+    # return render_template("owners/owners.j2", Owners=results)
 
 # adding owner page
 @app.route("/add_owner")
@@ -92,17 +94,22 @@ def del_owner():
 # medications page
 @app.route("/meds")
 def meds():
-    query = "SELECT * FROM Medications;"
-    cursor = db.execute_query(db_connection=db_connection, query=query)
-    results = cursor.fetchall()
+    # query = "SELECT * FROM Medications;"
+    # cursor = db.execute_query(db_connection=db_connection, query=query)
+    # results = cursor.fetchall()
 
-    return render_template("medications/meds.j2", Medications=results)
+    # return render_template("medications/meds.j2", Medications=results)
+    return render_template("medications/meds.j2")
 
 # adding med page
 @app.route("/add_med")
 def add_meds():
 
     return render_template("medications/add_med.j2")
+
+@app.route("/edit_med")
+def edit_meds():
+    return render_template("medications/edit_med.j2")
 
 # deleting med page
 @app.route("/del_med")
@@ -117,11 +124,12 @@ def edit_meds():
 
 @app.route("/pets")
 def pets():
-    query = "SELECT * FROM Pets;"
-    cursor = db.execute_query(db_connection=db_connection, query=query)
-    results = cursor.fetchall()
+    # query = "SELECT * FROM Pets;"
+    # cursor = db.execute_query(db_connection=db_connection, query=query)
+    # results = cursor.fetchall()
 
-    return render_template("pets/pets.j2", Pets=results)
+    # return render_template("pets/pets.j2", Pets=results)
+    return render_template("pets/pets.j2")
 
 @app.route("/del_pet")
 def del_pets():
@@ -135,11 +143,12 @@ def add_pets():
 
 @app.route("/prescriptions")
 def prescriptions():
-    query = "SELECT * FROM Prescriptions;"
-    cursor = db.execute_query(db_connection=db_connection, query=query)
-    results = cursor.fetchall()
+    # query = "SELECT * FROM Prescriptions;"
+    # cursor = db.execute_query(db_connection=db_connection, query=query)
+    # results = cursor.fetchall()
 
-    return render_template("prescriptions/prescriptions.j2", Prescriptions=results)
+    # return render_template("prescriptions/prescriptions.j2", Prescriptions=results)
+    return render_template("prescriptions/prescriptions.j2")
 
 @app.route("/del_prescription")
 def del_prescriptions():
@@ -153,11 +162,12 @@ def add_prescriptions():
 
 @app.route("/prescriptMeds")
 def intersection():
-    query = "SELECT * FROM PrescriptionMedications;"
-    cursor = db.execute_query(db_connection=db_connection, query=query)
-    results = cursor.fetchall()
+    # query = "SELECT * FROM PrescriptionMedications;"
+    # cursor = db.execute_query(db_connection=db_connection, query=query)
+    # results = cursor.fetchall()
+    # return render_template("intersection/prescriptMeds.j2", PrescriptionMedications=results)
 
-    return render_template("intersection/prescriptMeds.j2", PrescriptionMedications=results)
+    return render_template("intersection/prescriptMeds.j2")
 
 @app.route("/add_prescriptMeds")
 def add_prescriptMeds():

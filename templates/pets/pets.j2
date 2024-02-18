@@ -8,39 +8,116 @@
 
 
 {% include 'navbar.html' %}
+<h1>Browse Pets</h1>
+
+<body id="addDelLink">
+    <table border="1" cellpadding="5">
+      <thead>
+        <tr>
+            <th>Name</th>
+            <th>Breed</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Action</th>
+        </tr>
+      </thead>
+
+      
+      <tbody>
+        <tr>
+            <td>Fido</td>
+            <td>Labrador Retriever</td>
+            <td>5</td>
+            <td>M</td>
+            <td><button class="btn">Delete</button></td>
+        </tr>
+        <tr>
+            <td>Whiskers</td>
+            <td>Siamese</td>
+            <td>3</td>
+            <td>F</td>
+            <td><button class="btn">Delete</button></td>
+        </tr>
+        <tr>
+            <td>Rex</td>
+            <td>German Shepherd</td>
+            <td>7</td>
+            <td>M</td>
+            <td><button class="btn">Delete</button></td>
+        </tr>
+        <tr>
+            <td>Boots</td>
+            <td>British Shorthair</td>
+            <td>1</td>
+            <td>F</td>
+            <td><button class="btn">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+<a href="/add_pet" class="navPage">Add Pet</a>
+</body>
+
+<p>&nbsp;</p>
+<div id="update">
+  <form id="updatePet">
+      <legend><strong>Update Pet</strong></legend>
+          <fieldset class="fields">
+          <p>Please enter the following information of the pet to be updated</p>
+          <label> Name: </label> <input type="text" value="Mia" name="name" size="45">
+          <label> Breed: </label> <input type="text" value="Domestic" name="breed" size="45">
+          <label> Age: </label> <input type="number" value="2" min="0" name="age" size="45">
+          <label> Gender: </label> <input type="text" value="F" name="gender" size="45">
+    </fieldset>
+    <input class="btn" type="submit" id="UpdatePet" value="Update Pet">
+          <input class="btn" type="button" value="Cancel" >
+  </form> 
+</div>
+<p>&nbsp;</p>
+
+
+
+
+{# THIS CODE USES THE DATABASE
+ 
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+
+{% include 'navbar.html' %}
 <h1>Browse Pet</h1>
 
 <body id="addDelLink">
-  <table>
     <table border="1" cellpadding="5">
-    <thead>
-    <tr>
-        <!-- Iterate through each key in the first entry to get the
-        column name -->
-        {% for key in Pets[0].keys() %}
+      <thead>
+        <tr>
+            <!-- Iterate through each key in the first entry to get the
+            column name -->
+            {% for key in Pets[0].keys() %}
 
-        <!-- Create a <th> tag with the key inside of it, this will be
-        our header row -->
-        <th>{{ key }}</th>
+            <!-- Create a <th> tag with the key inside of it, this will be
+            our header row -->
+            <th>{{ key }}</th>
 
-        <!-- End of this for loop -->
-        {% endfor %}
-    </tr>
-    <tbody>
+            <!-- End of this for loop -->
+            {% endfor %}
+        </tr>
+      </thead>
 
-    <!-- Now, iterate through every pet in Pets -->
-    {% for pet in Pets %}
-    <tr>
-        <!-- Then iterate through every key in the current medication dictionary -->
-        {% for key in pet.keys() %}
+      <tbody>
+      <!-- Now, iterate through every pet in Pets -->
+      {% for pet in Pets %}
+        <tr>
+            <!-- Then iterate through every key in the current medication dictionary -->
+            {% for key in pet.keys() %}
 
-        <!-- Create a <td> element with the value of that key in it -->
-        <td>{{pet[key]}}</td>
-        {% endfor %}
+            <!-- Create a <td> element with the value of that key in it -->
+            <td>{{pet[key]}}</td>
+            {% endfor %}
 
-        <td><button class="btn">Delete</button></td>
-    </tr>
-    {% endfor %}
+            <td><button class="btn">Delete</button></td>
+        </tr>
+      {% endfor %}
+      </tbody>
     </table>
 
 <a href="/add_pet" class="navPage">Add Pet</a>
@@ -54,12 +131,13 @@
           <fieldset class="fields">
           <p>Please enter the following information of the pet to be updated</p>
           <label> Name: </label> <input type="text" value="Mia" name="name" size="45">
-          <label> Breed: </label> <input type="text" value="Domestic" name="name" size="45">
-          <label> Age: </label> <input type="number" value="2" min="0" name="name" size="45">
-          <label> Gender: </label> <input type="text" value="F" name="name" size="45">
+          <label> Breed: </label> <input type="text" value="Domestic" name="breed" size="45">
+          <label> Age: </label> <input type="number" value="2" min="0" name="age" size="45">
+          <label> Gender: </label> <input type="text" value="F" name="gender" size="45">
     </fieldset>
     <input class="btn" type="submit" id="UpdatePet" value="Update Pet">
           <input class="btn" type="button" value="Cancel" >
   </form> 
 </div><!-- update -->
 <p>&nbsp;</p>
+#}

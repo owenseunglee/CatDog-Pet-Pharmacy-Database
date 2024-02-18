@@ -11,37 +11,111 @@
 
 <body id="addDelLink">
     <table border="1" cellpadding="5">
-      <thead>
+        <thead>
+          <tr>
+              <th>Name</th>
+              <th>Cost</th>
+              <th></th>
+              <th></th>
+          </tr>
+        </thead>
+
+
+      <tbody>
         <tr>
-          <!-- Iterate through each key in the first entry to get the
-          column name -->
-          {% for key in Medications[0].keys() %}
-
-          <!-- Create a <th> tag with the key inside of it, this will be
-          our header row -->
-          <th>{{ key }}</th>
-
-        <!-- End of this for loop -->
-        {% endfor %}
+            <td>Mirtazapine 15mg, 30 tablets</td>
+            <td>4.50</td>
+            <td> <a href="/edit_med" class="btn edit-btn">Edit</a> </td>
+            <td><button class="btn">Delete</button></td>
         </tr>
-    </thead>
+        <tr>
+            <td>Amoxicillin 250mg, 30 capsules</td>
+            <td>4.20</td>
+            <td> <a href="/edit_med" class="btn edit-btn">Edit</a> </td>
+            <td><button class="btn">Delete</button></td>
+        </tr>
+        <tr>
+            <td>Dorzolamide HCL Ophthalmic Solution 2%, 10mL</td>
+            <td>20.49</td>
+            <td> <a href="/edit_med" class="btn edit-btn">Edit</a> </td>
+            <td><button class="btn">Delete</button></td>
+        </tr>
+        <tr>
+            <td>Piroxicam 7mg, 30 capsules</td>
+            <td>20.64</td>
+            <td> <a href="/edit_med" class="btn edit-btn">Edit</a> </td>
+            <td><button class="btn">Delete</button></td>
+        </tr>
+        <tr>
+            <td>Furosemide 12.5mg, 30 tablets</td>
+            <td>5.00</td>
+            <td> <a href="/edit_med" class="btn edit-btn">Edit</a> </td>
+            <td><button class="btn">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
 
-    <tbody>
+<a href="/add_med" class="navPage">Add Medication</a>
+</body>
 
+<p>&nbsp;</p>
+<div id="update" style="display: block">
+  <form id="updateMedication">
+      <legend><strong>Update Medication</strong></legend>
+          <fieldset class="fields">
+          <p>Please enter the following information of the medication to be updated</p>
+          <label> Name: </label> <input type="text" value="Mirtazapine 15mg, 30 tablets" name="name" size="45">
+          <label> Cost: </label> <input type="number" name="cost" value="4.50">
+    </fieldset>
+    <input class="btn" type="submit" id="UpdateSaveMed" value="Update Medication">
+          <input class="btn" type="button" value="Cancel" >
+  </form> 
+</div><!-- update -->
+<p>&nbsp;</p>
+
+
+
+
+
+{# THIS CODE USES THE DATABASE
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+
+{% include 'navbar.html' %}
+<h1>Browse Medications</h1>
+
+<body id="addDelLink">
+    <table border="1" cellpadding="5">
+        <thead>
+          <tr>
+              <!-- Iterate through each key in the first entry to get the
+              column name -->
+              {% for key in Medications[0].keys() %}
+
+              <!-- Create a <th> tag with the key inside of it, this will be
+              our header row -->
+              <th>{{ key }}</th>
+
+              <!-- End of this for loop -->
+              {% endfor %}
+          </tr>
+        </thead>
+
+      <tbody>
       <!-- Now, iterate through every medication in Medications -->
       {% for medication in Medications %}
-      <tr>
-          <!-- Then iterate through every key in the current medication dictionary -->
-          {% for key in medication.keys() %}
+        <tr>
+            <!-- Then iterate through every key in the current medication dictionary -->
+            {% for key in medication.keys() %}
 
-          <!-- Create a <td> element with the value of that key in it -->
-          <td>{{medication[key]}}</td>
-          {% endfor %}
-          <td> <a href="/edit_med" class="btn edit-btn">Edit</a> </td>
-          <td><button class="btn">Delete</button></td>
-      </tr>
+            <!-- Create a <td> element with the value of that key in it -->
+            <td>{{medication[key]}}</td>
+            {% endfor %}
+            <td> <a href="/edit_med" class="btn edit-btn">Edit</a> </td>
+            <td><button class="btn">Delete</button></td>
+        </tr>
       {% endfor %}
-    </tbody>
+      </tbody>
     </table>
 
 <a href="/add_med" class="navPage">Add a medication</a>
@@ -61,4 +135,4 @@
   </form> 
 </div><!-- update -->
 <p>&nbsp;</p>
-
+#}
