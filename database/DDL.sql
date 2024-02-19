@@ -47,7 +47,9 @@ CREATE OR REPLACE TABLE Pets (
 CREATE OR REPLACE TABLE Prescriptions (
     id_prescription int NOT NULL AUTO_INCREMENT,
     order_date DATETIME NOT NULL,
-    prescription_cost DECIMAL(5, 2) NOT NULL, -- total cost of all medications in a given prescription
+    prescription_cost DECIMAL(5, 2) DEFAULT 0.00,
+    -- total cost of all medications in a given prescription
+    -- default value is set to 0.00 since the cost is calculated elsewhere
     was_picked_up TINYINT(1) NOT NULL,
     id_pet INT NOT NULL,
     PRIMARY KEY (id_prescription),
@@ -59,7 +61,7 @@ CREATE OR REPLACE TABLE Prescriptions (
 --  id_prescription and id_medication as foreign keys
 CREATE OR REPLACE TABLE PrescriptionMedications (
     id_prescription_medication INT NOT NULL AUTO_INCREMENT,
-    id_prescription INT NOT NULL,
+    id_prescription INT DEFAULT NULL,
     id_medication INT NOT NULL,
     quantity INT NOT NULL, -- quantity of each medication prescribed
     PRIMARY KEY (id_prescription_medication),
