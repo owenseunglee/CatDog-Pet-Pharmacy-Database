@@ -34,7 +34,7 @@ CREATE OR REPLACE TABLE Pets (
     breed VARCHAR(145) NOT NULL,
     age INT NOT NULL,
     gender CHAR(1) NOT NULL,
-    id_vet INT NOT NULL,
+    id_vet INT NULL,
     id_owner INT NOT NULL,
     PRIMARY KEY (id_pet),
     FOREIGN KEY(id_vet) references Vets(id_vet)
