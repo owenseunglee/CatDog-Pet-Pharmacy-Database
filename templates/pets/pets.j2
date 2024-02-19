@@ -14,42 +14,51 @@
     <table border="1" cellpadding="5">
       <thead>
         <tr>
-            <th>Name</th>
-            <th>Breed</th>
-            <th>Age</th>
-            <th>Gender</th>
-            <th>Action</th>
+            <th>id_pet</th>
+            <th>name</th>
+            <th>breed</th>
+            <th>age</th>
+            <th>gender</th>
+            <th>id_vet</th>
+            <th>id_owner</th>
+            <th></th>
+            <th></th>
         </tr>
       </thead>
 
       
       <tbody>
         <tr>
+            <td>1</td>
             <td>Fido</td>
             <td>Labrador Retriever</td>
             <td>5</td>
             <td>M</td>
+            <td>1</td>
+            <td>1</td>
+            <td> <a href="/edit_pet" class="btn edit-btn">Edit</a> </td>
             <td><button class="btn">Delete</button></td>
         </tr>
         <tr>
+            <td>2</td>
             <td>Whiskers</td>
             <td>Siamese</td>
             <td>3</td>
             <td>F</td>
+            <td>2</td>
+            <td>2</td>
+            <td> <a href="/edit_pet" class="btn edit-btn">Edit</a> </td>
             <td><button class="btn">Delete</button></td>
         </tr>
         <tr>
+            <td>3</td>
             <td>Rex</td>
             <td>German Shepherd</td>
             <td>7</td>
             <td>M</td>
-            <td><button class="btn">Delete</button></td>
-        </tr>
-        <tr>
-            <td>Boots</td>
-            <td>British Shorthair</td>
-            <td>1</td>
-            <td>F</td>
+            <td>2</td>
+            <td>2</td>
+            <td> <a href="/edit_pet" class="btn edit-btn">Edit</a> </td>
             <td><button class="btn">Delete</button></td>
         </tr>
       </tbody>
@@ -64,10 +73,32 @@
       <legend><strong>Update Pet</strong></legend>
           <fieldset class="fields">
           <p>Please enter the following information of the pet to be updated</p>
-          <label> Name: </label> <input type="text" value="Mia" name="name" size="45">
-          <label> Breed: </label> <input type="text" value="Domestic" name="breed" size="45">
-          <label> Age: </label> <input type="number" value="2" min="0" name="age" size="45">
-          <label> Gender: </label> <input type="text" value="F" name="gender" size="45">
+           <label for="id_pet">Select a pet (ID):</label>
+           <select id="id_pet" name="id_pet">
+              <option value="1">Fido (1)</option>
+              <option value="2">Whiskers (2)</option>
+              <option value="3">Rex (3)</option>
+          </select>
+          <label> name: </label> <input type="text" value="Mia" name="name">
+          <label> breed: </label> <input type="text" value="Domestic" name="breed">
+          <label> age: </label> <input type="number" value="2" min="0" name="age" size="3">
+          <label> gender: </label> <input type="text" value="F" name="gender" size="1">
+          <label for="id_vet">vet (ID):</label>
+           <select id="id_vet" name="id_vet">
+              <option value="1">Dr. Johnson (1)</option>
+              <option value="2">Dr. Smith (2)</option>
+              <option value="3">Dr. Brown (3)</option>
+              <option value="4">Dr. Lee (4)</option>
+              <option value="5">Dr. Chang (5)</option>
+          </select>
+          <label for="id_owner">owner (ID):</label>
+            <select id="id_owner" name="id_owner">
+                <option value="1">John Doe (1)</option>
+                <option value="2">Jane Doe (2)</option>
+                <option value="3">Jack Doe (3)</option>
+                <option value="4">Sarah Lee (4)</option>
+                <option value="5">Mike Chen (5)</option>
+            </select>
     </fieldset>
     <input class="btn" type="submit" id="UpdatePet" value="Update Pet">
           <input class="btn" type="button" value="Cancel" >

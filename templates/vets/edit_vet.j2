@@ -1,0 +1,30 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<html>
+{% include 'navbar.html' %}
+<h1>Update Veterinarian</h1>
+<body>
+<div id="update" style="display: block">
+  <form id="updateVet">
+      <legend><strong>Update Veterinarian</strong></legend>
+          <fieldset class="fields">
+          <p>Please enter the following information of the veterinarian to be updated</p>
+            <label for="id_vet">Select a vet (ID):</label>
+            <select id="id_vet" name="id_vet">
+                <option value="1">Dr. Johnson (1)</option>
+                <option value="2">Dr. Smith (2)</option>
+                <option value="3">Dr. Brown (3)</option>
+                <option value="4">Dr. Lee (4)</option>
+                <option value="5">Dr. Chang (5)</option>
+            </select>
+            <label> name: </label> <input type="text" value="Dr. Johnson" name="name">
+            <label> clinic: </label> <input type="text" value="PetCare Clinic" name="clinic">
+            <label> email: </label> <input type="text" value="johnson@petcare.com" name="email">
+            <label> no_of_patients: </label> <input type="number" name="no_of_patients" value="200">
+    </fieldset>
+    <input class="btn" type="submit" id="UpdateSaveVet" value="Update Veterinarian">
+          <input class="btn" type="button" value="Cancel" >
+  </form> 
+</div><!-- update -->
+</body>
+</html>

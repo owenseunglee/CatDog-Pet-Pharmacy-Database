@@ -15,9 +15,23 @@
     <form id="addPrescriptionMedications">
         <legend><strong>Add PrescriptionMedications</strong></legend>
           <fieldset class="fields">
-            <label> Prescription ID: </label> <input type="number" min="1" name="prescriptID">
-            <label> Medication ID: </label> <input type="number" min="1" name="medsID">
-            <label> Quantity: </label> <input type="number" min="0" name="quantity">
+          </select>
+            <label for="id_prescription">pet name, order_date (id_prescription):</label>
+              <select id="id_prescription" name="id_prescription">
+                  <option value="1">Fido, 2023-05-06 10:00:00 (1)</option>
+                  <option value="2">Whiskers, 2023-12-14 11:00:00 (2)</option>
+                  <option value="3">Fido, 2024-02-01 12:00:00 (3)</option>
+              </select>
+            </select>
+            <label for="id_medication">medication name (id_medication):</label>
+              <select id="id_medication" name="id_medicationn">
+                  <option value="1">Mirtazapine 15mg, 30 tablets (1)</option>
+                  <option value="2">Amoxicillin 250mg, 30 capsules (2)</option>
+                  <option value="3">Dorzolamide HCL Ophthalmic Solution 2%, 10mL (3)</option>
+                  <option value="4">Piroxicam 7mg, 30 capsules (4)</option>
+                  <option value="5">Furosemide 12.5mg, 30 tablets (5)</option>
+              </select>
+            <label> quantity: </label> <input type="number" min="0" name="quantity">
           </fieldset>
           <input class="btn" type="submit" id="addPrescriptionMedsBtn" value="Add PrescriptionMedications">
           <input class="btn" type="button" value="cancel">

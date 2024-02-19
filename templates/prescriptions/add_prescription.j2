@@ -15,19 +15,20 @@
     <form id="addPrescription">
         <legend><strong>Add Prescription</strong></legend>
           <fieldset class="fields">
-            <label> Order Date: </label> <input type="text" name="order date">
-            <label> Prescription Cost: </label> <input type="number" min="0" name="cost">
-            <label> Was Picked Up: </label> 
+            <label> order_date: </label> <input type="datetime-local" name="order_date">            
+            <label> prescription_cost: </label> <input type="number" min="0" step = "0.01" name="cost">
+            <label> was_picked_up: </label> 
             <select name="picked_up">
                 <option value="">--Select--</option>
                 <option value="1">Yes</option>
                 <option value="0">No</option>
             </select>
-            <label>Select Pet:</label> 
+            <label>pet (ID):</label> 
             <select name="Pet">
                 <option>--Select--</option>
-                <option value="Fido">Fido</option>
-                <option value="Spot">Spot</option>
+                <option value="Fido (1)">Fido</option>
+                <option value="Whiskers (2)">Spot</option>
+                <option value="Rex (3)">Spot</option>
             </select>
           </fieldset>
           <input class="btn" type="submit" id="addPrescriptionBtn" value="Add Prescription">

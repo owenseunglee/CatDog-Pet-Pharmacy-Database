@@ -70,6 +70,10 @@ def delete_vets():
 
     return render_template("vets/del_vet.j2")
 
+@app.route("/edit_vet")
+def edit_vet():
+    return render_template("vets/edit_vet.j2")
+
 # owners page
 @app.route("/owners")
 def owners():
@@ -90,6 +94,11 @@ def add_owner():
 def del_owner():
 
     return render_template("owners/del_owner.j2")
+
+@app.route("/edit_owner")
+def edit_owner():
+
+    return render_template("owners/edit_owner.j2")
 
 # medications page
 @app.route("/meds")
@@ -117,11 +126,6 @@ def del_meds():
 
     return render_template("medications/del_med.j2")
 
-@app.route("/edit_med")
-def edit_meds():
-
-    return render_template("medications/edit_med.j2")
-
 @app.route("/pets")
 def pets():
     # query = "SELECT * FROM Pets;"
@@ -140,6 +144,10 @@ def del_pets():
 def add_pets():
 
     return render_template("pets/add_pet.j2")
+
+@app.route("/edit_pet")
+def edit_pet():
+    return render_template("pets/edit_pet.j2")
 
 @app.route("/prescriptions")
 def prescriptions():
@@ -160,6 +168,11 @@ def add_prescriptions():
 
     return render_template("prescriptions/add_prescription.j2")
 
+@app.route("/edit_prescription")
+def edit_prescription():
+
+    return render_template("prescriptions/edit_prescription.j2")
+
 @app.route("/prescriptMeds")
 def intersection():
     # query = "SELECT * FROM PrescriptionMedications;"
@@ -175,10 +188,8 @@ def add_prescriptMeds():
     return render_template("intersection/add_prescriptMeds.j2")
 
 
-
-
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 5834)) 
+    port = int(os.environ.get('PORT', 58580)) 
     #                                 ^^^^
     #              You can replace this number with any valid port
     

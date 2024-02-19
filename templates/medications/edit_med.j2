@@ -9,10 +9,18 @@
       <legend><strong>Update Medication</strong></legend>
           <fieldset class="fields">
           <p>Please enter the following information of the medication to be updated</p>
+          <label for="id_med">Select a medication (ID):</label>
+          <select id="id_med" name="id_med">
+                  <option value="1">Mirtazapine 15mg, 30 tablets (1)</option>
+                  <option value="2">Amoxicillin 250mg, 30 capsules (2)</option>
+                  <option value="3">Dorzolamide HCL Ophthalmic Solution 2%, 10mL (3)</option>
+                  <option value="4">Piroxicam 7mg, 30 capsules (4)</option>
+                  <option value="5">Furosemide 12.5mg, 30 tablets (5)</option>
+              </select>
           <label> Name: </label> <input type="text" value="Mirtazapine 15mg, 30 tablets" name="name" size="45">
-          <label> Cost: </label> <input type="number" name="cost" value="4.50">
+          <label> Cost: </label> <input type="number" name="cost" step = "0.01" value="4.50">
     </fieldset>
-    <input class="btn" type="submit" id="UpdateSavePlanet" value="Update Medication">
+    <input class="btn" type="submit" id="UpdateSaveMed" value="Update Medication">
           <input class="btn" type="button" value="Cancel" >
   </form> 
 </div><!-- update -->

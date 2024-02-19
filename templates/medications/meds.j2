@@ -13,8 +13,9 @@
     <table border="1" cellpadding="5">
         <thead>
           <tr>
-              <th>Name</th>
-              <th>Cost</th>
+              <th>id_medication</th>
+              <th>name</th>
+              <th>cost</th>
               <th></th>
               <th></th>
           </tr>
@@ -23,30 +24,35 @@
 
       <tbody>
         <tr>
+            <td>1</td>
             <td>Mirtazapine 15mg, 30 tablets</td>
             <td>4.50</td>
             <td> <a href="/edit_med" class="btn edit-btn">Edit</a> </td>
             <td><button class="btn">Delete</button></td>
         </tr>
         <tr>
+            <td>2</td>
             <td>Amoxicillin 250mg, 30 capsules</td>
             <td>4.20</td>
             <td> <a href="/edit_med" class="btn edit-btn">Edit</a> </td>
             <td><button class="btn">Delete</button></td>
         </tr>
         <tr>
+            <td>3</td>
             <td>Dorzolamide HCL Ophthalmic Solution 2%, 10mL</td>
             <td>20.49</td>
             <td> <a href="/edit_med" class="btn edit-btn">Edit</a> </td>
             <td><button class="btn">Delete</button></td>
         </tr>
         <tr>
+            <td>4</td>
             <td>Piroxicam 7mg, 30 capsules</td>
             <td>20.64</td>
             <td> <a href="/edit_med" class="btn edit-btn">Edit</a> </td>
             <td><button class="btn">Delete</button></td>
         </tr>
         <tr>
+            <td>5</td>
             <td>Furosemide 12.5mg, 30 tablets</td>
             <td>5.00</td>
             <td> <a href="/edit_med" class="btn edit-btn">Edit</a> </td>
@@ -64,8 +70,16 @@
       <legend><strong>Update Medication</strong></legend>
           <fieldset class="fields">
           <p>Please enter the following information of the medication to be updated</p>
+          <label for="id_med">Select a medication (ID):</label>
+              <select id="id_med" name="id_med">
+                  <option value="1">Mirtazapine 15mg, 30 tablets (1)</option>
+                  <option value="2">Amoxicillin 250mg, 30 capsules (2)</option>
+                  <option value="3">Dorzolamide HCL Ophthalmic Solution 2%, 10mL (3)</option>
+                  <option value="4">Piroxicam 7mg, 30 capsules (4)</option>
+                  <option value="5">Furosemide 12.5mg, 30 tablets (5)</option>
+              </select>
           <label> Name: </label> <input type="text" value="Mirtazapine 15mg, 30 tablets" name="name" size="45">
-          <label> Cost: </label> <input type="number" name="cost" value="4.50">
+          <label> Cost: </label> <input type="number" name="cost" step = "0.01" value="4.50">
     </fieldset>
     <input class="btn" type="submit" id="UpdateSaveMed" value="Update Medication">
           <input class="btn" type="button" value="Cancel" >
