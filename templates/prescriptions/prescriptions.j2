@@ -69,7 +69,7 @@
                   <option value="3">2024-02-01 12:00:00 (3)</option>
               </select>
             <label> order_date: </label> <input type="datetime-local" name="order_date">            
-            <label> prescription_cost: </label> <input type="number" min="0" step = "0.01" name="cost">
+            <label>prescription_cost (will be calculated automatically)</label>             
             <label> was_picked_up: </label> 
             <select name="picked_up">
                 <option value="">--Select--</option>
@@ -141,8 +141,7 @@
       <legend><strong>Update Prescription</strong></legend>
         <fieldset class="fields">
           <label> Order Date: </label> <input type="text" name="order date">
-            <label> Prescription Cost: </label> <input type="number" min="0" name="cost">
-            <label> Was Picked Up: </label> 
+            <label>prescription_cost (will be calculated automatically):</label>             <label> Was Picked Up: </label> 
             <select name="picked_up">
                 <option value="">--Select--</option>
                 <option value="1">Yes</option>
