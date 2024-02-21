@@ -59,7 +59,7 @@ DELETE FROM Owners WHERE id = :owner_ID_selected_from_browse_owner_page;
 SELECT * FROM Pets;
 -- (alternative - more descriptive)
 -- get all attributes for the Pets page along with their owner's name and vet's name
-SELECT Pets.id_pet, name, breed, age, gender, Owners.name AS owner_name, Vets.name AS vet_name
+SELECT Pets.id_pet, Pets.name, breed, age, gender, Owners.name AS owner_name, Vets.name AS vet_name
 FROM Pets
 INNER JOIN Owners ON Pets.id_owner = Owners.id_owner
 INNER JOIN Vets ON Pets.id_vet = Vets.id_vet;
