@@ -1,5 +1,4 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-
 <html>
 {% include 'navbar.html' %}
 <h1>Update Veterinarian</h1>
@@ -28,3 +27,42 @@
 </div><!-- update -->
 </body>
 </html>
+
+
+{# DATABASE CODE UPDATED 2/22
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<html>
+{% include 'navbar.html' %}
+<h1>Update Veterinarian</h1>
+<body>
+<div id="update" style="display: block">
+  <form id="updateVet">
+      <legend><strong>Update Veterinarian</strong></legend>
+          <fieldset class="fields">
+          <p>Please enter the following information of the veterinarian to be updated</p>
+            <label for="id_vet">Select a vet (ID):</label>
+
+            <select class="form-control" id="vet_select" name="vet_select">
+              {% for vet in Vets_Dropdown %}
+                  {% if vet == Vets_Dropdown[0] %}
+                      <option value="{{ vet['id_vet'] }}" selected>{{ vet['vet_name_id'] }}</option>
+                  {% else %}
+                      <option value="{{ vet['id_vet'] }}">{{ vet['vet_name_id'] }}</option>
+                  {% endif %}
+              {% endfor %}
+            </select>
+
+            <label> name: </label> <input type="text" value="Dr. Johnson" name="name">
+            <label> clinic: </label> <input type="text" value="PetCare Clinic" name="clinic">
+            <label> email: </label> <input type="text" value="johnson@petcare.com" name="email">
+            <label> no_of_patients: </label> <input type="number" name="no_of_patients" value="200">
+    </fieldset>
+    <input class="btn" type="submit" id="UpdateSaveVet" value="Update Veterinarian">
+          <input class="btn" type="button" value="Cancel" >
+  </form> 
+</div><!-- update -->
+</body>
+</html>
+
+DATABASE CODE UPDATED 2/22 #}

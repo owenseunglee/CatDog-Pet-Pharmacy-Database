@@ -48,15 +48,44 @@ def root():
  #       return render_template("vets.j2", Vets=results)
 
 # veterinarian page
+# @app.route("/vets", methods=["POST", "GET"])
+#def vets():
+#    if request.method == "GET":
+#        query = "SELECT * FROM Vets;"
+#        cursor = db.execute_query(db_connection=db_connection, query=query)
+#        results = cursor.fetchall()
+        
+        # Code to select VET and ID for the dropdown in edit vets
+#        query2 = query = "SELECT id_vet, CONCAT(Vets.name, ' (', id_vet, ')') AS vet_name_id FROM Vets;"
+#        cursor = db.execute_query(db_connection=db_connection, query=query2)
+#        vet_results = cursor.fetchall()
+#        print("Vets_Dropdown:", vet_results) 
+#        print("Vets", results)
+
+#    return render_template("vets/vets.j2", Vets=results, Vets_Dropdown=vet_results)
+    # return render_template("vets/vets.j2")
+
+# veterinarian page
 @app.route("/vets")
 def vets():
-    # query = "SELECT * FROM Vets;"
-    # cursor = db.execute_query(db_connection=db_connection, query=query)
-    # results = cursor.fetchall()
-
-    # return render_template("vets/vets.j2", Vets=results)
     return render_template("vets/vets.j2")
 
+
+# adding vet page
+#@app.route("/add_vet", methods=["POST", "GET"])
+#def add_vets():
+#    if request.method == "POST":
+#        name = request.form["name"]
+#        clinic = request.form["clinic"]
+#        email = request.form["email"]
+#        no_of_patients = request.form["no_of_patients"]
+        
+#        query = "INSERT INTO Vets (name, clinic, email, no_of_patients) VALUES (%s, %s, %s, %s)"
+#        cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(name, clinic, email, no_of_patients))
+#        db_connection.commit()
+#        return redirect("/vets")
+
+#    return render_template("vets/add_vet.j2")
 
 # adding vet page
 @app.route("/add_vet")
@@ -69,6 +98,21 @@ def add_vets():
 def delete_vets():
 
     return render_template("vets/del_vet.j2")
+
+#@app.route("/del_vet/<int:id>")
+#def delete_vets(id):
+#    query = "DELETE FROM Vets WHERE id = '%s';"
+#    cursor = db.execute_query(db_connection=db_connection, query=query, query_params = (id,))
+#    db_connection.commit()
+#    return render_template("vets/del_vet.j2")
+
+#@app.route("/edit_vet")
+#def edit_vet():
+#    query = "SELECT id_vet, CONCAT(Vets.name, ' (', id_vet, ')') AS vet_name_id FROM Vets;"
+#    cursor = db.execute_query(db_connection=db_connection, query=query)
+#    vet_results = cursor.fetchall()
+#    return render_template("vets/edit_vet.j2", Vets_Dropdown=vet_results)
+    #return render_template("vets/edit_vet.j2")
 
 @app.route("/edit_vet")
 def edit_vet():
@@ -154,7 +198,6 @@ def prescriptions():
     # query = "SELECT * FROM Prescriptions;"
     # cursor = db.execute_query(db_connection=db_connection, query=query)
     # results = cursor.fetchall()
-
     # return render_template("prescriptions/prescriptions.j2", Prescriptions=results)
     return render_template("prescriptions/prescriptions.j2")
 
