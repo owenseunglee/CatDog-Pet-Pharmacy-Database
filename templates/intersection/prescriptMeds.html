@@ -1,23 +1,25 @@
 {# Citation for owners.js
- --Date: 2/13/24
- --Adapted from: Flask Starter App Guide
- --Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app #}
+--Date: 2/13/24
+--Adapted from: Flask Starter App Guide
+--Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app #}
 
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
-{% include 'navbar.html' %}
+{% extends 'layouts.html'%}
+{% block content %}
+
 <h1>PrescriptionMedications Intersection Table</h1>
 
 <body id="addDelLink">
-<table border="1" cellpadding="5">
-    <thead>
-        <tr>
+    <table border="1" cellpadding="5">
+        <thead>
+            <tr>
                 <th>id_prescription</th>
                 <th>id_medication</th>
                 <th>quantity</th>
             </tr>
-    </thead>
-    <tbody>
+        </thead>
+        <tbody>
             <tr>
                 <td>1</td>
                 <td>1</td>
@@ -44,14 +46,12 @@
                 <td>1</td>
             </tr>
         </tbody>
-</table>
+    </table>
 
-<a href="/add_prescriptMeds" class="navPage">Add PrescriptionMedications</a>
+    <a href="/add_prescriptMeds" class="navPage">Add PrescriptionMedications</a>
 </body>
 
-
-
-
+{% endblock %}
 
 {# THIS CODE USES THE DATABASE:
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
@@ -60,25 +60,25 @@
 <h1>PrescriptionMedications Intersection Table</h1>
 
 <body id="addDelLink">
-<table border="1" cellpadding="5">
-    <thead>
-        <tr>
-            {% for key in PrescriptionMedications[0].keys() %}
-            <th>{{ key }}</th>
+    <table border="1" cellpadding="5">
+        <thead>
+            <tr>
+                {% for key in PrescriptionMedications[0].keys() %}
+                <th>{{ key }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for prescription in PrescriptionMedications %}
+            <tr>
+                {% for key in prescription.keys() %}
+                <td>{{ prescription[key] }}</td>
+                {% endfor %}
+            </tr>
             {% endfor %}
-        </tr>
-    </thead>
-    <tbody>
-        {% for prescription in PrescriptionMedications %}
-        <tr>
-            {% for key in prescription.keys() %}
-            <td>{{ prescription[key] }}</td>
-            {% endfor %}
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+        </tbody>
+    </table>
 
-<a href="/add_prescriptMeds" class="navPage">Add a PrescriptionMedications</a>
+    <a href="/add_prescriptMeds" class="navPage">Add a PrescriptionMedications</a>
 </body>
 #}

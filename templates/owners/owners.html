@@ -1,0 +1,161 @@
+{# Citation for owners.js
+--Date: 2/13/24
+--Adapted from: Flask Starter App Guide
+--Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app #}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+{% extends 'layouts.html'%}
+{% block content %}
+
+<h1>Browse Owners</h1>
+
+<body id="addDelLink">
+  <table border="1" cellpadding="5">
+    <thead>
+      <tr>
+        <th>id_owner</th>
+        <th>name</th>
+        <th>address</th>
+        <th>phone_number</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <tr>
+        <td>1</td>
+        <td>John Doe</td>
+        <td>123 Main St, Anytown</td>
+        <td>1234567890</td>
+        <td> <a href="/edit_owner" class="btn edit-btn">Edit</a> </td>
+        <td><button class="btn">Delete</button></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Jane Doe</td>
+        <td>456 Oak Ave, Anytown</td>
+        <td>9876543210</td>
+        <td> <a href="/edit_owner" class="btn edit-btn">Edit</a> </td>
+        <td><button class="btn">Delete</button></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Jack Doe</td>
+        <td>789 Elm St, Anytown</td>
+        <td>5555555555</td>
+        <td> <a href="/edit_owner" class="btn edit-btn">Edit</a> </td>
+        <td><button class="btn">Delete</button></td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Sarah Lee</td>
+        <td>321 Pine Rd, Anytown</td>
+        <td>1111111111</td>
+        <td> <a href="/edit_owner" class="btn edit-btn">Edit</a> </td>
+        <td><button class="btn">Delete</button></td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Mike Chen</td>
+        <td>654 Cedar Ln, Anytown</td>
+        <td>9999999999</td>
+        <td> <a href="/edit_owner" class="btn edit-btn">Edit</a> </td>
+        <td><button class="btn">Delete</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <a href="/add_owner" class="navPage">Add Owner</a>
+</body>
+
+<p>&nbsp;</p>
+<div id="update">
+  <form id="updateOwner">
+    <legend><strong>Update Owner</strong></legend>
+    <fieldset class="fields">
+      <p>Please enter the following information of the owner to be updated</p>
+      <label for="id_owner">Select an owner (ID):</label>
+      <select id="id_owner" name="id_owner">
+        <option value="1">John Doe (1)</option>
+        <option value="2">Jane Doe (2)</option>
+        <option value="3">Jack Doe (3)</option>
+        <option value="4">Sarah Lee (4)</option>
+        <option value="5">Mike Chen (5)</option>
+      </select>
+      <label> name: </label> <input type="text" value="John" name="fname">
+      <label> address: </label> <input type="text" value="Doe" name="lname">
+      <label> phone_number: </label> <input type="text" name="phone_number" value="1234567890">
+    </fieldset>
+    <input class="btn" type="submit" id="UpdateOwner" value="Update Owner">
+    <input class="btn" type="button" value="Cancel">
+  </form>
+</div><!-- update -->
+<p>&nbsp;</p>
+
+{% endblock %}
+
+{# THIS CODE USES THE DATABASE
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+{% include 'navbar.html' %}
+<h1>Browse Owners</h1>
+
+<body id="addDelLink">
+  <table border="1" cellpadding="5">
+    <thead>
+      <tr>
+        <!-- Iterate through each key in the first entry to get the
+            column name -->
+        {% for key in Owners[0].keys() %}
+
+        <!-- Create a <th> tag with the key inside of it, this will be
+            our header row -->
+        <th>{{ key }}</th>
+
+        <!-- End of this for loop -->
+        {% endfor %}
+
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <!-- Now, iterate through every owner in Owners -->
+      {% for owner in Owners %}
+      <tr>
+        <!-- Then iterate through every key in the current veterinarian dictionary -->
+        {% for key in owner.keys() %}
+
+        <!-- Create a <td> element with the value of that key in it -->
+        <td>{{owner[key]}}</td>
+        {% endfor %}
+        <td><button class="btn">Delete</button></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <a href="/add_owner" class="navPage">Add an owner</a>
+</body>
+
+<p>&nbsp;</p>
+<div id="update">
+  <form id="updateOwner">
+    <legend><strong>Update Owner</strong></legend>
+    <fieldset class="fields">
+      <p>Please enter the following information of the owner to be updated</p>
+      <label> First Name: </label> <input type="text" value="John" name="fname" size="45">
+      <label> Last Name: </label> <input type="text" value="Doe" name="lname" size="45">
+      <label> Address: </label> <input type="text" name="address" value="1234 abcd, efg">
+      <label> Phone Number: </label> <input type="number" name="phone number" min="0" value="2132132134">
+    </fieldset>
+    <input class="btn" type="submit" id="UpdateOwner" value="Update Owner">
+    <input class="btn" type="button" value="Cancel">
+  </form>
+</div><!-- update -->
+<p>&nbsp;</p>
+#}
