@@ -28,7 +28,7 @@ db_connection = db.connect_to_database()
 @app.route("/")
 def root():
 
-    return render_template("main.html")
+    return render_template("main.html", title='Home')
 
 ############ IGNORE THIS PART ###############
 #@app.route("/veterinarians", methods=["POST", "GET"])
@@ -189,8 +189,8 @@ def add_prescriptMeds():
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 58581)) 
+    #port = int(os.environ.get('PORT', 5800)) 
     #                                 ^^^^
     #              You can replace this number with any valid port
     
-    app.run(port=port, debug = True) 
+    app.run(debug = True) 

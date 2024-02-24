@@ -7,10 +7,11 @@ https://github.com/osu-cs340-ecampus/flask-starter-app #}
 {% extends 'layouts.html'%}
 {% block content %}
 
+<!-- will implement 'includes' templates after CRUD -->
 <h1>Browse Medications</h1>
 
 <body id="addDelLink">
-  <table class="table table-sm table-hover" style="width: 50%">
+  <table class="table table-sm table-hover">
     <caption>List of Medications</caption>
     <thead>
       <tr>
@@ -22,42 +23,41 @@ https://github.com/osu-cs340-ecampus/flask-starter-app #}
       </tr>
     </thead>
 
-
     <tbody class="table-group-divider">
       <tr>
         <td>1</td>
         <td>Mirtazapine 15mg, 30 tablets</td>
         <td>4.50</td>
-        <td> <a href=" /edit_med" class="btn edit-btn">Edit</a> </td>
-        <td><button class="btn">Delete</button></td>
+        <td> <a href=" /edit_med" type="button" class="btn btn-outline-success">Edit</a> </td>
+        <td><button type="button" class="btn btn-outline-dark">Delete</button></td>
       </tr>
       <tr>
         <td>2</td>
         <td>Amoxicillin 250mg, 30 capsules</td>
         <td>4.20</td>
-        <td> <a href="/edit_med" class="btn edit-btn">Edit</a> </td>
-        <td><button class="btn">Delete</button></td>
+        <td> <a href="/edit_med" type="button" class="btn btn-outline-success">Edit</a> </td>
+        <td><button type="button" class="btn btn-outline-dark">Delete</button></td>
       </tr>
       <tr>
         <td>3</td>
         <td>Dorzolamide HCL Ophthalmic Solution 2%, 10mL</td>
         <td>20.49</td>
-        <td> <a href="/edit_med" class="btn edit-btn">Edit</a> </td>
-        <td><button class="btn">Delete</button></td>
+        <td> <a href="/edit_med" type="button" class="btn btn-outline-success">Edit</a> </td>
+        <td><button type="button" class="btn btn-outline-dark">Delete</button></td>
       </tr>
       <tr>
         <td>4</td>
         <td>Piroxicam 7mg, 30 capsules</td>
         <td>20.64</td>
-        <td> <a href="/edit_med" class="btn edit-btn">Edit</a> </td>
-        <td><button class="btn">Delete</button></td>
+        <td> <a href="/edit_med" type="button" class="btn btn-outline-success">Edit</a> </td>
+        <td><button type="button" class="btn btn-outline-dark">Delete</button></td>
       </tr>
       <tr>
         <td>5</td>
         <td>Furosemide 12.5mg, 30 tablets</td>
         <td>5.00</td>
-        <td> <a href="/edit_med" class="btn edit-btn">Edit</a> </td>
-        <td><button class="btn">Delete</button></td>
+        <td> <a href="/edit_med" type="button" class="btn btn-outline-success">Edit</a> </td>
+        <td><button type="button" class="btn btn-outline-dark">Delete</button></td>
       </tr>
     </tbody>
   </table>

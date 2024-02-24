@@ -6,10 +6,13 @@
 {% extends 'layouts.html'%}
 {% block content %}
 
+<!-- will implement 'includes' templates after CRUD -->
+
 <h1>Browse Owners</h1>
 
 <body id="addDelLink">
-  <table border="1" cellpadding="5">
+  <table class="table table-sm table-hover">
+    <caption>List of owners</caption>
     <thead>
       <tr>
         <th>id_owner</th>
@@ -21,47 +24,46 @@
       </tr>
     </thead>
 
-    <tbody>
-
+    <tbody class="table-group-divider">
       <tr>
         <td>1</td>
         <td>John Doe</td>
         <td>123 Main St, Anytown</td>
         <td>1234567890</td>
-        <td> <a href="/edit_owner" class="btn edit-btn">Edit</a> </td>
-        <td><button class="btn">Delete</button></td>
+        <td> <a href="/edit_owner" type="button" class="btn btn-outline-success">Edit</a> </td>
+        <td><button class="btn btn-outline-dark">Delete</button></td>
       </tr>
       <tr>
         <td>2</td>
         <td>Jane Doe</td>
         <td>456 Oak Ave, Anytown</td>
         <td>9876543210</td>
-        <td> <a href="/edit_owner" class="btn edit-btn">Edit</a> </td>
-        <td><button class="btn">Delete</button></td>
+        <td> <a href="/edit_owner" type="button" class="btn btn-outline-success">Edit</a> </td>
+        <td><button class="btn btn-outline-dark">Delete</button></td>
       </tr>
       <tr>
         <td>3</td>
         <td>Jack Doe</td>
         <td>789 Elm St, Anytown</td>
         <td>5555555555</td>
-        <td> <a href="/edit_owner" class="btn edit-btn">Edit</a> </td>
-        <td><button class="btn">Delete</button></td>
+        <td> <a href="/edit_owner" type="button" class="btn btn-outline-success">Edit</a> </td>
+        <td><button class="btn btn-outline-dark">Delete</button></td>
       </tr>
       <tr>
         <td>4</td>
         <td>Sarah Lee</td>
         <td>321 Pine Rd, Anytown</td>
         <td>1111111111</td>
-        <td> <a href="/edit_owner" class="btn edit-btn">Edit</a> </td>
-        <td><button class="btn">Delete</button></td>
+        <td> <a href="/edit_owner" type="button" class="btn btn-outline-success">Edit</a> </td>
+        <td><button class="btn btn-outline-dark">Delete</button></td>
       </tr>
       <tr>
         <td>5</td>
         <td>Mike Chen</td>
         <td>654 Cedar Ln, Anytown</td>
         <td>9999999999</td>
-        <td> <a href="/edit_owner" class="btn edit-btn">Edit</a> </td>
-        <td><button class="btn">Delete</button></td>
+        <td> <a href="/edit_owner" type="button" class="btn btn-outline-success">Edit</a> </td>
+        <td><button class="btn btn-outline-dark">Delete</button></td>
       </tr>
     </tbody>
   </table>

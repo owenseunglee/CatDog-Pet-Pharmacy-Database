@@ -60,24 +60,22 @@ li a:hover {
     background-color: #111111;
 }
 
-.table {
+body .table {
+    margin: auto;
     width: 50%;
     margin-bottom: 1rem;
     color: #212529;
 }
 
-.btn {
-    color: white;
-    background-color: #333333;
+.table td {
     padding: 10px;
-    display: inline-block;
-    font-size: medium;
-    margin-top: 5px;
-    text-decoration: none;
+    font-size: large;
 }
 
-.btn:hover {
-    background-color: red;
+
+
+.btn.btn-outline-success:hover {
+    background-color: #3A833A;
 }
 
 #update,

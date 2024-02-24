@@ -6,10 +6,12 @@
 {% extends 'layouts.html'%}
 {% block content %}
 
+<!-- will implement 'includes' templates after CRUD -->
 <h1>PrescriptionMedications Intersection Table</h1>
 
 <body id="addDelLink">
-    <table class="table">
+    <table class="table table-sm table-hover">
+        <caption>List of prescriptionMedications</caption>
         <thead>
             <tr>
                 <th>id_prescription</th>
@@ -58,7 +60,7 @@
 <h1>PrescriptionMedications Intersection Table</h1>
 
 <body id="addDelLink">
-    <table border="1" cellpadding="5">
+    <table class="table table-sm table-hover">
         <thead>
             <tr>
                 {% for key in PrescriptionMedications[0].keys() %}
@@ -66,7 +68,7 @@
                 {% endfor %}
             </tr>
         </thead>
-        <tbody>
+        <tbody class="table-group-divider">
             {% for prescription in PrescriptionMedications %}
             <tr>
                 {% for key in prescription.keys() %}
