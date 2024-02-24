@@ -3,15 +3,13 @@
 --Adapted from: Flask Starter App Guide
 --Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app #}
 
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-
 {% extends 'layouts.html'%}
 {% block content %}
 
 <h1>PrescriptionMedications Intersection Table</h1>
 
 <body id="addDelLink">
-    <table border="1" cellpadding="5">
+    <table class="table">
         <thead>
             <tr>
                 <th>id_prescription</th>
