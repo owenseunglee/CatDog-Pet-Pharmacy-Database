@@ -189,8 +189,8 @@ def add_prescriptMeds():
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 58085)) 
+    #port = int(os.environ.get('PORT', 8205)) 
     #                                ^^^^
     #             You can replace this number with any valid port
     
-    app.run(port=port, debug = True) 
+    app.run(host='localhost', port=5000, debug = True) 

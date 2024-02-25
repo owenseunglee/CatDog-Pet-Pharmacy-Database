@@ -12,48 +12,37 @@
     <!-- Custom style.css -->
     <link rel="stylesheet" href="{{ url_for('static', filename='custom.css') }}">
     <!-- favicon -->
-
+    <link rel="icon" type="image/x-icon" href="../static/favicon.ico">
 </head>
 
 <body>
-    <nav class="navbar">
-        CATDOG
+    <nav class="nav-bar">
         <div class="nav-container">
-            <div class="navebar-logo">
-                logo
+            <div class="logo-wrapper">
+                <image src="../static/logo1.png"></image>
+                CATDOG PHARMACY
             </div>
             <div class="navbar-links">
-                <ul>
-                    <li>CONTACT US</li>
+                <ul class="navbar-utility-links">
+                    <li>Employee Login</li>
+                    <li button type="button" class="btn btn-primary">CONTACT US</li>
                 </ul>
-                links
-            </div>
-            <div>
-                <ul id="navbar">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/vets">Veterinarians</a></li>
-                    <li><a href="/owners">Owners</a></li>
-                    <li><a href="/pets">Pets</a></li>
-                    <li><a href="/meds">Medications</a></li>
-                    <li><a href="/prescriptions">Prescriptions</a></li>
-                    <li><a href="/prescriptMeds">PrescriptionMedications</a></li>
-                </ul>
+
+                <div class="navbar-site-links-wrapper">
+                    <ul class="navbar-site-links">
+                        <div id="horizontal-underline"></div>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/vets">Veterinarians</a></li>
+                        <li><a href="/owners">Owners</a></li>
+                        <li><a href="/pets">Pets</a></li>
+                        <li><a href="/meds">Medications</a></li>
+                        <li><a href="/prescriptions">Prescriptions</a></li>
+                        <li><a href="/prescriptMeds">PrescriptionMedications</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </nav>
-    <!--
-    <ul id="index">
-        <li class="group">CatDog Pharmacy Database</li>
-    </ul> -->
-    <ul id="navbar">
-        <li><a href="/">Home</a></li>
-        <li><a href="/vets">Veterinarians</a></li>
-        <li><a href="/owners">Owners</a></li>
-        <li><a href="/pets">Pets</a></li>
-        <li><a href="/meds">Medications</a></li>
-        <li><a href="/prescriptions">Prescriptions</a></li>
-        <li><a href="/prescriptMeds">PrescriptionMedications</a></li>
-    </ul>
 
     {% block content %}
     {% endblock content %}
@@ -62,6 +51,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+    <script src="../static/main.js"></script>
 </body>
 
 </html>
