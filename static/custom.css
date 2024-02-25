@@ -31,6 +31,10 @@ li a,
     text-decoration: none;
 }
 
+.group {
+    font-size: xx-large;
+}
+
 li a:hover {
     background-color: #111111;
 }
@@ -45,6 +49,11 @@ li a:hover {
 #addDelLink {
     text-align: center;
 }
+
+.nav-container {
+    margin-right: 25%;
+}
+
 
 .navPage {
     color: white;
