@@ -6,56 +6,40 @@
 from flask import Flask, render_template, json
 from flask import request, redirect
 from flask_mysqldb import MySQL
-from database.db_connector import connect_to_database, execute_query
-import database.db_connector as db
-from dotenv import load_dotenv
+# from database.db_connector import connect_to_database, execute_query
+# import database.db_connector as db
+# from dotenv import load_dotenv
 import os;
 
-load_dotenv()
+# load_dotenv()
 
-db_connection = db.connect_to_database()
+# db_connection = db.connect_to_database()
 
 app = Flask(__name__)
+
 app.config['MYSQL_HOST'] = os.getenv('340DBHOST')
 app.config['MYSQL_USER'] = os.getenv('340DBUSER')
 app.config['MYSQL_PASSWORD'] = os.getenv('340DBPW')
 app.config['MYSQL_DB'] = os.getenv('340DB')
 #app.config['MYSQL_CURSORCLASS'] = "DictCursor"
+
 mysql = MySQL(app)
 
-db_connection = db.connect_to_database()
+# db_connection = db.connect_to_database()
 
 @app.route("/")
 def root():
-
     return render_template("main.j2")
 
-############ IGNORE THIS PART ###############
-#@app.route("/veterinarians", methods=["POST", "GET"])
-#def browse_vets():
-#    if request.method == "GET":
-
-#        query = "SELECT vet_ FROM Vets"
-#        cur = mysql.connection.cursor()
-#        cur.execute(query)
-#        results = cur.fetchall()
-#        print(results)
-        #query2 = "SELECT id_owner, name FROM Owners"
-        #cur = mysql.connection.cursor()
-        #cur.execute(query2)
-        #owners_data = cur.fecthall()
-        
- #       return render_template("vets.j2", Vets=results)
-
-# veterinarian page
+# # veterinarian page
 # @app.route("/vets", methods=["POST", "GET"])
-#def vets():
+# def vets():
 #    if request.method == "GET":
 #        query = "SELECT * FROM Vets;"
 #        cursor = db.execute_query(db_connection=db_connection, query=query)
 #        results = cursor.fetchall()
         
-        # Code to select VET and ID for the dropdown in edit vets
+#         # Code to select VET and ID for the dropdown in edit vets
 #        query2 = query = "SELECT id_vet, CONCAT(Vets.name, ' (', id_vet, ')') AS vet_name_id FROM Vets;"
 #        cursor = db.execute_query(db_connection=db_connection, query=query2)
 #        vet_results = cursor.fetchall()
@@ -63,7 +47,7 @@ def root():
 #        print("Vets", results)
 
 #    return render_template("vets/vets.j2", Vets=results, Vets_Dropdown=vet_results)
-    # return render_template("vets/vets.j2")
+#     # return render_template("vets/vets.j2")
 
 # veterinarian page
 @app.route("/vets")
@@ -72,8 +56,8 @@ def vets():
 
 
 # adding vet page
-#@app.route("/add_vet", methods=["POST", "GET"])
-#def add_vets():
+# @app.route("/add_vet", methods=["POST", "GET"])
+# def add_vets():
 #    if request.method == "POST":
 #        name = request.form["name"]
 #        clinic = request.form["clinic"]
@@ -106,13 +90,13 @@ def delete_vets():
 #    db_connection.commit()
 #    return render_template("vets/del_vet.j2")
 
-#@app.route("/edit_vet")
-#def edit_vet():
+# @app.route("/edit_vet")
+# def edit_vet():
 #    query = "SELECT id_vet, CONCAT(Vets.name, ' (', id_vet, ')') AS vet_name_id FROM Vets;"
 #    cursor = db.execute_query(db_connection=db_connection, query=query)
 #    vet_results = cursor.fetchall()
 #    return render_template("vets/edit_vet.j2", Vets_Dropdown=vet_results)
-    #return render_template("vets/edit_vet.j2")
+#return render_template("vets/edit_vet.j2")
 
 @app.route("/edit_vet")
 def edit_vet():
@@ -231,9 +215,13 @@ def add_prescriptMeds():
     return render_template("intersection/add_prescriptMeds.j2")
 
 
-if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 58580)) 
-    #                                 ^^^^
-    #              You can replace this number with any valid port
+# if __name__ == "__main__":
+#     port = int(os.environ.get('PORT', 5833)) 
+#     #                                 ^^^^
+#     #              You can replace this number with any valid port
     
-    app.run(port=port, debug = True) 
+#     app.run(port=port, debug = True) 
+
+if __name__ == "__main__":
+
+    app.run(port=58337, debug=True)
