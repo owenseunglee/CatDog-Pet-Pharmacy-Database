@@ -16,7 +16,7 @@
         <legend><strong>Add Prescription</strong></legend>
           <fieldset class="fields">
             <label> order_date: </label> <input type="datetime-local" name="order_date">            
-            <label> prescription_cost: </label> <input type="number" min="0" step = "0.01" name="cost">
+            <label>prescription_cost (will be calculated automatically)</label>             
             <label> was_picked_up: </label> 
             <select name="picked_up">
                 <option value="">--Select--</option>
@@ -24,12 +24,11 @@
                 <option value="0">No</option>
             </select>
             <label>pet (ID):</label> 
-            <select name="Pet">
-                <option>--Select--</option>
-                <option value="Fido (1)">Fido</option>
-                <option value="Whiskers (2)">Spot</option>
-                <option value="Rex (3)">Spot</option>
-            </select>
+             <select id="id_pet" name="id_pet">
+                  <option value="1">Fido (1)</option>
+                  <option value="2">Whiskers (2)</option>
+                  <option value="3">Rex (3)</option>
+              </select>
           </fieldset>
           <input class="btn" type="submit" id="addPrescriptionBtn" value="Add Prescription">
           <input class="btn" type="button" value="cancel">
