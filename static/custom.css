@@ -12,20 +12,13 @@ a {
     width: 100%;
     padding: 10px;
     padding-bottom: 15px;
+    margin: auto;
     box-shadow: 0 4px 2px -2px rgba(0, 0, 0, .2);
 }
 
 .navbar-top {
     display: flex;
 }
-
-/*.nav-bar {
-    display: flex;
-    margin-top: 10px;
-    padding-bottom: 50px;
-    box-sizing: border-box;
-    box-shadow: 0 4px 2px -2px rgba(0, 0, 0, .2);
-}*/
 
 .nav-bar .logo-wrapper {
     display: flex;
@@ -41,9 +34,9 @@ a {
     box-sizing: border-box;
     width: 100%;
     display: flex;
-    margin: auto;
-    /*margin-left: 15%;
-    margin-right: 15%;*/
+
+    margin-left: 11%;
+
 }
 
 .nav-bar .navbar-links {
@@ -59,13 +52,14 @@ a {
 }
 
 .nav-bar .navbar-utility-links {
-    background-color: red;
     list-style-type: none;
     display: flex;
-    justify-content: flex-end;
+    /*justify-content: flex-end;*/
     flex-direction: row;
     align-items: center;
     width: 71%;
+    margin-left: 19%;
+    justify-content: space-between;
 }
 
 .navbar-utility-links li {
@@ -109,11 +103,10 @@ a {
     top: 0;
     left: 0;
     height: 5px;
-
 }
 
-thead {
-    text-align: center;
+#contact.btn {
+    border-radius: 0%;
 }
 
 h1 {
@@ -122,8 +115,26 @@ h1 {
 }
 
 .table-container {
-    margin-right: 15%;
-    margin-left: 15%;
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+}
+
+thead {
+    text-align: center;
+}
+
+td {
+    text-align: center;
+}
+
+.test1 {
+    display: flex;
+    flex-direction: row;
+}
+
+#group-name {
+    font-size: small;
 }
 
 @media (max-width: 1479px) {
