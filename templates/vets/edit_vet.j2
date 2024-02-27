@@ -1,4 +1,4 @@
-{# edit_vet.j2 page #}
+{# edit_vet.j2 page  COMMENTED OUT.. 
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <html>
 {% include 'navbar.html' %}
@@ -20,6 +20,43 @@
     <input class="btn" type="button" value="Cancel">
 </form>
 
+</div><!-- update -->
+</body>
+</html>
+
+#}
+
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<html>
+{% include 'navbar.html' %}
+<h1>Update Veterinarian</h1>
+<body>
+<div id="update" style="display: block">
+    <h2>Current Editing:</h2>
+    <div style="float: left;">
+        <table>
+            <tr>
+                <th>name:</th>
+                <td>{{ results[0].name }}</td>
+            </tr>
+            <tr>
+                <th>clinic:</th>
+                <td>{{ results[0].clinic }}</td>
+            </tr>
+            <tr>
+                <th>email:</th>
+                <td>{{ results[0].email }}</td>
+            </tr>
+            <tr>
+                <th>no_of_patients:</th>
+                <td>{{ results[0].no_of_patients }}</td>
+            </tr>
+        </table>
+    </div>
+    <br style="clear: left;">
+    <br>
+    <a href="/">Go Back</a>
 </div><!-- update -->
 </body>
 </html>

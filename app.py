@@ -72,16 +72,15 @@ def delete_vets(id):
 
 @app.route("/edit_vet/<int:id_vet>", methods=["GET", "POST"])
 def edit_vet(id_vet):
-    return render_template("vets/edit_vet.j2")
+    # return render_template("vets/edit_vet.j2")
 
-    # if request.method == "GET":
-    #     try:
-    #         query = "SELECT * FROM Vets WHERE id_vet = %s;" % (id_vet)
-    #         cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id_vet,))
-    #         results = cursor.fetchall()
-    #         return render_template("vets/edit_vet.j2", results=results)
-    #     except Exception as e:
-    #             return render_template("error.html", error=str(e))
+    if request.method == "GET":
+        
+        query = "SELECT * FROM Vets WHERE id_vet = %s;"
+        cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id_vet,))
+        results = cursor.fetchall()
+        return render_template("vets/edit_vet.j2", results=results)
+        
     # if request.method == "POST":
     #     if request.form.get("Edit_Vet"):
     #         name = request.form["name"]
@@ -95,7 +94,8 @@ def edit_vet(id_vet):
     #         db_connection.commit()
     #         return redirect("/vets")
 
-    # #drop down in edit_vet to select a vet
+
+    # [MIGHT NOT IMPLEMENT] drop down in edit_vet to select a vet
     # if request.method == "GET":
     #     query = "SELECT id_vet, CONCAT(Vets.name, ' (', id_vet, ')') AS vet_name_id FROM Vets;"
     #     cursor = db.execute_query(db_connection=db_connection, query=query)
