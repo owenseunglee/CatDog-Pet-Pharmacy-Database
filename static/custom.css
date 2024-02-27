@@ -20,15 +20,6 @@ a {
     display: flex;
 }
 
-.nav-bar .logo-wrapper {
-    display: flex;
-    justify-content: center;
-    width: 9%;
-    height: 100%;
-    font-weight: bold;
-    text-align: center;
-}
-
 .nav-bar .nav-container {
     height: 120px;
     box-sizing: border-box;
