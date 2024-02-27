@@ -9,7 +9,7 @@ from flask_mysqldb import MySQL
 from database.db_connector import connect_to_database, execute_query
 import database.db_connector as db
 from dotenv import load_dotenv
-import os;
+import os
 
 load_dotenv()
 
@@ -189,8 +189,8 @@ def add_prescriptMeds():
 
 
 if __name__ == "__main__":
-    #port = int(os.environ.get('PORT', 8205)) 
-    #                                ^^^^
+    port = int(os.environ.get('PORT', 8205)) 
+     #                               ^^^^
     #             You can replace this number with any valid port
     
-    app.run(host='localhost', port=5000, debug = True) 
+    app.run(port=port, debug = True) 
