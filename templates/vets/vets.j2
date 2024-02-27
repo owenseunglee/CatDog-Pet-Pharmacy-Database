@@ -2,7 +2,13 @@
  --Date: 2/13/24
  --Adapted from: Flask Starter App Guide, Professor's planets.html file
  --Source URL: https://canvas.oregonstate.edu/courses/1946034/assignments/9456216?module_item_id=23809330,
- https://github.com/osu-cs340-ecampus/flask-starter-app #}
+ https://github.com/osu-cs340-ecampus/flask-starter-app 
+ 
+ --Date: 2/26/24
+ --Adapted from: Professor's Developing in Flask Video on Edit Function
+ --Source URL: https://canvas.oregonstate.edu/courses/1946034/pages/exploration-developing-in-flask?module_item_id=23809337
+ 
+ #}
 
 
  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
@@ -33,7 +39,7 @@
             <!-- Create a <td> element with the value of that key in it -->
             <td>{{veterinarian[key]}}</td>
             {% endfor %}
-            <td> <a href="/edit_vet" class="btn edit-btn">Edit</a> </td>
+            <td><a href="/edit_vet/{{ veterinarian['id_vet'] }}" class="btn edit-btn">Edit</a></td>
             <td><a href="/del_vet/{{ veterinarian['id_vet'] }}" class="btn">Delete</a></td>
 
         </tr>

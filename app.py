@@ -70,12 +70,45 @@ def delete_vets(id):
     return redirect("/vets")
 
 
-@app.route("/edit_vet")
-def edit_vet():
-   query = "SELECT id_vet, CONCAT(Vets.name, ' (', id_vet, ')') AS vet_name_id FROM Vets;"
-   cursor = db.execute_query(db_connection=db_connection, query=query)
-   vet_results = cursor.fetchall()
-   return render_template("vets/edit_vet.j2", Vets_Dropdown=vet_results)
+@app.route("/edit_vet/<int:id_vet>", methods=["GET", "POST"])
+def edit_vet(id_vet):
+    return render_template("vets/edit_vet.j2")
+
+    # if request.method == "GET":
+    #     try:
+    #         query = "SELECT * FROM Vets WHERE id_vet = %s;" % (id_vet)
+    #         cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id_vet,))
+    #         results = cursor.fetchall()
+    #         return render_template("vets/edit_vet.j2", results=results)
+    #     except Exception as e:
+    #             return render_template("error.html", error=str(e))
+    # if request.method == "POST":
+    #     if request.form.get("Edit_Vet"):
+    #         name = request.form["name"]
+    #         clinic = request.form["clinic"]
+    #         email = request.form["email"]
+    #         no_of_patients = request.form["no_of_patients"]
+    #         query = "UPDATE Vets SET name=%s, clinic=%s, email=%s, no_of_patients=%s WHERE id_vet=%s;"
+    #         values = (name, clinic, email, no_of_patients, id_vet)
+    #         db.execute_query(db_connection=db_connection, query=query, values=values)
+    #         print("Veterinarian information updated in the database")
+    #         db_connection.commit()
+    #         return redirect("/vets")
+
+    # #drop down in edit_vet to select a vet
+    # if request.method == "GET":
+    #     query = "SELECT id_vet, CONCAT(Vets.name, ' (', id_vet, ')') AS vet_name_id FROM Vets;"
+    #     cursor = db.execute_query(db_connection=db_connection, query=query)
+    #     vet_results = cursor.fetchall()
+    # if request.method == "POST":
+    #     if request.form.get(:id in select vet fromdrop down):
+    #         name = request.form["name"]
+    #         clinic = request.form["clinic"]
+    #         email = request.form["email"]
+    #         no_of_patients = request.form["no_of_patients"]
+
+
+    # return render_template("vets/edit_vet.j2", Vets_Dropdown=vet_results)
 
 # owners page
 @app.route("/owners")
@@ -192,7 +225,7 @@ def add_prescriptMeds():
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 58311)) 
+    port = int(os.environ.get('PORT', 58533)) 
     #                                 ^^^^
     #              You can replace this number with any valid port
     
