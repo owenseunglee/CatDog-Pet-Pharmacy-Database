@@ -72,7 +72,7 @@ def delete_vets(id):
 
 @app.route("/edit_vet/<int:id_vet>", methods=["GET", "POST"])
 def edit_vet(id_vet):
-    # return render_template("vets/edit_vet.j2")
+    # return render_template("vets/edit_vet.html")
 
     if request.method == "GET":
         
@@ -93,23 +93,6 @@ def edit_vet(id_vet):
             db_connection.commit()
             return redirect("/vets")
 
-
-    # [MIGHT NOT IMPLEMENT] drop down in edit_vet to select a vet
-    # if request.method == "GET":
-    #     query = "SELECT id_vet, CONCAT(Vets.name, ' (', id_vet, ')') AS vet_name_id FROM Vets;"
-    #     cursor = db.execute_query(db_connection=db_connection, query=query)
-    #     vet_results = cursor.fetchall()
-    # if request.method == "POST":
-    #     if request.form.get(:id in select vet fromdrop down):
-    #         name = request.form["name"]
-    #         clinic = request.form["clinic"]
-    #         email = request.form["email"]
-    #         no_of_patients = request.form["no_of_patients"]
-
-
-    # return render_template("vets/edit_vet.j2", Vets_Dropdown=vet_results)
-
-
 # owners page
 @app.route("/owners")
 def owners():
@@ -117,24 +100,24 @@ def owners():
     # cursor = db.execute_query(db_connection=db_connection, query=query)
     # results = cursor.fetchall()
     return render_template("owners/owners.html", title='Owners')
-    # return render_template("owners/owners.j2", Owners=results)
+    # return render_template("owners/owners.html", Owners=results)
 
 # adding owner page
 @app.route("/add_owner")
 def add_owner():
     
-    return render_template("owners/add_owner.j2")
+    return render_template("owners/add_owner.html")
 
 # deleting owner page
 @app.route("/del_owner")
 def del_owner():
 
-    return render_template("owners/del_owner.j2")
+    return render_template("owners/del_owner.html")
 
 @app.route("/edit_owner")
 def edit_owner():
 
-    return render_template("owners/edit_owner.j2")
+    return render_template("owners/edit_owner.html")
 
 # medications page
 @app.route("/meds")
@@ -143,24 +126,24 @@ def meds():
     # cursor = db.execute_query(db_connection=db_connection, query=query)
     # results = cursor.fetchall()
 
-    # return render_template("medications/meds.j2", Medications=results)
+    # return render_template("medications/meds.html", Medications=results)
     return render_template("medications/meds.html", title='Medications')
 
 # adding med page
 @app.route("/add_med")
 def add_meds():
 
-    return render_template("medications/add_med.j2")
+    return render_template("medications/add_med.html")
 
 @app.route("/edit_med")
 def edit_meds():
-    return render_template("medications/edit_med.j2")
+    return render_template("medications/edit_med.html")
 
 # deleting med page
 @app.route("/del_med")
 def del_meds():
 
-    return render_template("medications/del_med.j2")
+    return render_template("medications/del_med.html")
 
 @app.route("/pets")
 def pets():
@@ -168,22 +151,22 @@ def pets():
     # cursor = db.execute_query(db_connection=db_connection, query=query)
     # results = cursor.fetchall()
 
-    # return render_template("pets/pets.j2", Pets=results)
+    # return render_template("pets/pets.html", Pets=results)
     return render_template("pets/pets.html", title='Pets')
 
 @app.route("/del_pet")
 def del_pets():
     
-    return render_template("pets/del_pet.j2")
+    return render_template("pets/del_pet.html")
 
 @app.route("/add_pet")
 def add_pets():
 
-    return render_template("pets/add_pet.j2")
+    return render_template("pets/add_pet.html")
 
 @app.route("/edit_pet")
 def edit_pet():
-    return render_template("pets/edit_pet.j2")
+    return render_template("pets/edit_pet.html")
 
 @app.route("/prescriptions")
 def prescriptions():
@@ -191,37 +174,37 @@ def prescriptions():
     # cursor = db.execute_query(db_connection=db_connection, query=query)
     # results = cursor.fetchall()
 
-    # return render_template("prescriptions/prescriptions.j2", Prescriptions=results)
+    # return render_template("prescriptions/prescriptions.html", Prescriptions=results)
     return render_template("prescriptions/prescriptions.html", title='Prescriptions')
 
 @app.route("/del_prescription")
 def del_prescriptions():
     
-    return render_template("prescriptions/del_prescription.j2")
+    return render_template("prescriptions/del_prescription.html")
 
 @app.route("/add_prescription")
 def add_prescriptions():
 
-    return render_template("prescriptions/add_prescription.j2")
+    return render_template("prescriptions/add_prescription.html")
 
 @app.route("/edit_prescription")
 def edit_prescription():
 
-    return render_template("prescriptions/edit_prescription.j2")
+    return render_template("prescriptions/edit_prescription.html")
 
 @app.route("/prescriptMeds")
 def intersection():
     # query = "SELECT * FROM PrescriptionMedications;"
     # cursor = db.execute_query(db_connection=db_connection, query=query)
     # results = cursor.fetchall()
-    # return render_template("intersection/prescriptMeds.j2", PrescriptionMedications=results)
+    # return render_template("intersection/prescriptMeds.html", PrescriptionMedications=results)
 
     return render_template("intersection/prescriptMeds.html", title='prescriptionMedications')
 
 @app.route("/add_prescriptMeds")
 def add_prescriptMeds():
 
-    return render_template("intersection/add_prescriptMeds.j2")
+    return render_template("intersection/add_prescriptMeds.html")
 
 
 if __name__ == "__main__":

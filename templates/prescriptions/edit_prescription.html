@@ -1,0 +1,42 @@
+{% extends 'layouts.html'%}
+{% block content %}
+
+<html>
+
+<h1>Update Prescription</h1>
+
+<body>
+    <div id="update" style="display: block">
+        <form id="updatePrescription">
+            <legend><strong>Update Prescription</strong></legend>
+            <fieldset class="fields">
+                <p>Please enter the following information of the prescription to be updated</p>
+                <label for="id_prescription">Select a prescription (ID):</label>
+                <select id="id_prescription" name="id_prescription">
+                    <option value="1">2023-05-06 10:00:00 (1)</option>
+                    <option value="2">2023-12-14 11:00:00 (2)</option>
+                    <option value="3">2024-02-01 12:00:00 (3)</option>
+                </select>
+                <label> order_date: </label> <input type="datetime-local" name="order_date">
+                <label>prescription_cost (will be calculated automatically):</label> <label> was_picked_up: </label>
+                <select name="picked_up">
+                    <option value="">--Select--</option>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+                <label for="id_pet">pet (ID):</label>
+                <select id="id_pet" name="id_pet">
+                    <option value="1">Fido (1)</option>
+                    <option value="2">Whiskers (2)</option>
+                    <option value="3">Rex (3)</option>
+                </select>
+            </fieldset>
+            <input class="btn" type="submit" id="UpdateSaveMed" value="Update Medication">
+            <input class="btn" type="button" value="Cancel">
+        </form>
+    </div><!-- update -->
+</body>
+
+</html>
+
+{% endblock %}
