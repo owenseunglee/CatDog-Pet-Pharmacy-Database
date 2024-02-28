@@ -42,8 +42,7 @@ def vets():
     #    vet_results = cursor.fetchall()
        
 
-   return render_template("vets/vets.html", title='Veterinarians', Vets=results, Vets_Dropdown=vet_results)
-   return render_template("vets/vets.j2", Vets=results)
+   return render_template("vets/vets.html", title='Veterinarians', Vets=results)
 
 
 # adding vet page
@@ -71,29 +70,17 @@ def delete_vets(id):
     return redirect("/vets")
 
 
-@app.route("/edit_vet", methods=["GET", "POST"])
-def edit_vet():
+@app.route("/edit_vet/<int:id_vet>", methods=["GET", "POST"])
+def edit_vet(id_vet):
     # return render_template("vets/edit_vet.j2")
 
-    #if request.method == "GET":
+    if request.method == "GET":
         
-    #    query = "SELECT * FROM Vets WHERE id_vet = %s;"
-    #    cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id_vet,))
-    #    results = cursor.fetchall()
-    #    return render_template("vets/edit_vet.html", results=results)
-    
-    if request.method == "POST":
-        id_vet = request.form['vet_select']
-        name = request.form["name"]
-        clinic = request.form["clinic"]
-        email = request.form["email"]
-        no_of_patients = request.form["no_of_patients"]
-
-        query = "UPDATE Vets SET name = %s, clinic = %s, email = %s, no_of_patients = %s WHERE id_vet = %s"
-        cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(name, clinic, email, no_of_patients, id_vet))
-        db_connection.commit()
-
-        return redirect("/vets")
+        query = "SELECT * FROM Vets WHERE id_vet = %s;"
+        cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id_vet,))
+        results = cursor.fetchall()
+        return render_template("vets/edit_vet.html", results=results)
+        
     if request.method == "POST":
         if request.form.get("Edit_Vet"):
             name = request.form["name"]
@@ -121,6 +108,7 @@ def edit_vet():
 
 
     # return render_template("vets/edit_vet.j2", Vets_Dropdown=vet_results)
+
 
 # owners page
 @app.route("/owners")
