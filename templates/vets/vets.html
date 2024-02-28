@@ -1,24 +1,19 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+
 {# Citation for vets.js
 --Date: 2/13/24
 --Adapted from: Flask Starter App Guide, Professor's planets.html file
 --Source URL: https://canvas.oregonstate.edu/courses/1946034/assignments/9456216?module_item_id=23809330,
-https://github.com/osu-cs340-ecampus/flask-starter-app
+https://github.com/osu-cs340-ecampus/flask-starter-app #}
 
---Date: 2/26/24
---Adapted from: Professor's Developing in Flask Video on Edit Function
---Source URL:
-https://canvas.oregonstate.edu/courses/1946034/pages/exploration-developing-in-flask?module_item_id=23809337
+{% extends 'layouts.html'%}
+{% block content %}
 
-#}
-
-
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-
-{% include 'navbar.html' %}
 <h1>Browse Veterinarians</h1>
 
 <body id="addDelLink">
-  <table border="1" cellpadding="5">
+  <table class="table table-sm table-hover">
     <thead>
       <tr>
         <!-- Iterate through each key in the first entry to get the
@@ -32,8 +27,7 @@ https://canvas.oregonstate.edu/courses/1946034/pages/exploration-developing-in-f
       </tr>
     </thead>
 
-    <tbody>
-      <!-- Now, iterate through every veterinarian in Vets -->
+    <tbody class="table-group-divider">
       {% for veterinarian in Vets %}
       <tr>
         <!-- Then iterate through every key in the current veterinarian dictionary -->
@@ -48,6 +42,7 @@ https://canvas.oregonstate.edu/courses/1946034/pages/exploration-developing-in-f
       {% endfor %}
     </tbody>
   </table>
+
   <a href="/add_vet" class="navPage">Add Veterinarian</a>
 </body>
 
@@ -77,3 +72,71 @@ https://canvas.oregonstate.edu/courses/1946034/pages/exploration-developing-in-f
   </form>
 </div><!-- update -->
 <p>&nbsp;</p>
+
+{% endblock %}
+
+{# THIS CODE USES THE DATABASE
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+
+
+{% include 'navbar.html' %}
+
+<h1>Browse Veterinarians</h1>
+
+<body id="addDelLink">
+  <table border="1" cellpadding="5">
+    <thead>
+      <tr>
+        <!-- Iterate through each key in the first entry to get the
+            column name -->
+        {% for key in Vets[0].keys() %}
+
+        <!-- Create a <th> tag with the key inside of it, this will be
+            our header row -->
+        <th>{{ key }}</th>
+
+        <!-- End of this for loop -->
+        {% endfor %}
+      </tr>
+    </thead>
+
+    <tbody>
+      <!-- Now, iterate through every veterinarian in Vets -->
+      {% for veterinarian in Vets %}
+      <tr>
+        <!-- Then iterate through every key in the current veterinarian dictionary -->
+        {% for key in veterinarian.keys() %}
+
+        <!-- Create a <td> element with the value of that key in it -->
+        <td>{{veterinarian[key]}}</td>
+        {% endfor %}
+
+        <td><button class="btn">Delete</button></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <a href="/add_vet" class="navPage">Add a veterinarian</a>
+</body>
+
+<p>&nbsp;</p>
+<div id="update" style="display: block">
+  <form id="updateVet">
+    <legend><strong>Update Veterinarian</strong></legend>
+    <fieldset class="fields">
+      <p>Please enter the following information of the veterinarian to be updated</p>
+      <label> First Name: </label> <input type="text" value="Johnson" name="fname">
+      <label> Last Name: </label> <input type="text" value="Owens" name="lname">
+      <label> Clinic: </label> <input type="text" value="PetCare Clinic" name="clinic">
+      <label> Email: </label> <input type="text" value="johnson@petcare.com" name="email">
+      <label> No_Of_Patients: </label> <input type="number" name="no_of_patients" value="200">
+    </fieldset>
+    <input class="btn" type="submit" id="UpdateSaveVet" value="Update Veterinarian">
+    <input class="btn" type="button" value="Cancel">
+  </form>
+</div><!-- update -->
+<p>&nbsp;</p>
+
+#}

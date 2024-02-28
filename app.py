@@ -10,6 +10,7 @@ from database.db_connector import connect_to_database, execute_query
 import database.db_connector as db
 from dotenv import load_dotenv
 import os
+import os
 
 load_dotenv()
 
@@ -26,7 +27,7 @@ mysql = MySQL(app)
 @app.route("/")
 def root():
 
-    return render_template("main.j2")
+    return render_template("main.html", title='Home')
 
 # veterinarian page
 @app.route("/vets", methods=["POST", "GET"])
@@ -42,7 +43,7 @@ def vets():
        print("Vets_Dropdown:", vet_results) 
        print("Vets", results)
 
-   return render_template("vets/vets.j2", Vets=results, Vets_Dropdown=vet_results)
+   return render_template("vets/vets.html", title='Veterinarians', Vets=results, Vets_Dropdown=vet_results)
 
 
 # adding vet page
@@ -116,7 +117,7 @@ def owners():
     # query = "SELECT * FROM Owners;"
     # cursor = db.execute_query(db_connection=db_connection, query=query)
     # results = cursor.fetchall()
-    return render_template("owners/owners.j2")
+    return render_template("owners/owners.html", title='Owners')
     # return render_template("owners/owners.j2", Owners=results)
 
 # adding owner page
@@ -144,7 +145,7 @@ def meds():
     # results = cursor.fetchall()
 
     # return render_template("medications/meds.j2", Medications=results)
-    return render_template("medications/meds.j2")
+    return render_template("medications/meds.html", title='Medications')
 
 # adding med page
 @app.route("/add_med")
@@ -169,7 +170,7 @@ def pets():
     # results = cursor.fetchall()
 
     # return render_template("pets/pets.j2", Pets=results)
-    return render_template("pets/pets.j2")
+    return render_template("pets/pets.html", title='Pets')
 
 @app.route("/del_pet")
 def del_pets():
@@ -192,7 +193,7 @@ def prescriptions():
     # results = cursor.fetchall()
 
     # return render_template("prescriptions/prescriptions.j2", Prescriptions=results)
-    return render_template("prescriptions/prescriptions.j2")
+    return render_template("prescriptions/prescriptions.html", title='Prescriptions')
 
 @app.route("/del_prescription")
 def del_prescriptions():
@@ -216,7 +217,7 @@ def intersection():
     # results = cursor.fetchall()
     # return render_template("intersection/prescriptMeds.j2", PrescriptionMedications=results)
 
-    return render_template("intersection/prescriptMeds.j2")
+    return render_template("intersection/prescriptMeds.html", title='prescriptionMedications')
 
 @app.route("/add_prescriptMeds")
 def add_prescriptMeds():
@@ -225,8 +226,8 @@ def add_prescriptMeds():
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 58533)) 
-    #                                 ^^^^
-    #              You can replace this number with any valid port
+    port = int(os.environ.get('PORT', 8205)) 
+     #                               ^^^^
+    #             You can replace this number with any valid port
     
     app.run(port=port, debug = True) 
