@@ -36,13 +36,12 @@ def vets():
        cursor = db.execute_query(db_connection=db_connection, query=query)
        results = cursor.fetchall()
 
-       query2 = query = "SELECT id_vet, CONCAT(Vets.name, ' (', id_vet, ')') AS vet_name_id FROM Vets;"
-       cursor = db.execute_query(db_connection=db_connection, query=query2)
-       vet_results = cursor.fetchall()
-       print("Vets_Dropdown:", vet_results) 
-       print("Vets", results)
+    #    query2 = query = "SELECT id_vet, CONCAT(Vets.name, ' (', id_vet, ')') AS vet_name_id FROM Vets;"
+    #    cursor = db.execute_query(db_connection=db_connection, query=query2)
+    #    vet_results = cursor.fetchall()
+       
 
-   return render_template("vets/vets.j2", Vets=results, Vets_Dropdown=vet_results)
+   return render_template("vets/vets.j2", Vets=results)
 
 
 # adding vet page
