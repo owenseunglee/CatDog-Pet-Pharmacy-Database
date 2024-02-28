@@ -1,0 +1,28 @@
+{# Citation for add_med.js
+--Date: 2/13/24
+--Adapted from: Professor's planets.html file
+--Source URL: https://canvas.oregonstate.edu/courses/1946034/assignments/9456216?module_item_id=23809330
+#}
+
+{% extends 'layouts.html'%}
+{% block content %}
+
+<html>
+{% include 'navbar.html' %}
+<h1>Add Medication</h1>
+<div id="insert">
+  <form id="addMedication">
+    <legend><strong>Add Medication</strong></legend>
+    <fieldset class="fields">
+      <p>Please enter the name of the medication to be added</p>
+      <label> name: </label> <input type="text" name="name">
+      <label> cost: </label> <input type="number" min="0" step="0.01" name="cost">
+    </fieldset>
+    <input class="btn" type="submit" id="addMedBtn" value="Add Medication">
+    <input class="btn" type="button" value="cancel">
+  </form>
+</div>
+
+{% endblock %}
+
+</html>

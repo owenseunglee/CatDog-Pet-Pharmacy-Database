@@ -60,7 +60,7 @@ def add_vets():
        db_connection.commit()
        return redirect("/vets")
 
-   return render_template("vets/add_vet.j2")
+   return render_template("vets/add_vet.html")
 
 # delete vet
 @app.route("/del_vet/<int:id>")
@@ -71,17 +71,29 @@ def delete_vets(id):
     return redirect("/vets")
 
 
-@app.route("/edit_vet/<int:id_vet>", methods=["GET", "POST"])
-def edit_vet(id_vet):
+@app.route("/edit_vet", methods=["GET", "POST"])
+def edit_vet():
     # return render_template("vets/edit_vet.j2")
 
-    if request.method == "GET":
+    #if request.method == "GET":
         
-        query = "SELECT * FROM Vets WHERE id_vet = %s;"
-        cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id_vet,))
-        results = cursor.fetchall()
-        return render_template("vets/edit_vet.j2", results=results)
-        
+    #    query = "SELECT * FROM Vets WHERE id_vet = %s;"
+    #    cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id_vet,))
+    #    results = cursor.fetchall()
+    #    return render_template("vets/edit_vet.html", results=results)
+    
+    if request.method == "POST":
+        id_vet = request.form['vet_select']
+        name = request.form["name"]
+        clinic = request.form["clinic"]
+        email = request.form["email"]
+        no_of_patients = request.form["no_of_patients"]
+
+        query = "UPDATE Vets SET name = %s, clinic = %s, email = %s, no_of_patients = %s WHERE id_vet = %s"
+        cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(name, clinic, email, no_of_patients, id_vet))
+        db_connection.commit()
+
+        return redirect("/vets")
     # if request.method == "POST":
     #     if request.form.get("Edit_Vet"):
     #         name = request.form["name"]
