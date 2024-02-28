@@ -1,7 +1,9 @@
-# Citation for app.py
+# Citation for app.py setup, layout, and CRUD functionalities
 # Date: 2/13/24
 # Adapted from: Flask Starter App Guide
 # Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app
+# Adapted from: Professor's Developing in Flask Exploration Video
+# Source URL: https://canvas.oregonstate.edu/courses/1946034/pages/exploration-developing-in-flask?module_item_id=23809337
 
 from flask import Flask, render_template, json
 from flask import request, redirect
