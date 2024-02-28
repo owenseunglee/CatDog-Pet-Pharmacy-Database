@@ -80,18 +80,17 @@ def edit_vet(id_vet):
         results = cursor.fetchall()
         return render_template("vets/edit_vet.j2", results=results)
         
-    # if request.method == "POST":
-    #     if request.form.get("Edit_Vet"):
-    #         name = request.form["name"]
-    #         clinic = request.form["clinic"]
-    #         email = request.form["email"]
-    #         no_of_patients = request.form["no_of_patients"]
-    #         query = "UPDATE Vets SET name=%s, clinic=%s, email=%s, no_of_patients=%s WHERE id_vet=%s;"
-    #         values = (name, clinic, email, no_of_patients, id_vet)
-    #         db.execute_query(db_connection=db_connection, query=query, values=values)
-    #         print("Veterinarian information updated in the database")
-    #         db_connection.commit()
-    #         return redirect("/vets")
+    if request.method == "POST":
+        if request.form.get("Edit_Vet"):
+            name = request.form["name"]
+            clinic = request.form["clinic"]
+            email = request.form["email"]
+            no_of_patients = request.form["no_of_patients"]
+            query = "UPDATE Vets SET name=%s, clinic=%s, email=%s, no_of_patients=%s WHERE id_vet=%s;"
+            values = (name, clinic, email, no_of_patients, id_vet)
+            db.execute_query(db_connection=db_connection, query=query, query_params= values)
+            db_connection.commit()
+            return redirect("/vets")
 
 
     # [MIGHT NOT IMPLEMENT] drop down in edit_vet to select a vet
