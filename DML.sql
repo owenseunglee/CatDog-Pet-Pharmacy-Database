@@ -168,9 +168,15 @@ WHERE id_prescription = :prescriptionIDSelectedFromBrowsePrescriptionPage;
 DELETE FROM Prescriptions WHERE id = :prescriptionIDSelectedFromBrowsePrescriptionPage;
 
 -- ** PrescriptionMedications **
+-- gets all attributes for the PrescriptionMedications page (more descriptive)
+SELECT Prescriptions.order_date AS Prescription_order_date, Medications.name AS Medication_name
+FROM PrescriptionMedications
+INNER JOIN Prescriptions ON PrescriptionMedications.id_prescription = Prescriptions.id_prescription
+INNER JOIN Medications ON PrescriptionMedications.id_medication = Medications.id_medication 
 
 -- gets all attributes for the PrescriptionMedications page
 SELECT * FROM PrescriptionMedications 
+
 
 -- gets a corresponding Pet's name, their Prescription order_date, and corresponding id_prescription for the dropdown in Add PrescriptionMedications page
 SELECT id_prescription, CONCAT(Pets.name, ', ', Prescriptions.order_date, ' (', id_prescription, ')') 
