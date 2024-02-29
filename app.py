@@ -29,11 +29,15 @@ mysql = MySQL(app)
 @app.route("/")
 def root():
 
+    db_connection = db.connect_to_database()
+
     return render_template("main.html", title='Home')
 
 # veterinarian page
 @app.route("/vets", methods=["POST", "GET"])
 def vets():
+   db_connection = db.connect_to_database()
+
    if request.method == "GET":
        query = "SELECT * FROM Vets;"
        cursor = db.execute_query(db_connection=db_connection, query=query)
@@ -50,6 +54,8 @@ def vets():
 # adding vet page
 @app.route("/add_vet", methods=["POST", "GET"])
 def add_vets():
+   db_connection = db.connect_to_database()
+
    if request.method == "POST":
        name = request.form["name"]
        clinic = request.form["clinic"]
@@ -66,6 +72,8 @@ def add_vets():
 # delete vet
 @app.route("/del_vet/<int:id>")
 def delete_vets(id):
+    db_connection = db.connect_to_database()
+
     query = "DELETE FROM Vets WHERE id_vet = %s;"
     cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id,))
     db_connection.commit()
@@ -74,6 +82,8 @@ def delete_vets(id):
 
 @app.route("/edit_vet/<int:id_vet>", methods=["GET", "POST"])
 def edit_vet(id_vet):
+    db_connection = db.connect_to_database()
+
     # return render_template("vets/edit_vet.html")
 
     if request.method == "GET":
