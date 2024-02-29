@@ -10,8 +10,8 @@
 
 <h1>Browse Pets</h1>
 
-<body id="addDelLink">
-  <table class="table table-sm table-hover">
+<div class="table-container">
+  <table class="table table-sm table-hover" id="table">
     <caption>List of pets</caption>
     <thead>
       <tr>
@@ -20,8 +20,8 @@
         <th>breed</th>
         <th>age</th>
         <th>gender</th>
-        <th>id_vet</th>
-        <th>id_owner</th>
+        <th>vet</th>
+        <th>owner</th>
         <th></th>
         <th></th>
       </tr>
@@ -35,10 +35,10 @@
         <td>Labrador Retriever</td>
         <td>5</td>
         <td>M</td>
-        <td>1</td>
-        <td>1</td>
-        <td> <a href="/edit_pet" class="btn edit-btn">Edit</a> </td>
-        <td><button class="btn">Delete</button></td>
+        <td>Dr. Johnson</td>
+        <td>John Doe</td>
+        <td> <a href="/edit_pet" type="button" class="btn btn-outline-success">Edit</a> </td>
+        <td><button class="btn btn-outline-dark">Delete</button></td>
       </tr>
       <tr>
         <td>2</td>
@@ -46,10 +46,10 @@
         <td>Siamese</td>
         <td>3</td>
         <td>F</td>
-        <td>2</td>
-        <td>2</td>
-        <td> <a href="/edit_pet" class="btn edit-btn">Edit</a> </td>
-        <td><button class="btn">Delete</button></td>
+        <td>Dr. Smith</td>
+        <td>Jane Doe</td>
+        <td> <a href="/edit_pet" type="button" class="btn btn-outline-success">Edit</a> </td>
+        <td><button class="btn btn-outline-dark">Delete</button></td>
       </tr>
       <tr>
         <td>3</td>
@@ -57,16 +57,16 @@
         <td>German Shepherd</td>
         <td>7</td>
         <td>M</td>
-        <td>2</td>
-        <td>2</td>
-        <td> <a href="/edit_pet" class="btn edit-btn">Edit</a> </td>
-        <td><button class="btn">Delete</button></td>
+        <td>Dr. Smith</td>
+        <td>Jane Doe</td>
+        <td> <a href="/edit_pet" type="button" class="btn btn-outline-success">Edit</a> </td>
+        <td><button class="btn btn-outline-dark">Delete</button></td>
       </tr>
     </tbody>
   </table>
 
   <a href="/add_pet" class="navPage">Add Pet</a>
-</body>
+</div>
 
 <p>&nbsp;</p>
 <div id="update">

@@ -10,8 +10,8 @@
 
 <h1>Browse Prescriptions</h1>
 
-<body id="addDelLink">
-    <table class="table table-sm table-hover">
+<div class="table-container">
+    <table class="table table-sm table-hover" id="table">
         <caption>List of prescriptions</caption>
         <thead>
             <tr>
@@ -25,15 +25,15 @@
             </tr>
         </thead>
 
-        <tbody>
+        <tbody class="table-group-divider">
             <tr>
                 <td>1</td>
                 <td>2023-05-06 10:00:00</td>
                 <td>29.64</td>
                 <td>Yes</td>
                 <td>1</td>
-                <td> <a href="/edit_prescription" class="btn edit-btn">Edit</a> </td>
-                <td><button class="btn">Delete</button></td>
+                <td> <a href="/edit_prescription" type="button" class="btn btn-outline-success">Edit</a> </td>
+                <td><button type="button" class="btn btn-outline-dark">Delete</button></td>
             </tr>
             <tr>
                 <td>2</td>
@@ -41,8 +41,8 @@
                 <td>8.70</td>
                 <td>No</td>
                 <td>2</td>
-                <td> <a href="/edit_prescription" class="btn edit-btn">Edit</a> </td>
-                <td><button class="btn">Delete</button></td>
+                <td> <a href="/edit_prescription" type="button" class="btn btn-outline-success">Edit</a> </td>
+                <td><button type="button" class="btn btn-outline-dark">Delete</button></td>
             </tr>
             <tr>
                 <td>3</td>
@@ -50,14 +50,14 @@
                 <td>20.49</td>
                 <td>Yes</td>
                 <td>1</td>
-                <td> <a href="/edit_prescription" class="btn edit-btn">Edit</a> </td>
-                <td><button class="btn">Delete</button></td>
+                <td> <a href="/edit_prescription" type="button" class="btn btn-outline-success">Edit</a> </td>
+                <td><button type="button" class="btn btn-outline-dark">Delete</button></td>
             </tr>
         </tbody>
     </table>
 
     <a href="/add_prescription" class="navPage">Add Prescription</a>
-</body>
+</div>
 
 <p>&nbsp;</p>
 <div id="update">
