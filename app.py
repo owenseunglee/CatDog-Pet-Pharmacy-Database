@@ -12,7 +12,6 @@ from database.db_connector import connect_to_database, execute_query
 import database.db_connector as db
 from dotenv import load_dotenv
 import os
-import os
 
 load_dotenv()
 
@@ -84,8 +83,6 @@ def delete_vets(id):
 def edit_vet(id_vet):
     db_connection = db.connect_to_database()
 
-    # return render_template("vets/edit_vet.html")
-
     if request.method == "GET":
         
         query = "SELECT * FROM Vets WHERE id_vet = %s;"
@@ -108,11 +105,11 @@ def edit_vet(id_vet):
 # owners page
 @app.route("/owners")
 def owners():
-    # query = "SELECT * FROM Owners;"
-    # cursor = db.execute_query(db_connection=db_connection, query=query)
-    # results = cursor.fetchall()
-    return render_template("owners/owners.html", title='Owners')
-    # return render_template("owners/owners.html", Owners=results)
+     query = "SELECT * FROM Owners;"
+     cursor = db.execute_query(db_connection=db_connection, query=query)
+     results = cursor.fetchall()
+
+     return render_template("owners/owners.html", title='Owners', Owners = results)
 
 # adding owner page
 @app.route("/add_owner")
@@ -159,11 +156,24 @@ def del_meds():
 
 @app.route("/pets")
 def pets():
-     query = "SELECT * FROM Pets;"
+     query="""SELECT Pets.id_pet, Pets.name, Pets.breed, Pets.age, Pets.gender, 
+        Vets.name, Owners.name
+        FROM Pets
+        LEFT JOIN Owners ON Pets.id_owner = Owners.id_owner
+        LEFT JOIN Vets ON Pets.id_vet = Vets.id_vet
+        """
      cursor = db.execute_query(db_connection=db_connection, query=query)
      results = cursor.fetchall()
-     
-     return render_template("pets/pets.html", title='Pets', Pets=results)
+     key_dict = {
+        'id_pet': 'ID Pet',
+        'name': 'Name',
+        'breed': 'Breed',
+        'age': 'Age',
+        'gender': 'Gender',
+        'Vets.name': 'Vet',
+        'Owners.name': 'Owner',
+     }
+     return render_template("pets/pets.html", title='Pets', Pets=results, key_dict=key_dict)
 
 @app.route("/del_pet")
 def del_pets():
@@ -175,18 +185,38 @@ def add_pets():
 
     return render_template("pets/add_pet.html")
 
-@app.route("/edit_pet")
-def edit_pet():
-    return render_template("pets/edit_pet.html")
+@app.route("/edit_pet/<int:id_pet>")
+def edit_pet(id_pet):
+    db_connection = db.connect_to_database()
+
+    if request.method == "GET":
+        
+        query = "SELECT * FROM Pets WHERE id_pet = %s;"
+        cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id_pet,))
+        results = cursor.fetchall()
+        return render_template("pets/edit_pet.html", results=results)
+        
+    if request.method == "POST":
+        if request.form.get("Edit_Pet"):
+            name = request.form["name"]
+            breed = request.form["breed"]
+            age = request.form["age"]
+            gender = request.form["gender"]
+            id_vet = request.form["id_vet"]
+            id_owner = request.form["id_owner"]
+            query = "UPDATE Pets SET name=%s, breed=%s, age=%s, gender=%s, id_vet=%s, id_owner=%s, WHERE id_pet=%s;"
+            values = (name, breed, age, gender, id_vet, id_owner)
+            db.execute_query(db_connection=db_connection, query=query, query_params= values)
+            db_connection.commit()
+            return redirect("/pets")
 
 @app.route("/prescriptions")
 def prescriptions():
-    # query = "SELECT * FROM Prescriptions;"
-    # cursor = db.execute_query(db_connection=db_connection, query=query)
-    # results = cursor.fetchall()
-
-    # return render_template("prescriptions/prescriptions.html", Prescriptions=results)
-    return render_template("prescriptions/prescriptions.html", title='Prescriptions')
+     query = "SELECT * FROM Prescriptions;"
+     cursor = db.execute_query(db_connection=db_connection, query=query)
+     results = cursor.fetchall()
+     
+     return render_template("prescriptions/prescriptions.html", title='Prescriptions', Prescriptions=results)
 
 @app.route("/del_prescription")
 def del_prescriptions():
@@ -198,10 +228,28 @@ def add_prescriptions():
 
     return render_template("prescriptions/add_prescription.html")
 
-@app.route("/edit_prescription")
-def edit_prescription():
+@app.route("/edit_prescription/<int:id_prescription>")
+def edit_prescription(id_prescription):
+    db_connection = db.connect_to_database()
 
-    return render_template("prescriptions/edit_prescription.html")
+    if request.method == "GET":
+        
+        query = "SELECT * FROM Prescriptions WHERE id_prescription = %s;"
+        cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id_prescription,))
+        results = cursor.fetchall()
+        return render_template("prescriptions/edit_prescription.html", results=results)
+        
+    if request.method == "POST":
+        if request.form.get("Edit_Prescription"):
+            order_date = request.form["order_date"]
+            prescription_cost = request.form["prescription_cost"]
+            was_picked_up = request.form["was_picked_up"]
+            id_pet = request.form["id_pet"]
+            query = "UPDATE Prescriptions SET order_date=%s,  prescription_cost=%s, was_picked_up=%s, id_pet=%s WHERE id_pet=%s;"
+            values = (order_date, prescription_cost, was_picked_up, id_pet)
+            db.execute_query(db_connection=db_connection, query=query, query_params= values)
+            db_connection.commit()
+            return redirect("/prescriptions")
 
 @app.route("/prescriptMeds")
 def intersection():

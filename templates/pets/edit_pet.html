@@ -6,42 +6,51 @@
 <h1>Update Pet</h1>
 
 <body>
-  <div id="update" style="display: block">
-    <form id="updatePet">
-      <legend><strong>Update Pet</strong></legend>
-      <fieldset class="fields">
-        <p>Please enter the following information of the pet to be updated</p>
-        <label for="id_pet">Select a pet (ID):</label>
-        <select id="id_pet" name="id_pet">
-          <option value="1">Fido (1)</option>
-          <option value="2">Whiskers (2)</option>
-          <option value="3">Rex (3)</option>
-        </select>
-        <label> name: </label> <input type="text" value="Mia" name="name">
-        <label> breed: </label> <input type="text" value="Domestic" name="breed">
-        <label> age: </label> <input type="number" value="2" min="0" name="age" size="3">
-        <label> gender: </label> <input type="text" value="F" name="gender" size="1">
-        <label for="id_vet">vet (ID):</label>
-        <select id="id_vet" name="id_vet">
-          <option value="1">Dr. Johnson (1)</option>
-          <option value="2">Dr. Smith (2)</option>
-          <option value="3">Dr. Brown (3)</option>
-          <option value="4">Dr. Lee (4)</option>
-          <option value="5">Dr. Chang (5)</option>
-        </select>
-        <label for="id_owner">owner (ID):</label>
-        <select id="id_owner" name="id_owner">
-          <option value="1">John Doe (1)</option>
-          <option value="2">Jane Doe (2)</option>
-          <option value="3">Jack Doe (3)</option>
-          <option value="4">Sarah Lee (4)</option>
-          <option value="5">Mike Chen (5)</option>
-        </select>
-      </fieldset>
-      <input class="btn" type="submit" id="UpdateSavePlanet" value="Update Medication">
-      <input class="btn" type="button" value="Cancel">
-    </form>
-  </div><!-- update -->
+  <div>
+    <h2>Current Editing:</h2>
+    <table>
+      <tr>
+        <th>name:</th>
+        <td>{{ results[0].name }}</td>
+      </tr>
+      <tr>
+        <td>{{ results[0].breed }}</td>
+      </tr>
+      <tr>
+        <td>{{ results[0].age }}</td>
+      </tr>
+      <tr>
+        <td>{{ results[0].gender }}</td>
+      </tr>
+      <tr>
+        <td>{{ results[0].id_vet }}</td>
+      </tr>
+      <tr>
+        <td>{{ results[0].id_owner }}</td>
+      </tr>
+    </table>
+  </div>
+  <br style="clear: left;">
+  <br>
+
+  <form id="updatePet" method="POST" action="/edit_pet/{{results[0].id_pet}}">
+    <legend><strong>Update Pet</strong></legend>
+    <fieldset class="fields">
+      <input type="hidden" value="{{results[0].id_pet}}" class="form-control" id="petID" name="petID" required>
+      <p>Please enter the following information of the pet to be updated</p>
+      <label> name: </label> <input type="text" value="{{ results[0].name}}" class="form-control" id="name" name="name">
+      <label> age: </label> <input type="text" value="{{ results[0].age }}" class="form-control" id="age" name="age">
+      <label> gender: </label> <input type="text" value="{{ results[0].gender }}" class="form-control" id="gender"
+        name="gender">
+      <label> vet: </label> <input type="text" id="vet" class="form-control" name="vet" value="{{ results[0].vet_id }}">
+      <label> owner: </label> <input type="text" value="{{ results[0].owner_id }}" class="form-control" id="email"
+        name="owner">
+    </fieldset>
+    <input class="btn" type="submit" name="Edit_Pet" value="Update Pet">
+
+  </form>
+
+  <td><a href="/pets" class="btn">Go Back</a></td>
 </body>
 
 </html>
