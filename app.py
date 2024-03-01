@@ -159,12 +159,11 @@ def del_meds():
 
 @app.route("/pets")
 def pets():
-    # query = "SELECT * FROM Pets;"
-    # cursor = db.execute_query(db_connection=db_connection, query=query)
-    # results = cursor.fetchall()
-
-    # return render_template("pets/pets.html", Pets=results)
-    return render_template("pets/pets.html", title='Pets')
+     query = "SELECT * FROM Pets;"
+     cursor = db.execute_query(db_connection=db_connection, query=query)
+     results = cursor.fetchall()
+     
+     return render_template("pets/pets.html", title='Pets', Pets=results)
 
 @app.route("/del_pet")
 def del_pets():
@@ -220,7 +219,7 @@ def add_prescriptMeds():
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 58580)) 
+    port = int(os.environ.get('PORT', 58586)) 
      #                               ^^^^
     #             You can replace this number with any valid port
     

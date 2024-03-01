@@ -15,53 +15,27 @@
     <caption>List of pets</caption>
     <thead>
       <tr>
-        <th>id_pet</th>
-        <th>name</th>
-        <th>breed</th>
-        <th>age</th>
-        <th>gender</th>
-        <th>vet</th>
-        <th>owner</th>
-        <th></th>
-        <th></th>
+        {% for key in Pets[0].keys() %}
+        <th>
+          {{ key }}
+        </th>
+
+        {% endfor %}
       </tr>
     </thead>
 
 
     <tbody class="table-group-divider">
+      {% for pet in Pets %}
       <tr>
-        <td>1</td>
-        <td>Fido</td>
-        <td>Labrador Retriever</td>
-        <td>5</td>
-        <td>M</td>
-        <td>Dr. Johnson</td>
-        <td>John Doe</td>
-        <td> <a href="/edit_pet" type="button" class="btn btn-outline-success">Edit</a> </td>
-        <td><button class="btn btn-outline-dark">Delete</button></td>
+        {% for key in pet.keys() %}
+        <td>{{pet[key]}}</td>
+        {% endfor %}
+
+        <td><a href="/edit_pet/{{ pet['id_pet'] }}" type="button" class="btn btn-outline-success">Edit</a></td>
+        <td><a href="/del_pet/{{ pet['id_pet'] }}" type="button" class="btn btn-outline-dark">Delete</a></td>
       </tr>
-      <tr>
-        <td>2</td>
-        <td>Whiskers</td>
-        <td>Siamese</td>
-        <td>3</td>
-        <td>F</td>
-        <td>Dr. Smith</td>
-        <td>Jane Doe</td>
-        <td> <a href="/edit_pet" type="button" class="btn btn-outline-success">Edit</a> </td>
-        <td><button class="btn btn-outline-dark">Delete</button></td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>Rex</td>
-        <td>German Shepherd</td>
-        <td>7</td>
-        <td>M</td>
-        <td>Dr. Smith</td>
-        <td>Jane Doe</td>
-        <td> <a href="/edit_pet" type="button" class="btn btn-outline-success">Edit</a> </td>
-        <td><button class="btn btn-outline-dark">Delete</button></td>
-      </tr>
+      {% endfor %}
     </tbody>
   </table>
 
