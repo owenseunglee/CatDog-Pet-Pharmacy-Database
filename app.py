@@ -132,30 +132,63 @@ def edit_owner():
     return render_template("owners/edit_owner.html")
 
 # medications page
-@app.route("/meds")
+@app.route("/meds", methods=["POST", "GET"])
 def meds():
-    # query = "SELECT * FROM Medications;"
-    # cursor = db.execute_query(db_connection=db_connection, query=query)
-    # results = cursor.fetchall()
+    db_connection = db.connect_to_database()
+    if request.method == "GET":
+        query = "SELECT * FROM Medications;"
+        cursor = db.execute_query(db_connection=db_connection, query=query)
+        results = cursor.fetchall()
 
-    # return render_template("medications/meds.html", Medications=results)
-    return render_template("medications/meds.html", title='Medications')
+    return render_template("medications/meds.html", title='Medications', Medications=results)
 
 # adding med page
-@app.route("/add_med")
+@app.route("/add_med", methods=["POST", "GET"])
 def add_meds():
+    db_connection = db.connect_to_database()
+
+    if request.method == "POST":
+       name = request.form["name"]
+       cost = request.form["cost"]
+
+       query = "INSERT INTO Medications (name, cost) VALUES (%s, %s)"
+       cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(name, cost))
+       db_connection.commit()
+       return redirect("/meds")
 
     return render_template("medications/add_med.html")
 
-@app.route("/edit_med")
-def edit_meds():
-    return render_template("medications/edit_med.html")
+@app.route("/edit_med/<int:id_medication>", methods=["GET", "POST"])
+def edit_meds(id_medication):
+    db_connection = db.connect_to_database()
+
+    if request.method == "GET":
+        
+        query = "SELECT * FROM Medications WHERE id_medication = %s;"
+        cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id_medication,))
+        results = cursor.fetchall()
+        return render_template("medications/edit_med.html", results=results)
+        
+    if request.method == "POST":
+        if request.form.get("Edit_Med"):
+            name = request.form["name"]
+            cost = request.form["cost"]
+            query = "UPDATE Medications SET name=%s, cost=%s WHERE id_medication=%s;"
+            values = (name, cost, id_medication)
+            db.execute_query(db_connection=db_connection, query=query, query_params= values)
+            db_connection.commit()
+            return redirect("/meds")
 
 # deleting med page
-@app.route("/del_med")
-def del_meds():
+@app.route("/del_med/<int:id>")
+def del_meds(id):
 
-    return render_template("medications/del_med.html")
+    db_connection = db.connect_to_database()
+
+    query = "DELETE FROM Medications WHERE id_medication = %s;"
+    cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id,))
+    db_connection.commit()
+    return redirect("/meds")
 
 @app.route("/pets")
 def pets():

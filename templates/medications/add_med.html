@@ -8,10 +8,9 @@
 {% block content %}
 
 <html>
-{% include 'navbar.html' %}
 <h1>Add Medication</h1>
-<div id="insert">
-  <form id="addMedication">
+<div id="insert" style="display: block">
+  <form id="addMedication" action="/add_med" method="POST">
     <legend><strong>Add Medication</strong></legend>
     <fieldset class="fields">
       <p>Please enter the name of the medication to be added</p>
@@ -19,8 +18,8 @@
       <label> cost: </label> <input type="number" min="0" step="0.01" name="cost">
     </fieldset>
     <input class="btn" type="submit" id="addMedBtn" value="Add Medication">
-    <input class="btn" type="button" value="cancel">
   </form>
+  <td><a href="/meds" class="btn">Go Back</a></td>
 </div>
 
 {% endblock %}
