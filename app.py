@@ -193,7 +193,7 @@ def del_meds(id):
 @app.route("/pets")
 def pets():
      db_connection = db.connect_to_database()
-     query = "SELECT * FROM Pets;"
+     query = "SELECT Pets.id_pet, Pets.name, breed, age, gender, Owners.name AS owner_name, Vets.name AS vet_name FROM Pets INNER JOIN Owners ON Pets.id_owner = Owners.id_owner INNER JOIN Vets ON Pets.id_vet = Vets.id_vet;"
      cursor = db.execute_query(db_connection=db_connection, query=query)
      results = cursor.fetchall()
      
