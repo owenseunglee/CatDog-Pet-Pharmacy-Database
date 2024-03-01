@@ -192,6 +192,7 @@ def del_meds(id):
 
 @app.route("/pets")
 def pets():
+     db_connection = db.connect_to_database()
      query = "SELECT * FROM Pets;"
      cursor = db.execute_query(db_connection=db_connection, query=query)
      results = cursor.fetchall()
