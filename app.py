@@ -78,7 +78,7 @@ def delete_vets(id):
     db_connection.commit()
     return redirect("/vets")
 
-
+# edit vet page
 @app.route("/edit_vet/<int:id_vet>", methods=["GET", "POST"])
 def edit_vet(id_vet):
     db_connection = db.connect_to_database()
@@ -108,20 +108,42 @@ def owners():
      query = "SELECT * FROM Owners;"
      cursor = db.execute_query(db_connection=db_connection, query=query)
      results = cursor.fetchall()
-
-     return render_template("owners/owners.html", title='Owners', Owners = results)
+     
+     # change the name of the data for better readability
+     key_dict = {
+        'id_owner': 'ID Owner',
+        'name': 'Name',
+        'address': 'Address',
+        'phone_number': 'Phone Number',
+     }
+     return render_template("owners/owners.html", title='Owners', Owners = results, key_dict=key_dict)
 
 # adding owner page
-@app.route("/add_owner")
+@app.route("/add_owner", methods=["POST", "GET"])
 def add_owner():
-    
+    db_connection = db.connect_to_database()
+
+    if request.method == "POST":
+       name = request.form["name"]
+       address = request.form["address"]
+       phone_number = request.form["phone_number"]
+
+       query = "INSERT INTO Owners (name, address, phone_number) VALUES (%s, %s, %s)"
+       cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(name, address, phone_number))
+       db_connection.commit()
+       return redirect("/owners")
+
     return render_template("owners/add_owner.html")
 
 # deleting owner page
-@app.route("/del_owner")
-def del_owner():
+@app.route("/del_owner/<int:id>")
+def del_owner(id):
+    db_connection = db.connect_to_database()
 
-    return render_template("owners/del_owner.html")
+    query = "DELETE FROM Owners WHERE id_owner = %s;"
+    cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id,))
+    db_connection.commit()
+    return redirect("/owners")
 
 @app.route("/edit_owner")
 def edit_owner():
@@ -144,6 +166,7 @@ def add_meds():
 
     return render_template("medications/add_med.html")
 
+# edit med page
 @app.route("/edit_med")
 def edit_meds():
     return render_template("medications/edit_med.html")
@@ -154,8 +177,11 @@ def del_meds():
 
     return render_template("medications/del_med.html")
 
+# Pets page
 @app.route("/pets")
 def pets():
+     
+     # query to get the name of the owner and the vet instead of just getting their id
      query="""SELECT Pets.id_pet, Pets.name, Pets.breed, Pets.age, Pets.gender, 
         Vets.name, Owners.name
         FROM Pets
@@ -164,6 +190,8 @@ def pets():
         """
      cursor = db.execute_query(db_connection=db_connection, query=query)
      results = cursor.fetchall()
+
+     # change the name of the data for better readability
      key_dict = {
         'id_pet': 'ID Pet',
         'name': 'Name',
@@ -175,17 +203,35 @@ def pets():
      }
      return render_template("pets/pets.html", title='Pets', Pets=results, key_dict=key_dict)
 
-@app.route("/del_pet")
-def del_pets():
-    
-    return render_template("pets/del_pet.html")
+@app.route("/del_pet/<int:id>")
+def del_pets(id):
+    db_connection = db.connect_to_database()
 
-@app.route("/add_pet")
+    query = "DELETE FROM Pets WHERE id_pet = %s;"
+    cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id,))
+    db_connection.commit()
+    return redirect("/pets")
+
+@app.route("/add_pet", methods=["POST", "GET"])
 def add_pets():
+   db_connection = db.connect_to_database()
 
-    return render_template("pets/add_pet.html")
+   if request.method == "POST":
+       name = request.form["name"]
+       breed = request.form["breed"]
+       age = request.form["age"]
+       gender = request.form["gender"]
+       id_vet = request.form["id_vet"]
+       id_owner = request.form["id_owner"]
 
-@app.route("/edit_pet/<int:id_pet>")
+       query = "INSERT INTO Pets (name, breed, age, gender, id_vet, id_owner) VALUES (%s, %s, %s, %s, %s, %s)"
+       cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(name, breed, age, gender, id_vet, id_owner))
+       db_connection.commit()
+       return redirect("/pets")
+
+   return render_template("pets/add_pet.html")
+
+@app.route("/edit_pet/<int:id_pet>", methods=["POST", "GET"])
 def edit_pet(id_pet):
     db_connection = db.connect_to_database()
 
@@ -220,15 +266,31 @@ def prescriptions():
 
 @app.route("/del_prescription")
 def del_prescriptions():
-    
-    return render_template("prescriptions/del_prescription.html")
+    db_connection = db.connect_to_database()
 
-@app.route("/add_prescription")
+    query = "DELETE FROM Prescriptions WHERE id_prescription = %s;"
+    cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id,))
+    db_connection.commit()
+    return redirect("/prescriptions")
+
+@app.route("/add_prescription", methods=["POST", "GET"])
 def add_prescriptions():
+    db_connection = db.connect_to_database()
+    
+    if request.method == "POST":
+       order_date = request.form["order_date"]
+       was_picked_up = request.form["was_picked_up"]
+       id_pet = request.form["id_pet"]
 
+       query = "INSERT INTO Prescriptions (order_date, was_picked_up, id_pet) VALUES (%s, %s, %s)"
+       cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(order_date, was_picked_up, id_pet))
+       
+       db_connection.commit()
+       return redirect("/prescriptions")
+    
     return render_template("prescriptions/add_prescription.html")
 
-@app.route("/edit_prescription/<int:id_prescription>")
+@app.route("/edit_prescription/<int:id_prescription>", methods=["POST", "GET"])
 def edit_prescription(id_prescription):
     db_connection = db.connect_to_database()
 
@@ -267,7 +329,7 @@ def add_prescriptMeds():
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 58586)) 
+    port = int(os.environ.get('PORT', 58581)) 
      #                               ^^^^
     #             You can replace this number with any valid port
     

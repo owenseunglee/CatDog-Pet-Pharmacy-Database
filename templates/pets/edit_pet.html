@@ -6,7 +6,7 @@
 <h1>Update Pet</h1>
 
 <body>
-  <div>
+  <div id="update">
     <h2>Current Editing:</h2>
     <table>
       <tr>
@@ -36,15 +36,18 @@
   <form id="updatePet" method="POST" action="/edit_pet/{{results[0].id_pet}}">
     <legend><strong>Update Pet</strong></legend>
     <fieldset class="fields">
-      <input type="hidden" value="{{results[0].id_pet}}" class="form-control" id="petID" name="petID" required>
+      <input type="hidden" value="{{results[0].id_pet}}" class="form-control" id="id_pet" name="id_pet" required>
       <p>Please enter the following information of the pet to be updated</p>
       <label> name: </label> <input type="text" value="{{ results[0].name}}" class="form-control" id="name" name="name">
+      <label> breed: </label> <input type="text" value="{{ results[0].breed }}" class="form-control" id="breed"
+        name="breed">
       <label> age: </label> <input type="text" value="{{ results[0].age }}" class="form-control" id="age" name="age">
       <label> gender: </label> <input type="text" value="{{ results[0].gender }}" class="form-control" id="gender"
         name="gender">
-      <label> vet: </label> <input type="text" id="vet" class="form-control" name="vet" value="{{ results[0].vet_id }}">
-      <label> owner: </label> <input type="text" value="{{ results[0].owner_id }}" class="form-control" id="email"
-        name="owner">
+      <label> vet: </label> <input type="number" id="id_vet" class="form-control" name="id_vet"
+        value="{{ results[0].id_vet }}">
+      <label> owner: </label> <input type="number" value="{{ results[0].id_owner }}" class="form-control" id="id_owner"
+        name="id_owner">
     </fieldset>
     <input class="btn" type="submit" name="Edit_Pet" value="Update Pet">
 
