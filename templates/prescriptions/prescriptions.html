@@ -16,7 +16,7 @@
             <tr>
                 {% for key in Prescriptions[0].keys() %}
                 <th>
-                    {{ key }}
+                    {{ key_dict[key] if key in key_dict else key  }}
                 </th>
                 {% endfor %}
             </tr>

@@ -20,10 +20,11 @@
           <!-- Create a <th> tag with the key inside of it, this will be
               our header row -->
           <th>
-            {{ key }}
+            {{ key_dict[key] if key in key_dict else key }}
           </th>
           <!-- End of this for loop -->
           {% endfor %}
+
         </tr>
       </thead>
   
@@ -35,7 +36,7 @@
           <!-- Create a <td> element with the value of that key in it -->
           <td>{{pm[key]}}</td>
           {% endfor %}
-          
+
         </tr>
         {% endfor %}
       </tbody>

@@ -1,28 +1,30 @@
 {# Citation for add_owner.js
---Date: 2/13/24
---Adapted from: Professor's planets.html file
---Source URL: https://canvas.oregonstate.edu/courses/1946034/assignments/9456216?module_item_id=23809330
-#}
+  --Date: 2/13/24
+  --Adapted from: Professor's planets.html file
+  --Source URL: https://canvas.oregonstate.edu/courses/1946034/assignments/9456216?module_item_id=23809330
+  #}
+  
+  {% extends 'layouts.html'%}
+  {% block content %}
+  
+  <html>
+  
+  <h1>Add Owner</h1>
+  <div id="insert">
+    <form id="addOwner" action="/add_owner" method="POST">
+      <legend><strong>Add Owner</strong></legend>
+      <fieldset class="fields">
+        <label> name: </label> <input type="text" name="name">
+        <label> address: </label> <input type="text" name="address">
+        <label for="phone_number">Phone Number</label>
+        <input type="number" name="phone_number" id="phone_number" placeholder="Numbers only">      
+      </fieldset>
+      <input class="btn" type="submit" id="addOwnerBtn" value="Add an Owner">
+    </form>
+    <td><a href="/owners" class="btn">Go Back</a></td>
 
-{% extends 'layouts.html'%}
-{% block content %}
-
-<html>
-
-<h1>Add Owner</h1>
-<div id="insert">
-  <form id="addOwner">
-    <legend><strong>Add Owner</strong></legend>
-    <fieldset class="fields">
-      <label> name: </label> <input type="text" name="name">
-      <label> address: </label> <input type="text" name="address">
-      <label> phone_number: </label> <input type="tel" name="number">
-    </fieldset>
-    <input class="btn" type="submit" id="addOwnerBtn" value="Add an Owner">
-    <input class="btn" type="button" value="cancel">
-  </form>
-</div>
-
-</html>
-
-{% endblock %}
+  </div>
+  
+  </html>
+  
+  {% endblock %}

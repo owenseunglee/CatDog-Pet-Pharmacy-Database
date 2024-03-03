@@ -42,13 +42,19 @@ def vets():
        query = "SELECT * FROM Vets;"
        cursor = db.execute_query(db_connection=db_connection, query=query)
        results = cursor.fetchall()
+       key_dict = {
+        'id_vet': 'Vet ID',
+        'name': 'Name',
+        'clinic': 'Clinic',
+        'email': 'Email Address',
+        'no_of_patients': 'Number of Patients',
+        }
 
-    #    query2 = query = "SELECT id_vet, CONCAT(Vets.name, ' (', id_vet, ')') AS vet_name_id FROM Vets;"
-    #    cursor = db.execute_query(db_connection=db_connection, query=query2)
-    #    vet_results = cursor.fetchall()
+   
        
-
-   return render_template("vets/vets.html", title='Veterinarians', Vets=results)
+        
+   
+   return render_template("vets/vets.html", title='Veterinarians', Vets=results, key_dict=key_dict)
 
 
 # adding vet page
@@ -108,27 +114,68 @@ def edit_vet(id_vet):
 # owners page
 @app.route("/owners")
 def owners():
-    # query = "SELECT * FROM Owners;"
-    # cursor = db.execute_query(db_connection=db_connection, query=query)
-    # results = cursor.fetchall()
-    return render_template("owners/owners.html", title='Owners')
-    # return render_template("owners/owners.html", Owners=results)
+    db_connection = db.connect_to_database()
+
+    query = "SELECT * FROM Owners;"
+    cursor = db.execute_query(db_connection=db_connection, query=query)
+    results = cursor.fetchall()
+    
+    # change the name of the data for better readability
+    key_dict = {
+    'id_owner': 'ID Owner',
+    'name': 'Name',
+    'address': 'Address',
+    'phone_number': 'Phone Number',
+    }
+    return render_template("owners/owners.html", title='Owners', Owners = results, key_dict=key_dict)
 
 # adding owner page
-@app.route("/add_owner")
+@app.route("/add_owner", methods=["POST", "GET"])
 def add_owner():
-    
+    db_connection = db.connect_to_database()
+
+    if request.method == "POST":
+       name = request.form["name"]
+       address = request.form["address"]
+       phone_number = request.form["phone_number"]
+
+       query = "INSERT INTO Owners (name, address, phone_number) VALUES (%s, %s, %s)"
+       cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(name, address, phone_number))
+       db_connection.commit()
+       return redirect("/owners")
+
     return render_template("owners/add_owner.html")
 
 # deleting owner page
-@app.route("/del_owner")
-def del_owner():
+@app.route("/del_owner/<int:id>")
+def del_owner(id):
+    db_connection = db.connect_to_database()
+    query = "DELETE FROM Owners WHERE id_owner = %s;"
+    cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id,))
+    db_connection.commit()
+    return redirect("/owners")
 
-    return render_template("owners/del_owner.html")
+@app.route("/edit_owner/<int:id_owner>", methods=["GET", "POST"])
+def edit_owner(id_owner):
+    db_connection = db.connect_to_database()
 
-@app.route("/edit_owner")
-def edit_owner():
-
+    if request.method == "GET":
+        
+        query = "SELECT * FROM Owners WHERE id_owner = %s;"
+        cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id_owner,))
+        results = cursor.fetchall()
+        return render_template("owners/edit_owner.html", results=results)
+        
+    if request.method == "POST":
+        if request.form.get("Edit_Owner"):
+            name = request.form["name"]
+            address = request.form["address"]
+            phone_number = request.form["phone_number"]
+            query = "UPDATE Owners SET name=%s, address=%s, phone_number=%s WHERE id_owner=%s;"
+            values = (name, address, phone_number, id_owner)
+            db.execute_query(db_connection=db_connection, query=query, query_params= values)
+            db_connection.commit()
+            return redirect("/owners")
     return render_template("owners/edit_owner.html")
 
 # medications page
@@ -139,8 +186,14 @@ def meds():
         query = "SELECT * FROM Medications;"
         cursor = db.execute_query(db_connection=db_connection, query=query)
         results = cursor.fetchall()
+        key_dict = {
+        'id_medication': 'Medication ID',
+        'name': 'Name',
+        'cost': 'Cost',
+     
+        }
 
-    return render_template("medications/meds.html", title='Medications', Medications=results)
+    return render_template("medications/meds.html", title='Medications', Medications=results, key_dict=key_dict)
 
 # adding med page
 @app.route("/add_med", methods=["POST", "GET"])
@@ -217,12 +270,24 @@ def edit_pet():
 def prescriptions():
      db_connection = db.connect_to_database()
      if request.method == "GET":
-        query = "SELECT Prescriptions.id_prescription, Prescriptions.order_date, Prescriptions.prescription_cost, Prescriptions.was_picked_up, Pets.name AS pet_name FROM Prescriptions INNER JOIN Pets ON Prescriptions.id_pet = Pets.id_pet;"
+        # query = "SELECT Prescriptions.id_prescription, Prescriptions.order_date, Prescriptions.prescription_cost, Prescriptions.was_picked_up, FROM Prescriptions INNER JOIN Pets ON Prescriptions.id_pet = Pets.id_pet ORDER BY Prescriptions.order_date;"
+        query = "SELECT Prescriptions.id_prescription, Pets.name AS pet_name, Prescriptions.order_date, Prescriptions.prescription_cost, Prescriptions.was_picked_up FROM Prescriptions INNER JOIN Pets ON Prescriptions.id_pet = Pets.id_pet ORDER BY Prescriptions.order_date;"
 
         cursor = db.execute_query(db_connection=db_connection, query=query)
         results = cursor.fetchall()
+        for result in results:
+            result['was_picked_up'] = 'Yes' if result['was_picked_up'] == 1 else 'No'
+
+        key_dict = {
+        'id_prescription': 'Prescription ID',
+        'order_date': 'Order Date',
+        'prescription_cost': 'Prescription Cost',
+        'pet_name': 'Pet Name',
+
+
+        }
      
-     return render_template("prescriptions/prescriptions.html", title='Prescriptions', Prescriptions=results)
+     return render_template("prescriptions/prescriptions.html", title='Prescriptions', Prescriptions=results, key_dict = key_dict)
 
 @app.route("/del_prescription/<int:id>")
 def del_prescriptions(id):
@@ -289,11 +354,47 @@ def add_prescriptions():
 
     # return render_template("prescriptions/add_prescription.html")
 
-@app.route("/edit_prescription")
-def edit_prescription():
+@app.route("/edit_prescription/<int:id_prescription>", methods=["GET", "POST"])
+def edit_prescription(id_prescription):
 
-    return render_template("prescriptions/edit_prescription.html")
+    db_connection = db.connect_to_database()
 
+    if request.method == "GET":
+        
+        # currently editing
+        query = "SELECT * FROM Prescriptions WHERE id_prescription = %s;"
+        cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id_prescription,))
+        results = cursor.fetchall()
+
+        # Pet dropdown in edit
+        # query2 = "SELECT Prescriptions.id_pet, CONCAT(Pets.name, ' (', Prescriptions.id_pet, ')') AS pet_name_and_id, Prescriptions.order_date FROM Prescriptions INNER JOIN Pets ON Prescriptions.id_pet = Pets.id_pet;"
+        # this query allows us to update to any pet, including those who don't have a prescription yet
+        query2 = "SELECT Pets.id_pet, CONCAT(Pets.name, ' (', Pets.id_pet, ')') AS pet_name_and_id, Prescriptions.order_date FROM Pets LEFT JOIN Prescriptions ON Pets.id_pet = Prescriptions.id_pet ORDER BY Pets.name, Prescriptions.order_date;"
+
+        cursor2 = db.execute_query(db_connection=db_connection, query=query2)
+        pet_results = cursor2.fetchall()
+
+        # display the pet that is currently editing: 
+        query3 = "SELECT Prescriptions.order_date, Prescriptions.prescription_cost, Prescriptions.was_picked_up, Pets.name AS pet_name FROM Prescriptions INNER JOIN Pets ON Prescriptions.id_pet = Pets.id_pet WHERE id_prescription = %s;"
+        cursor3 = db.execute_query(db_connection=db_connection, query=query3, query_params=(id_prescription,))
+        current_pet_results = cursor3.fetchall()
+
+        
+        return render_template("prescriptions/edit_prescription.html", results=results, Pet_Dropdown = pet_results, current_pet_results = current_pet_results )
+    
+    if request.method == "POST":
+        if request.form.get("Edit_Prescription"):
+            order_date = request.form["order_date"]
+            prescription_cost = request.form["prescription_cost"]
+            was_picked_up = request.form["was_picked_up"]
+            id_pet = request.form["pet_select"]
+
+            query = "UPDATE Prescriptions SET order_date=%s, prescription_cost=%s, was_picked_up=%s, id_pet=%s WHERE id_prescription=%s;"
+            values = (order_date, prescription_cost, was_picked_up, id_pet, id_prescription)
+            db.execute_query(db_connection=db_connection, query=query, query_params= values)
+            db_connection.commit()
+            return redirect("/prescriptions")
+        
 @app.route("/prescriptMeds", methods=["POST", "GET"])
 def intersection():
     db_connection = db.connect_to_database()
@@ -302,8 +403,13 @@ def intersection():
        query = "SELECT CONCAT(Pets.name, ' (', Prescriptions.order_date, ')') AS pet_and_prescription_order_date, Medications.name AS medication_name, quantity FROM PrescriptionMedications INNER JOIN Prescriptions ON PrescriptionMedications.id_prescription = Prescriptions.id_prescription INNER JOIN Medications ON PrescriptionMedications.id_medication = Medications.id_medication INNER JOIN Pets ON Prescriptions.id_pet = Pets.id_pet ORDER BY Pets.name, Prescriptions.order_date;;"
        cursor = db.execute_query(db_connection=db_connection, query=query)
        results = cursor.fetchall()
+       key_dict = {
+        'pet_and_prescription_order_date': 'Pet (Prescription Order Date)',
+        'medication_name': 'Medication Name',
+        'quantity': 'Quantity',
+        }
    
-    return render_template("intersection/prescriptMeds.html", title='prescriptionMedications', PrescriptionMedications=results)
+    return render_template("intersection/prescriptMeds.html", title='prescriptionMedications', PrescriptionMedications=results, key_dict=key_dict)
 
 
 @app.route("/add_prescriptMeds", methods=["POST", "GET"])
@@ -321,19 +427,17 @@ def add_prescriptMeds():
         return redirect("/prescriptMeds")
     
     elif request.method == "GET":
-        query1 = "SELECT Prescriptions.id_prescription AS id_prescription, CONCAT(Pets.name, ', ', Prescriptions.order_date, ' (', Prescriptions.id_prescription, ')') AS pet_order_date_prescription_ID FROM Prescriptions INNER JOIN Pets ON Prescriptions.id_pet = Pets.id_pet;"
+        query1 = "SELECT Prescriptions.id_prescription AS id_prescription, CONCAT(Pets.name, ', ', Prescriptions.order_date, ' (', Prescriptions.id_prescription, ')') AS pet_order_date_prescription_ID FROM Prescriptions INNER JOIN Pets ON Prescriptions.id_pet = Pets.id_pet ORDER BY Prescriptions.order_date, Pets.name;"
         cursor1 = db.execute_query(db_connection=db_connection, query=query1)
         prescription_results = cursor1.fetchall()
         print("Prescription Results:", prescription_results)
-        query2 = "SELECT Medications.id_medication, CONCAT(Medications.name, ' (', Medications.id_medication, ')') AS med_info FROM Medications;"
+        query2 = "SELECT Medications.id_medication, CONCAT(Medications.name, ' (', Medications.id_medication, ')') AS med_info FROM Medications ORDER BY Medications.name;"
         cursor2 = db.execute_query(db_connection=db_connection, query=query2)
         med_results = cursor2.fetchall()
         print("Medication Results:", med_results)
 
 
         return render_template("intersection/add_prescriptMeds.html", Prescriptions_Dropdown=prescription_results, Medications_Dropdown=med_results)
-
-
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 58586)) 
