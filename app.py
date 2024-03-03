@@ -419,6 +419,10 @@ def add_prescriptMeds():
         prescription_id = request.form["prescription_select"]
         medication_id = request.form["medication_select"]
         quantity = request.form["quantity"]
+        if not quantity:
+            quantity = 1
+        else:
+            quantity = int(quantity) 
         query = "INSERT INTO PrescriptionMedications (id_prescription, id_medication, quantity) VALUES (%s, %s, %s)"
         cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(prescription_id, medication_id, quantity))
 
