@@ -179,7 +179,7 @@ SELECT * FROM PrescriptionMedications
 
 
 -- gets a corresponding Pet's name, their Prescription order_date, and corresponding id_prescription for the dropdown in Add PrescriptionMedications page
-SELECT id_prescription, CONCAT(Pets.name, ', ', Prescriptions.order_date, ' (', id_prescription, ')') 
+SELECT id_prescription, CONCAT(Pets.name, ', ', Prescriptions.order_date, ' (', Prescriptions.id_prescription, ')') 
 AS petname_and_presc_orderdate_and_presc_id
 FROM PrescriptionMedications
     INNER JOIN Prescriptions ON Prescriptions.id_prescription = PrescriptionMedications.id_prescription

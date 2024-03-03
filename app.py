@@ -213,43 +213,126 @@ def add_pets():
 def edit_pet():
     return render_template("pets/edit_pet.html")
 
-@app.route("/prescriptions")
+@app.route("/prescriptions", methods=["POST", "GET"])
 def prescriptions():
-    # query = "SELECT * FROM Prescriptions;"
-    # cursor = db.execute_query(db_connection=db_connection, query=query)
-    # results = cursor.fetchall()
+     db_connection = db.connect_to_database()
+     if request.method == "GET":
+        query = "SELECT Prescriptions.id_prescription, Prescriptions.order_date, Prescriptions.prescription_cost, Prescriptions.was_picked_up, Pets.name AS pet_name FROM Prescriptions INNER JOIN Pets ON Prescriptions.id_pet = Pets.id_pet;"
 
-    # return render_template("prescriptions/prescriptions.html", Prescriptions=results)
-    return render_template("prescriptions/prescriptions.html", title='Prescriptions')
+        cursor = db.execute_query(db_connection=db_connection, query=query)
+        results = cursor.fetchall()
+     
+     return render_template("prescriptions/prescriptions.html", title='Prescriptions', Prescriptions=results)
 
-@app.route("/del_prescription")
-def del_prescriptions():
+@app.route("/del_prescription/<int:id>")
+def del_prescriptions(id):
+    db_connection = db.connect_to_database()
+
+    query = "DELETE FROM Prescriptions WHERE id_prescription = %s;"
+    cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id,))
+    db_connection.commit()
+    return redirect("/prescriptions")
     
-    return render_template("prescriptions/del_prescription.html")
 
-@app.route("/add_prescription")
+
+@app.route("/add_prescription", methods=["POST", "GET"])
 def add_prescriptions():
+    db_connection = db.connect_to_database()
+    if request.method == "GET":
+        # Fetch the list of pets from the database
+        query = "SELECT id_pet, CONCAT(name, ' (', id_pet, ')') AS pet_name_and_id FROM Pets;"
+        cursor = db.execute_query(db_connection=db_connection, query=query)
+        pet_results = cursor.fetchall()
+        
+        return render_template("prescriptions/add_prescription.html", Pet_Dropdown=pet_results)
+    elif request.method == "POST":
+        # Get form data
+        order_date = request.form["order_date"]
+        prescription_cost = request.form["prescription_cost"]
+        was_picked_up = request.form["picked_up"]
+        pet_id = request.form["pet_select"]
+        
+        # Insert prescription into the database
+        query = "INSERT INTO Prescriptions (order_date, prescription_cost, was_picked_up, id_pet) VALUES (%s, %s, %s, %s)"
+        cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(order_date, prescription_cost, was_picked_up, pet_id))
+        db_connection.commit()
+        
+        # Redirect to prescriptions page after successful insertion
+        return redirect("/prescriptions")
 
-    return render_template("prescriptions/add_prescription.html")
+    return render_template("prescriptions/add_prescription.html", Pet_Dropdown=pet_results)
+
+
+    # db_connection = db.connect_to_database()
+
+    # if request.method == "GET":
+    #     query1 = "SELECT id_pet, CONCAT(name, ' (', id_pet, ')') AS pet_name_and_id FROM Pets;"
+    #     cursor1 = db.execute_query(db_connection=db_connection, query=query1)
+    #     pet_results = cursor1.fetchall()
+        
+    #     return render_template("prescriptions/add_prescription.html", Pet_Dropdown=pet_results)
+    
+    # elif request.method == "POST":
+    #     # Get data from the form
+    #     order_date = request.form["order_date"]
+    #     was_picked_up = request.form["picked_up"]
+    #     pet_id = request.form["pet_select"]
+
+    #     # Insert the prescription into the database
+    #     query = "INSERT INTO Prescriptions (order_date, prescription_cost, was_picked_up, id_pet) VALUES (%s, %s, %s, %s)"
+    #     # Assuming prescription_cost is calculated elsewhere or has a default value
+    #     cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(order_date, None, was_picked_up, pet_id))
+    #     db_connection.commit()
+
+    #     # Redirect the user to the prescriptions page
+    #     return redirect("/prescriptions")
+
+    # return render_template("prescriptions/add_prescription.html")
 
 @app.route("/edit_prescription")
 def edit_prescription():
 
     return render_template("prescriptions/edit_prescription.html")
 
-@app.route("/prescriptMeds")
+@app.route("/prescriptMeds", methods=["POST", "GET"])
 def intersection():
-    # query = "SELECT * FROM PrescriptionMedications;"
-    # cursor = db.execute_query(db_connection=db_connection, query=query)
-    # results = cursor.fetchall()
-    # return render_template("intersection/prescriptMeds.html", PrescriptionMedications=results)
+    db_connection = db.connect_to_database()
 
-    return render_template("intersection/prescriptMeds.html", title='prescriptionMedications')
+    if request.method == "GET":
+       query = "SELECT CONCAT(Pets.name, ' (', Prescriptions.order_date, ')') AS pet_and_prescription_order_date, Medications.name AS medication_name, quantity FROM PrescriptionMedications INNER JOIN Prescriptions ON PrescriptionMedications.id_prescription = Prescriptions.id_prescription INNER JOIN Medications ON PrescriptionMedications.id_medication = Medications.id_medication INNER JOIN Pets ON Prescriptions.id_pet = Pets.id_pet ORDER BY Pets.name, Prescriptions.order_date;;"
+       cursor = db.execute_query(db_connection=db_connection, query=query)
+       results = cursor.fetchall()
+   
+    return render_template("intersection/prescriptMeds.html", title='prescriptionMedications', PrescriptionMedications=results)
 
-@app.route("/add_prescriptMeds")
+
+@app.route("/add_prescriptMeds", methods=["POST", "GET"])
 def add_prescriptMeds():
+    db_connection = db.connect_to_database()
+    if request.method == "POST":
+        prescription_id = request.form["prescription_select"]
+        medication_id = request.form["medication_select"]
+        quantity = request.form["quantity"]
+        query = "INSERT INTO PrescriptionMedications (id_prescription, id_medication, quantity) VALUES (%s, %s, %s)"
+        cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(prescription_id, medication_id, quantity))
 
-    return render_template("intersection/add_prescriptMeds.html")
+        db_connection.commit()
+
+        return redirect("/prescriptMeds")
+    
+    elif request.method == "GET":
+        query1 = "SELECT Prescriptions.id_prescription AS id_prescription, CONCAT(Pets.name, ', ', Prescriptions.order_date, ' (', Prescriptions.id_prescription, ')') AS pet_order_date_prescription_ID FROM Prescriptions INNER JOIN Pets ON Prescriptions.id_pet = Pets.id_pet;"
+        cursor1 = db.execute_query(db_connection=db_connection, query=query1)
+        prescription_results = cursor1.fetchall()
+        print("Prescription Results:", prescription_results)
+        query2 = "SELECT Medications.id_medication, CONCAT(Medications.name, ' (', Medications.id_medication, ')') AS med_info FROM Medications;"
+        cursor2 = db.execute_query(db_connection=db_connection, query=query2)
+        med_results = cursor2.fetchall()
+        print("Medication Results:", med_results)
+
+
+        return render_template("intersection/add_prescriptMeds.html", Prescriptions_Dropdown=prescription_results, Medications_Dropdown=med_results)
+
 
 
 if __name__ == "__main__":
