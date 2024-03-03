@@ -145,9 +145,27 @@ def del_owner(id):
     db_connection.commit()
     return redirect("/owners")
 
-@app.route("/edit_owner")
-def edit_owner():
+@app.route("/edit_owner/<int:id_owner>", methods=["GET", "POST"])
+def edit_owner(id_owner):
+    db_connection = db.connect_to_database()
 
+    if request.method == "GET":
+        
+        query = "SELECT * FROM Owners WHERE id_owner = %s;"
+        cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id_owner,))
+        results = cursor.fetchall()
+        return render_template("owners/edit_owner.html", results=results)
+        
+    if request.method == "POST":
+        if request.form.get("Edit_Owner"):
+            name = request.form["name"]
+            address = request.form["address"]
+            phone_number = request.form["phone_number"]
+            query = "UPDATE Owners SET name=%s, address=%s, phone_number=%s WHERE id_owner=%s;"
+            values = (name, address, phone_number, id_owner)
+            db.execute_query(db_connection=db_connection, query=query, query_params= values)
+            db_connection.commit()
+            return redirect("/owners")
     return render_template("owners/edit_owner.html")
 
 # medications page
@@ -250,8 +268,8 @@ def edit_pet(id_pet):
             gender = request.form["gender"]
             id_vet = request.form["id_vet"]
             id_owner = request.form["id_owner"]
-            query = "UPDATE Pets SET name=%s, breed=%s, age=%s, gender=%s, id_vet=%s, id_owner=%s, WHERE id_pet=%s;"
-            values = (name, breed, age, gender, id_vet, id_owner)
+            query = "UPDATE Pets SET name=%s, breed=%s, age=%s, gender=%s, id_vet=%s, id_owner=%s WHERE id_pet=%s;"
+            values = (name, breed, age, gender, id_vet, id_owner, id_pet)
             db.execute_query(db_connection=db_connection, query=query, query_params= values)
             db_connection.commit()
             return redirect("/pets")
