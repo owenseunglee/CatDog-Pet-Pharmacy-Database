@@ -280,7 +280,14 @@ def prescriptions():
      cursor = db.execute_query(db_connection=db_connection, query=query)
      results = cursor.fetchall()
      
-     return render_template("prescriptions/prescriptions.html", title='Prescriptions', Prescriptions=results)
+     key_dict = {
+        'id_prescription': 'ID Prescription',
+        'order_date': 'Order Date',
+        'prescription_cost': 'Prescription Cost',
+        'was_picked_up': 'Was Picked Up',
+        'id_pet': 'ID Pet',
+     }
+     return render_template("prescriptions/prescriptions.html", title='Prescriptions', Prescriptions=results, key_dict=key_dict)
 
 @app.route("/del_prescription")
 def del_prescriptions():

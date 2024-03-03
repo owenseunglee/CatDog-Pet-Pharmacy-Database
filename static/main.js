@@ -9,3 +9,8 @@ function horizontalIndicator(e) {
     horizontalUnderLine.style.top = e.currentTarget.offsetTop + e.currentTarget.offsetHeight + "px";
 }
 
+const confirmRedirect = () => {
+    if (confirm('Are you sure you want to go back?')) {
+        window.location.href = "owners";
+    }
+}

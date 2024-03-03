@@ -7,6 +7,30 @@
 
 <body>
     <div id="update" style="display: block">
+        <h2>Current Editing:</h2>
+        <div style="float: left;">
+            <table>
+                <tr>
+                    <th>Order Date:</th>
+                    <td>{{ results[0].order_date }}</td>
+                </tr>
+                <tr>
+                    <th>Prescription Cost:</th>
+                    <td>{{ results[0].prescription_cost }}</td>
+                </tr>
+                <tr>
+                    <th>Was Picked Up:</th>
+                    <td>{{ results[0].was_picked_up }}</td>
+                </tr>
+                <tr>
+                    <th>ID Pet:</th>
+                    <td>{{ results[0].id_pet }}</td>
+                </tr>
+            </table>
+        </div>
+        <br style="clear: left;">
+        <br>
+
         <form id="updatePrescription">
             <legend><strong>Update Prescription</strong></legend>
             <fieldset class="fields">
