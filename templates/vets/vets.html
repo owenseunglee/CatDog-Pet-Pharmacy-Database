@@ -1,0 +1,80 @@
+{# Citation for vets.js
+--Date: 2/13/24
+--Adapted from: Flask Starter App Guide, Professor's planets.html file
+--Source URL: https://canvas.oregonstate.edu/courses/1946034/assignments/9456216?module_item_id=23809330,
+https://github.com/osu-cs340-ecampus/flask-starter-app #}
+
+{% extends 'layouts.html'%}
+{% block content %}
+
+<h1>Browse Veterinarians</h1>
+
+<div class="table-container">
+  <table class="table table-sm table-hover">
+    <thead>
+      <tr>
+        <!-- Iterate through each key in the first entry to get the
+            column name -->
+        {% for key in Vets[0].keys() %}
+        <!-- Create a <th> tag with the key inside of it, this will be
+            our header row -->
+        <th>
+          {{ key }}
+        </th>
+        <!-- End of this for loop -->
+        {% endfor %}
+      </tr>
+    </thead>
+
+    <tbody class="table-group-divider">
+      {% for veterinarian in Vets %}
+      <tr>
+        <!-- Then iterate through every key in the current veterinarian dictionary -->
+        {% for key in veterinarian.keys() %}
+        <!-- Create a <td> element with the value of that key in it -->
+        <td>{{veterinarian[key]}}</td>
+        {% endfor %}
+        <td><a href="/edit_vet/{{ veterinarian['id_vet'] }}" type="button" class="btn btn-outline-success">Edit</a></td>
+        <td><a href="/del_vet/{{ veterinarian['id_vet'] }}" type="button" class="btn btn-outline-dark">Delete</a></td>
+
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+
+  <a href="/add_vet" class="navPage">Add Veterinarian</a>
+</div>
+
+
+{# OMITTING THE UPDATE VET FORM ON THE VETS PAGE
+<p>&nbsp;</p>
+<div id="update" style="display: block">
+  <form id="updateVet">
+    <legend><strong>Update Veterinarian</strong></legend>
+    <fieldset class="fields">
+      <p>Please enter the following information of the veterinarian to be updated</p>
+      <label for="id_vet">Select a vet (ID):</label>
+      <select class="form-control" id="vet_select" name="vet_select">
+        {% for vet in Vets_Dropdown %}
+        {% if vet == Vets_Dropdown[0] %}
+        <option value="{{ vet['id_vet'] }}" selected>{{ vet['vet_name_id'] }}</option>
+        {% else %}
+        <option value="{{ vet['id_vet'] }}">{{ vet['vet_name_id'] }}</option>
+        {% endif %}
+        {% endfor %}
+      </select>
+      <label> name: </label> <input type="text" value="Dr. Johnson" name="name">
+      <label> clinic: </label> <input type="text" value="PetCare Clinic" name="clinic">
+      <label> email: </label> <input type="text" value="johnson@petcare.com" name="email">
+      <label> no_of_patients: </label> <input type="number" name="no_of_patients" value="200">
+    </fieldset>
+    <input class="btn" type="submit" id="UpdateSaveVet" value="Update Veterinarian">
+    <input class="btn" type="button" value="Cancel">
+  </form>
+</div><!-- update -->
+<p>&nbsp;</p>
+
+OMITTING THE UPDATE VET FORM ON THE VETS PAGE #} 
+
+{% endblock %}

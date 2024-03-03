@@ -1,0 +1,84 @@
+{# Citation for owners.js
+--Date: 2/13/24
+--Adapted from: Flask Starter App Guide
+--Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app #}
+
+{% extends 'layouts.html'%}
+{% block content %}
+
+<!-- will implement 'includes' templates after CRUD -->
+<h1>PrescriptionMedications Intersection Table</h1>
+
+<div class="table-container">
+    <table class="table table-sm table-hover" id="table">
+        <caption>List of prescriptionMedications</caption>
+        <thead>
+            <tr>
+                <th>order_date</th>
+                <th>medication</th>
+                <th>quantity</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            <tr>
+                <td>2023-05-06 10:00:00</td>
+                <td>Mirtazapine 15mg, 30 tablets</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td>2023-12-14 11:00:00</td>
+                <td>Amoxicillin 250mg, 30 capsules</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>2023-12-14 11:00:00</td>
+                <td>Mirtazapine 15mg, 30 tablets</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>2024-02-01 12:00:00</td>
+                <td>Dorzolamide HCL Ophthalmic Solution 2%, 10mL</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>2023-05-06 10:00:00</td>
+                <td>Piroxicam 7mg, 30 capsules</td>
+                <td>1</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="/add_prescriptMeds" class="navPage">Add PrescriptionMedications</a>
+</div>
+
+{% endblock %}
+
+{# THIS CODE USES THE DATABASE:
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+{% include 'navbar.html' %}
+<h1>PrescriptionMedications Intersection Table</h1>
+
+<body id="addDelLink">
+    <table class="table table-sm table-hover">
+        <thead>
+            <tr>
+                {% for key in PrescriptionMedications[0].keys() %}
+                <th>{{ key }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {% for prescription in PrescriptionMedications %}
+            <tr>
+                {% for key in prescription.keys() %}
+                <td>{{ prescription[key] }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="/add_prescriptMeds" class="navPage">Add a PrescriptionMedications</a>
+</body>
+#}

@@ -1,7 +1,9 @@
-# Citation for app.py
+# Citation for app.py setup, layout, and CRUD functionalities
 # Date: 2/13/24
 # Adapted from: Flask Starter App Guide
 # Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app
+# Adapted from: Professor's Developing in Flask Exploration Video
+# Source URL: https://canvas.oregonstate.edu/courses/1946034/pages/exploration-developing-in-flask?module_item_id=23809337
 
 from flask import Flask, render_template, json
 from flask import request, redirect
@@ -9,6 +11,7 @@ from flask_mysqldb import MySQL
 from database.db_connector import connect_to_database, execute_query
 import database.db_connector as db
 from dotenv import load_dotenv
+import os
 import os
 
 load_dotenv()
@@ -26,11 +29,15 @@ mysql = MySQL(app)
 @app.route("/")
 def root():
 
-    return render_template("main.j2")
+    db_connection = db.connect_to_database()
+
+    return render_template("main.html", title='Home')
 
 # veterinarian page
 @app.route("/vets", methods=["POST", "GET"])
 def vets():
+   db_connection = db.connect_to_database()
+
    if request.method == "GET":
        query = "SELECT * FROM Vets;"
        cursor = db.execute_query(db_connection=db_connection, query=query)
@@ -41,12 +48,14 @@ def vets():
     #    vet_results = cursor.fetchall()
        
 
-   return render_template("vets/vets.j2", Vets=results)
+   return render_template("vets/vets.html", title='Veterinarians', Vets=results)
 
 
 # adding vet page
 @app.route("/add_vet", methods=["POST", "GET"])
 def add_vets():
+   db_connection = db.connect_to_database()
+
    if request.method == "POST":
        name = request.form["name"]
        clinic = request.form["clinic"]
@@ -58,11 +67,13 @@ def add_vets():
        db_connection.commit()
        return redirect("/vets")
 
-   return render_template("vets/add_vet.j2")
+   return render_template("vets/add_vet.html")
 
 # delete vet
 @app.route("/del_vet/<int:id>")
 def delete_vets(id):
+    db_connection = db.connect_to_database()
+
     query = "DELETE FROM Vets WHERE id_vet = %s;"
     cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id,))
     db_connection.commit()
@@ -71,14 +82,16 @@ def delete_vets(id):
 
 @app.route("/edit_vet/<int:id_vet>", methods=["GET", "POST"])
 def edit_vet(id_vet):
-    # return render_template("vets/edit_vet.j2")
+    db_connection = db.connect_to_database()
+
+    # return render_template("vets/edit_vet.html")
 
     if request.method == "GET":
         
         query = "SELECT * FROM Vets WHERE id_vet = %s;"
         cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id_vet,))
         results = cursor.fetchall()
-        return render_template("vets/edit_vet.j2", results=results)
+        return render_template("vets/edit_vet.html", results=results)
         
     if request.method == "POST":
         if request.form.get("Edit_Vet"):
@@ -92,96 +105,113 @@ def edit_vet(id_vet):
             db_connection.commit()
             return redirect("/vets")
 
-
-    # [MIGHT NOT IMPLEMENT] drop down in edit_vet to select a vet
-    # if request.method == "GET":
-    #     query = "SELECT id_vet, CONCAT(Vets.name, ' (', id_vet, ')') AS vet_name_id FROM Vets;"
-    #     cursor = db.execute_query(db_connection=db_connection, query=query)
-    #     vet_results = cursor.fetchall()
-    # if request.method == "POST":
-    #     if request.form.get(:id in select vet fromdrop down):
-    #         name = request.form["name"]
-    #         clinic = request.form["clinic"]
-    #         email = request.form["email"]
-    #         no_of_patients = request.form["no_of_patients"]
-
-
-    # return render_template("vets/edit_vet.j2", Vets_Dropdown=vet_results)
-
 # owners page
 @app.route("/owners")
 def owners():
     # query = "SELECT * FROM Owners;"
     # cursor = db.execute_query(db_connection=db_connection, query=query)
     # results = cursor.fetchall()
-    return render_template("owners/owners.j2")
-    # return render_template("owners/owners.j2", Owners=results)
+    return render_template("owners/owners.html", title='Owners')
+    # return render_template("owners/owners.html", Owners=results)
 
 # adding owner page
 @app.route("/add_owner")
 def add_owner():
     
-    return render_template("owners/add_owner.j2")
+    return render_template("owners/add_owner.html")
 
 # deleting owner page
 @app.route("/del_owner")
 def del_owner():
 
-    return render_template("owners/del_owner.j2")
+    return render_template("owners/del_owner.html")
 
 @app.route("/edit_owner")
 def edit_owner():
 
-    return render_template("owners/edit_owner.j2")
+    return render_template("owners/edit_owner.html")
 
 # medications page
-@app.route("/meds")
+@app.route("/meds", methods=["POST", "GET"])
 def meds():
-    # query = "SELECT * FROM Medications;"
-    # cursor = db.execute_query(db_connection=db_connection, query=query)
-    # results = cursor.fetchall()
+    db_connection = db.connect_to_database()
+    if request.method == "GET":
+        query = "SELECT * FROM Medications;"
+        cursor = db.execute_query(db_connection=db_connection, query=query)
+        results = cursor.fetchall()
 
-    # return render_template("medications/meds.j2", Medications=results)
-    return render_template("medications/meds.j2")
+    return render_template("medications/meds.html", title='Medications', Medications=results)
 
 # adding med page
-@app.route("/add_med")
+@app.route("/add_med", methods=["POST", "GET"])
 def add_meds():
+    db_connection = db.connect_to_database()
 
-    return render_template("medications/add_med.j2")
+    if request.method == "POST":
+       name = request.form["name"]
+       cost = request.form["cost"]
 
-@app.route("/edit_med")
-def edit_meds():
-    return render_template("medications/edit_med.j2")
+       query = "INSERT INTO Medications (name, cost) VALUES (%s, %s)"
+       cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(name, cost))
+       db_connection.commit()
+       return redirect("/meds")
+
+    return render_template("medications/add_med.html")
+
+@app.route("/edit_med/<int:id_medication>", methods=["GET", "POST"])
+def edit_meds(id_medication):
+    db_connection = db.connect_to_database()
+
+    if request.method == "GET":
+        
+        query = "SELECT * FROM Medications WHERE id_medication = %s;"
+        cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id_medication,))
+        results = cursor.fetchall()
+        return render_template("medications/edit_med.html", results=results)
+        
+    if request.method == "POST":
+        if request.form.get("Edit_Med"):
+            name = request.form["name"]
+            cost = request.form["cost"]
+            query = "UPDATE Medications SET name=%s, cost=%s WHERE id_medication=%s;"
+            values = (name, cost, id_medication)
+            db.execute_query(db_connection=db_connection, query=query, query_params= values)
+            db_connection.commit()
+            return redirect("/meds")
 
 # deleting med page
-@app.route("/del_med")
-def del_meds():
+@app.route("/del_med/<int:id>")
+def del_meds(id):
 
-    return render_template("medications/del_med.j2")
+    db_connection = db.connect_to_database()
+
+    query = "DELETE FROM Medications WHERE id_medication = %s;"
+    cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id,))
+    db_connection.commit()
+    return redirect("/meds")
 
 @app.route("/pets")
 def pets():
-    # query = "SELECT * FROM Pets;"
-    # cursor = db.execute_query(db_connection=db_connection, query=query)
-    # results = cursor.fetchall()
-
-    # return render_template("pets/pets.j2", Pets=results)
-    return render_template("pets/pets.j2")
+     db_connection = db.connect_to_database()
+     query = "SELECT Pets.id_pet, Pets.name, breed, age, gender, Owners.name AS owner_name, Vets.name AS vet_name FROM Pets INNER JOIN Owners ON Pets.id_owner = Owners.id_owner INNER JOIN Vets ON Pets.id_vet = Vets.id_vet;"
+     cursor = db.execute_query(db_connection=db_connection, query=query)
+     results = cursor.fetchall()
+     
+     return render_template("pets/pets.html", title='Pets', Pets=results)
 
 @app.route("/del_pet")
 def del_pets():
     
-    return render_template("pets/del_pet.j2")
+    return render_template("pets/del_pet.html")
 
 @app.route("/add_pet")
 def add_pets():
 
-    return render_template("pets/add_pet.j2")
+    return render_template("pets/add_pet.html")
 
 @app.route("/edit_pet")
 def edit_pet():
-    return render_template("pets/edit_pet.j2")
+    return render_template("pets/edit_pet.html")
 
 @app.route("/prescriptions")
 def prescriptions():
@@ -189,42 +219,42 @@ def prescriptions():
     # cursor = db.execute_query(db_connection=db_connection, query=query)
     # results = cursor.fetchall()
 
-    # return render_template("prescriptions/prescriptions.j2", Prescriptions=results)
-    return render_template("prescriptions/prescriptions.j2")
+    # return render_template("prescriptions/prescriptions.html", Prescriptions=results)
+    return render_template("prescriptions/prescriptions.html", title='Prescriptions')
 
 @app.route("/del_prescription")
 def del_prescriptions():
     
-    return render_template("prescriptions/del_prescription.j2")
+    return render_template("prescriptions/del_prescription.html")
 
 @app.route("/add_prescription")
 def add_prescriptions():
 
-    return render_template("prescriptions/add_prescription.j2")
+    return render_template("prescriptions/add_prescription.html")
 
 @app.route("/edit_prescription")
 def edit_prescription():
 
-    return render_template("prescriptions/edit_prescription.j2")
+    return render_template("prescriptions/edit_prescription.html")
 
 @app.route("/prescriptMeds")
 def intersection():
     # query = "SELECT * FROM PrescriptionMedications;"
     # cursor = db.execute_query(db_connection=db_connection, query=query)
     # results = cursor.fetchall()
-    # return render_template("intersection/prescriptMeds.j2", PrescriptionMedications=results)
+    # return render_template("intersection/prescriptMeds.html", PrescriptionMedications=results)
 
-    return render_template("intersection/prescriptMeds.j2")
+    return render_template("intersection/prescriptMeds.html", title='prescriptionMedications')
 
 @app.route("/add_prescriptMeds")
 def add_prescriptMeds():
 
-    return render_template("intersection/add_prescriptMeds.j2")
+    return render_template("intersection/add_prescriptMeds.html")
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 58533)) 
-    #                                 ^^^^
-    #              You can replace this number with any valid port
+    port = int(os.environ.get('PORT', 58586)) 
+     #                               ^^^^
+    #             You can replace this number with any valid port
     
     app.run(port=port, debug = True) 

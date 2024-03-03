@@ -1,0 +1,34 @@
+{% extends 'layouts.html'%}
+{% block content %}
+
+<html>
+
+<h1>Update Owner</h1>
+
+<body>
+  <div id="update" style="display: block">
+    <form id="updateOwner">
+      <legend><strong>Update Owner</strong></legend>
+      <fieldset class="fields">
+        <p>Please enter the following information of the owner to be updated</p>
+        <label for="id_owner">Select an owner (ID):</label>
+        <select id="id_owner" name="id_owner">
+          <option value="1">John Doe (1)</option>
+          <option value="2">Jane Doe (2)</option>
+          <option value="3">Jack Doe (3)</option>
+          <option value="4">Sarah Lee (4)</option>
+          <option value="5">Mike Chen (5)</option>
+        </select>
+        <label> name: </label> <input type="text" value="John" name="fname">
+        <label> address: </label> <input type="text" value="Doe" name="lname">
+        <label> phone_number: </label> <input type="text" name="phone_number" value="1234567890">
+      </fieldset>
+      <input class="btn" type="submit" id="UpdateSaveOwner" value="Update Owner">
+      <input class="btn" type="button" value="Cancel">
+    </form>
+  </div><!-- update -->
+</body>
+
+</html>
+
+{% endblock %}

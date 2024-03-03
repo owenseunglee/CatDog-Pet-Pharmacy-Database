@@ -1,0 +1,40 @@
+{# Citation for add_prescription.js
+--Date: 2/13/24
+--Adapted from: Professor's planets.html file
+--Source URL: https://canvas.oregonstate.edu/courses/1946034/assignments/9456216?module_item_id=23809330
+#}
+
+{% extends 'layouts.html'%}
+{% block content %}
+
+<html>
+
+<h1>Add Prescription</h1>
+
+<div id="insert">
+    <form id="addPrescription">
+        <legend><strong>Add Prescription</strong></legend>
+        <fieldset class="fields">
+            <label> order_date: </label> <input type="datetime-local" name="order_date">
+            <label>prescription_cost (will be calculated automatically)</label>
+            <label> was_picked_up: </label>
+            <select name="picked_up">
+                <option value="">--Select--</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+            <label>pet (ID):</label>
+            <select id="id_pet" name="id_pet">
+                <option value="1">Fido (1)</option>
+                <option value="2">Whiskers (2)</option>
+                <option value="3">Rex (3)</option>
+            </select>
+        </fieldset>
+        <input class="btn" type="submit" id="addPrescriptionBtn" value="Add Prescription">
+        <input class="btn" type="button" value="cancel">
+    </form>
+</div>
+
+</html>
+
+{% endblock %}
