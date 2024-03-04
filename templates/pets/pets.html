@@ -17,7 +17,9 @@
       <tr>
         {% for key in Pets[0].keys() %}
         <th>
+          <!--{{ key_dict[key] if key in key_dict else key }}-->
           {{ key_dict[key] if key in key_dict else key }}
+          <span class="icon-arrow">&uparrow;</span>
         </th>
 
         {% endfor %}

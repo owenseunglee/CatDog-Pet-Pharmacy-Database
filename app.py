@@ -255,7 +255,13 @@ def edit_pet(id_pet):
 
     if request.method == "GET":
         
-        query = "SELECT * FROM Pets WHERE id_pet = %s;"
+        query = """
+        SELECT Pets.name, Pets.breed, Pets.age, Pets.gender, Vets.name as Vet, Owners.name as Owner 
+        FROM Pets 
+        INNER JOIN Vets ON Pets.id_vet = Vets.id_vet 
+        INNER JOIN Owners ON Pets.id_owner = Owners.id_owner
+        WHERE Pets.id_pet = %s;
+        """
         cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id_pet,))
         results = cursor.fetchall()
         return render_template("pets/edit_pet.html", results=results)

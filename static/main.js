@@ -14,3 +14,15 @@ const confirmRedirect = () => {
         window.location.href = "owners";
     }
 }
+
+window.onload = function () {
+    let tableHeadings = document.querySelectorAll("thead th");
+
+    tableHeadings.forEach((head) => {
+        head.onclick = () => {
+            console.log("its working");
+            tableHeadings.forEach(head => head.classList.remove('active'));
+            head.classList.add('active');
+        }
+    })
+}
