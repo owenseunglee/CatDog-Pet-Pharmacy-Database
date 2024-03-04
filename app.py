@@ -183,7 +183,7 @@ def edit_owner(id_owner):
 def meds():
     db_connection = db.connect_to_database()
     if request.method == "GET":
-        query = "SELECT * FROM Medications;"
+        query = "SELECT * FROM Medications ORDER BY Medications.name;"
         cursor = db.execute_query(db_connection=db_connection, query=query)
         results = cursor.fetchall()
         key_dict = {
@@ -243,29 +243,159 @@ def del_meds(id):
     db_connection.commit()
     return redirect("/meds")
 
-@app.route("/pets")
+@app.route("/pets", methods=["POST", "GET"])
 def pets():
      db_connection = db.connect_to_database()
-     query = "SELECT Pets.id_pet, Pets.name, breed, age, gender, Owners.name AS owner_name, Vets.name AS vet_name FROM Pets INNER JOIN Owners ON Pets.id_owner = Owners.id_owner INNER JOIN Vets ON Pets.id_vet = Vets.id_vet;"
+     # query = "SELECT Pets.id_pet, Pets.name, breed, age, gender, Owners.name AS owner_name, Vets.name AS vet_name FROM Pets INNER JOIN Owners ON Pets.id_owner = Owners.id_owner INNER JOIN Vets ON Pets.id_vet = Vets.id_vet;"
+     query = "SELECT Pets.id_pet, Pets.name, breed, age, gender, Owners.name AS owner_name, Vets.name AS vet_name FROM Pets INNER JOIN Owners ON Pets.id_owner = Owners.id_owner LEFT JOIN Vets ON Pets.id_vet = Vets.id_vet ORDER BY Pets.name;"
+
      cursor = db.execute_query(db_connection=db_connection, query=query)
      results = cursor.fetchall()
+     key_dict = {
+        'id_pet': 'Pet ID',
+        'name': 'Name',
+        'breed': 'Breed',
+        'age': 'Age',
+        'gender': 'Gender',
+        'owner_name': 'Owner Name',
+        'vet_name': 'Vet Name',
+        }
      
-     return render_template("pets/pets.html", title='Pets', Pets=results)
+     return render_template("pets/pets.html", title='Pets', Pets=results, key_dict=key_dict)
 
-@app.route("/del_pet")
-def del_pets():
-    
-    return render_template("pets/del_pet.html")
+@app.route("/del_pet/<int:id>")
+def del_pets(id):
+    db_connection = db.connect_to_database()
 
-@app.route("/add_pet")
+    query = "DELETE FROM Pets WHERE id_pet = %s;"
+    cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id,))
+    db_connection.commit()
+    return redirect("/pets")
+
+@app.route("/add_pet", methods=["POST", "GET"])
 def add_pets():
+    db_connection = db.connect_to_database()
+    if request.method == "GET":
+        # Fetch the list of owners from the database
+        query = "SELECT id_owner, CONCAT(name, ' (', id_owner, ')') AS owner_name_and_id FROM Owners;"
+        cursor = db.execute_query(db_connection=db_connection, query=query)
+        owner_results = cursor.fetchall()
+        # Fetch the list of vets from the database
+        query2 = "SELECT id_vet, CONCAT(name, ' (', id_vet, ')') AS vet_name_and_id FROM Vets;"
+        cursor2 = db.execute_query(db_connection=db_connection, query=query2)
+        vet_results = cursor2.fetchall()
+    
+        
+        return render_template("pets/add_pet.html", Owner_Dropdown=owner_results, Vet_Dropdown=vet_results)
 
-    return render_template("pets/add_pet.html")
+    elif request.method == "POST":
+            # Get form data
+            name = request.form["name"]
+            breed = request.form["breed"]
+            age = request.form["age"]
+            gender = request.form["gender"]
+            id_owner = request.form["owner_select"]
+            id_vet = request.form["vet_select"]
+            
+            if id_vet == "":
+                id_vet = None
+            
+            print("Received form data:")
+            print("Name:", name)
+            print("Breed:", breed)
+            print("Age:", age)
+            print("Gender:", gender)
+            print("Owner ID:", id_owner)
+            print("Vet ID:", id_vet) # confirmed id_vet is None
 
-@app.route("/edit_pet")
-def edit_pet():
-    return render_template("pets/edit_pet.html")
+            # Construct the SQL query
+            if id_vet == None or id_vet == "":
+                query = "INSERT INTO Pets (name, breed, age, gender, id_owner, id_vet) VALUES (%s, %s, %s, %s, %s, NULL)"
+                query_params = (name, breed, age, gender, id_owner)
+                cursor = db.execute_query(db_connection=db_connection, query=query, query_params=query_params)
+                db_connection.commit()
+            else:
+                query = "INSERT INTO Pets (name, breed, age, gender, id_owner, id_vet) VALUES (%s, %s, %s, %s, %s, %s)"
+                query_params = (name, breed, age, gender, id_owner, id_vet)
+                cursor = db.execute_query(db_connection=db_connection, query=query, query_params=query_params)
+                db_connection.commit()
+            return redirect("/pets")
+    
 
+    
+@app.route("/edit_pet/<int:id_pet>", methods=["GET", "POST"])
+def edit_pet(id_pet):
+    db_connection = db.connect_to_database()
+
+    if request.method == "GET":
+        
+        # currently editing
+        query = "SELECT * FROM Pets WHERE id_pet = %s;"
+        cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id_pet,))
+        results = cursor.fetchall()
+
+        # current vet we are editing
+        query2 = "SELECT Vets.name AS vet_name FROM Pets LEFT JOIN Vets ON Pets.id_vet = Vets.id_vet WHERE Pets.id_pet = %s;"
+        # query2 = "SELECT Vets.id_vet, Vets.name AS vet_name FROM Vets LEFT JOIN Pets ON Pets.id_vet = Vets.id_vet;"
+        cursor2 = db.execute_query(db_connection=db_connection, query=query2, query_params=(id_pet,))
+        current_vet_results = cursor2.fetchall()
+
+        # current owner we are editing
+        query3 = "SELECT Owners.name AS owner_name FROM Pets INNER JOIN Owners ON Pets.id_owner = Owners.id_owner WHERE id_pet = %s;"
+        # query3 = "SELECT Owners.id_owner, Owners.name AS owner_name FROM Owners LEFT JOIN Pets ON Pets.id_owner = Owners.id_owner;"
+        cursor3 = db.execute_query(db_connection=db_connection, query=query3, query_params=(id_pet,))
+        current_owner_results = cursor3.fetchall()
+
+        # Owner dropdown in edit
+        query4 = "SELECT Owners.id_owner, Owners.name AS owner_name FROM Owners LEFT JOIN Pets ON Pets.id_owner = Owners.id_owner;"
+        cursor4 = db.execute_query(db_connection=db_connection, query=query4)
+        owner_results = cursor4.fetchall()
+
+        # Vet dropdown
+        query5 = "SELECT Vets.id_vet, Vets.name AS vet_name FROM Vets LEFT JOIN Pets ON Pets.id_vet = Vets.id_vet;"
+        cursor5 = db.execute_query(db_connection=db_connection, query=query5)
+        vet_results = cursor5.fetchall()
+
+
+        return render_template("pets/edit_pet.html", results=results, current_owner_results=current_owner_results, current_vet_results=current_vet_results, Owner_Dropdown = owner_results,Vet_Dropdown = vet_results)
+
+    if request.method == "POST":
+        if request.form.get("Edit_Pet"):
+            name = request.form["name"]
+            id_owner = request.form["owner_select"]
+            id_vet = request.form["vet_select"]
+            breed = request.form["breed"]
+            age = request.form["age"]
+            gender = request.form["gender"]
+
+
+            if id_vet == "": 
+                id_vet = None
+
+            # Print statements for debugging
+            print("Name:", name)
+            print("Owner ID:", id_owner)
+            print("Vet ID:", id_vet)
+            print("Breed:", breed)
+            print("Age:", age)
+            print("Gender:", gender)
+            
+            if id_vet == None or id_vet == "":
+                print("this is none")
+                query = "UPDATE Pets SET Pets.name=%s, Pets.id_owner=%s, Pets.id_vet= NULL, Pets.breed=%s, Pets.age=%s, Pets.gender=%s WHERE Pets.id_pet = %s"
+                values = (name, id_owner, breed, age, gender, id_pet)
+                db.execute_query(db_connection=db_connection, query=query, query_params= values)
+                db_connection.commit()
+            else: 
+                print("not none")
+                query = "UPDATE Pets set Pets.name=%s, Pets.id_owner=%s, Pets.id_vet=%s, Pets.breed=%s, Pets.age=%s, Pets.gender=%s WHERE Pets.id_pet = %s"
+                values = (name, id_owner, id_vet, breed, age, gender, id_pet)
+                db.execute_query(db_connection=db_connection, query=query, query_params= values)
+                db_connection.commit()
+
+            return redirect("/pets")
+            
+        
 @app.route("/prescriptions", methods=["POST", "GET"])
 def prescriptions():
      db_connection = db.connect_to_database()
@@ -282,6 +412,7 @@ def prescriptions():
         'id_prescription': 'Prescription ID',
         'order_date': 'Order Date',
         'prescription_cost': 'Prescription Cost',
+        'was_picked_up': 'Was Picked Up',
         'pet_name': 'Pet Name',
 
 
@@ -400,7 +531,7 @@ def intersection():
     db_connection = db.connect_to_database()
 
     if request.method == "GET":
-       query = "SELECT CONCAT(Pets.name, ' (', Prescriptions.order_date, ')') AS pet_and_prescription_order_date, Medications.name AS medication_name, quantity FROM PrescriptionMedications INNER JOIN Prescriptions ON PrescriptionMedications.id_prescription = Prescriptions.id_prescription INNER JOIN Medications ON PrescriptionMedications.id_medication = Medications.id_medication INNER JOIN Pets ON Prescriptions.id_pet = Pets.id_pet ORDER BY Pets.name, Prescriptions.order_date;;"
+       query = "SELECT CONCAT(Pets.name, ' (', Prescriptions.order_date, ')') AS pet_and_prescription_order_date, Medications.name AS medication_name, quantity FROM PrescriptionMedications INNER JOIN Prescriptions ON PrescriptionMedications.id_prescription = Prescriptions.id_prescription INNER JOIN Medications ON PrescriptionMedications.id_medication = Medications.id_medication INNER JOIN Pets ON Prescriptions.id_pet = Pets.id_pet ORDER BY Prescriptions.order_date,Pets.name ;"
        cursor = db.execute_query(db_connection=db_connection, query=query)
        results = cursor.fetchall()
        key_dict = {
