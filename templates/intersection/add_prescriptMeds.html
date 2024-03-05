@@ -14,7 +14,7 @@
   <form id="addpm" action="/add_prescriptMeds" method="POST">
     <legend><strong>Add Prescription Medication</strong></legend>
     <fieldset class="fields">
-      <p>Please select the prescription and corresponding medication information to be added</p>
+      <p>Please select the prescription and corresponding medication information to be added:</p>
       <select class="form-control" id="prescription_select" name="prescription_select">
         {% for prescription in Prescriptions_Dropdown %}
             {% if prescription == Prescriptions_Dropdown[0] %}
@@ -35,7 +35,7 @@
         {% endfor %}
       </select>
 
-      <label> quantity: </label> <input type="number" min="1" name="quantity">
+      <label> Quantity: </label> <input type="number" min="1" name="quantity">
 
     </fieldset>
     <input class="btn" type="submit" id="addpmBtn" value="Add a Prescription Medication">

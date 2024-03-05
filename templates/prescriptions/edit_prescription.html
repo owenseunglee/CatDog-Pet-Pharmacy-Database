@@ -12,19 +12,19 @@
         <div style="float: left;">
             <table>
                 <tr>
-                    <th>pet:</th>
+                    <th>Pet:</th>
                     <td>{{ current_pet_results[0].pet_name }}</td>
                 </tr>
                 <tr>
-                    <th>order_date:</th>
+                    <th>Order Date:</th>
                     <td>{{ results[0].order_date }}</td>
                 </tr>
                 <tr>
-                    <th>prescription_cost:</th>
+                    <th>Prescription Cost:</th>
                     <td>{{ results[0].prescription_cost }}</td>
                 </tr>
                 <tr>
-                    <th>was_picked_up:</th>
+                    <th>Was Picked Up:</th>
                     <td>{{ "Yes" if results[0].was_picked_up == 1 else "No" }}</td>
                 </tr>
                 
@@ -39,8 +39,8 @@
                 <input type="hidden" value="{{results[0].id_prescription}}" class="form-control" id="presID" name="presID"
                     required>
 
-                <p>Please enter the following information of the prescription to be updated</p>
-                <p>Please select the pet whose assigned to this prescription</p>
+                <p>Please enter the following information of the prescription to be updated:</p>
+                <p>Please select the pet whose assigned to this prescription:</p>
                     <select class="form-control" id="pet_select" name="pet_select">
                         {% for pet in Pet_Dropdown %}
                             {# {% if pet['id_pet'] == results[0]['id_pet'] %} #}
@@ -51,10 +51,10 @@
                             {% endif %}
                         {% endfor %} 
                         </select>
-                <label> order_date: </label> 
+                <label> Order Date: </label> 
                 <input type="datetime-local" value="{{ results[0].order_date }}" class="form-control" id="order_date"
                     name="order_date">
-                <label> prescription_cost: </label> <input type="text" value="{{ results[0].prescription_cost }}" class="form-control"
+                <label> Prescription Cost: </label> <input type="text" value="{{ results[0].prescription_cost }}" class="form-control"
                     id="prescription_cost" name="prescription_cost">
                     <label for="was_picked_up">Was Picked Up:</label>
                     <select id="was_picked_up" name="was_picked_up">

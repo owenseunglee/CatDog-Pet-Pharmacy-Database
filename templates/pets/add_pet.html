@@ -14,18 +14,18 @@
     <form id="addPet" action ="/add_pet" method="POST">
         <legend><strong>Add Pet</strong></legend>
         <fieldset class="fields">
-            <label>name </label> <input type="text" name="name">
-            <label>breed</label> <input type="text" name="breed">
-            <label>age</label> 
+            <label>Name: </label> <input type="text" name="name">
+            <label>Breed:</label> <input type="text" name="breed">
+            <label>Age:</label> 
             <input type="number" step="1" name="age">
-            <label> gender </label>
+            <label>Gender: </label>
             <select name="gender">
                 <option value="">--Select--</option>
                 <option value="F">F</option>
                 <option value="M">M</option>
             </select>
        
-            <label>Please select the owner of this pet</label>
+            <label>Please select the owner of this pet:</label>
       <select class="form-control" id="owner_select" name="owner_select">
         {% for o in Owner_Dropdown %}
             {% if o == Owner_Dropdown[0] %}
@@ -35,7 +35,7 @@
             {% endif %}
         {% endfor %} 
       </select>
-      <label>Please select the veterinarian of this pet</label>
+      <label>Please select the veterinarian of this pet:</label>
       <select class="form-control" id="vet_select" name="vet_select">
         <option value="">--None--</option>
         {% for v in Vet_Dropdown %}
