@@ -94,6 +94,7 @@ def edit_vet(id_vet):
 
     if request.method == "GET":
         
+        # get a single vet's data to pre-populate for the Update Veterinarian page 
         query = "SELECT * FROM Vets WHERE id_vet = %s;"
         cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id_vet,))
         results = cursor.fetchall()
@@ -116,6 +117,7 @@ def edit_vet(id_vet):
 def owners():
     db_connection = db.connect_to_database()
 
+    
     query = "SELECT * FROM Owners;"
     cursor = db.execute_query(db_connection=db_connection, query=query)
     results = cursor.fetchall()
@@ -160,7 +162,7 @@ def edit_owner(id_owner):
     db_connection = db.connect_to_database()
 
     if request.method == "GET":
-        
+        # get a single owner's data to pre-populate for the Update Owner page 
         query = "SELECT * FROM Owners WHERE id_owner = %s;"
         cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id_owner,))
         results = cursor.fetchall()
@@ -216,7 +218,8 @@ def edit_meds(id_medication):
     db_connection = db.connect_to_database()
 
     if request.method == "GET":
-        
+        # get a single medications's data to pre-populate for the Update Medication page 
+
         query = "SELECT * FROM Medications WHERE id_medication = %s;"
         cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id_medication,))
         results = cursor.fetchall()
@@ -276,11 +279,11 @@ def del_pets(id):
 def add_pets():
     db_connection = db.connect_to_database()
     if request.method == "GET":
-        # Fetch the list of owners from the database
+        # Fetch the list of owners from the database for dropdown
         query = "SELECT id_owner, CONCAT(name, ' (', id_owner, ')') AS owner_name_and_id FROM Owners;"
         cursor = db.execute_query(db_connection=db_connection, query=query)
         owner_results = cursor.fetchall()
-        # Fetch the list of vets from the database
+        # Fetch the list of vets from the database for dropdown
         query2 = "SELECT id_vet, CONCAT(name, ' (', id_vet, ')') AS vet_name_and_id FROM Vets;"
         cursor2 = db.execute_query(db_connection=db_connection, query=query2)
         vet_results = cursor2.fetchall()
@@ -308,7 +311,7 @@ def add_pets():
             print("Owner ID:", id_owner)
             print("Vet ID:", id_vet) # confirmed id_vet is None
 
-            # Construct the SQL query
+            # if Vet doesn't exist yet
             if id_vet == None or id_vet == "":
                 query = "INSERT INTO Pets (name, breed, age, gender, id_owner, id_vet) VALUES (%s, %s, %s, %s, %s, NULL)"
                 query_params = (name, breed, age, gender, id_owner)
@@ -329,12 +332,12 @@ def edit_pet(id_pet):
 
     if request.method == "GET":
         
-        # currently editing
+        # currently editing Pet
         query = "SELECT * FROM Pets WHERE id_pet = %s;"
         cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id_pet,))
         results = cursor.fetchall()
 
-        # current vet we are editing
+        # the vet for the current Pet we are editing
         query2 = "SELECT Vets.name AS vet_name FROM Pets LEFT JOIN Vets ON Pets.id_vet = Vets.id_vet WHERE Pets.id_pet = %s;"
         # query2 = "SELECT Vets.id_vet, Vets.name AS vet_name FROM Vets LEFT JOIN Pets ON Pets.id_vet = Vets.id_vet;"
         cursor2 = db.execute_query(db_connection=db_connection, query=query2, query_params=(id_pet,))
@@ -351,7 +354,7 @@ def edit_pet(id_pet):
         cursor4 = db.execute_query(db_connection=db_connection, query=query4)
         owner_results = cursor4.fetchall()
 
-        # Vet dropdown
+        # Vet dropdown in edit
         query5 = "SELECT DISTINCT Vets.id_vet, Vets.name AS vet_name FROM Vets LEFT JOIN Pets ON Pets.id_vet = Vets.id_vet ORDER BY vet_name;"
         cursor5 = db.execute_query(db_connection=db_connection, query=query5)
         vet_results = cursor5.fetchall()
@@ -435,7 +438,7 @@ def del_prescriptions(id):
 def add_prescriptions():
     db_connection = db.connect_to_database()
     if request.method == "GET":
-        # Fetch the list of pets from the database
+        # Fetch the list of pets from the database for dropdown
         query = "SELECT id_pet, CONCAT(name, ' (', id_pet, ')') AS pet_name_and_id FROM Pets;"
         cursor = db.execute_query(db_connection=db_connection, query=query)
         pet_results = cursor.fetchall()
@@ -492,20 +495,19 @@ def edit_prescription(id_prescription):
 
     if request.method == "GET":
         
-        # currently editing
+        # currently editing Prescription
         query = "SELECT * FROM Prescriptions WHERE id_prescription = %s;"
         cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id_prescription,))
         results = cursor.fetchall()
 
         # Pet dropdown in edit
-        # query2 = "SELECT Prescriptions.id_pet, CONCAT(Pets.name, ' (', Prescriptions.id_pet, ')') AS pet_name_and_id, Prescriptions.order_date FROM Prescriptions INNER JOIN Pets ON Prescriptions.id_pet = Pets.id_pet;"
         # this query allows us to update to any pet, including those who don't have a prescription yet
         query2 = "SELECT Pets.id_pet, CONCAT(Pets.name, ' (', Pets.id_pet, ')') AS pet_name_and_id, Prescriptions.order_date FROM Pets LEFT JOIN Prescriptions ON Pets.id_pet = Prescriptions.id_pet ORDER BY Pets.name, Prescriptions.order_date;"
 
         cursor2 = db.execute_query(db_connection=db_connection, query=query2)
         pet_results = cursor2.fetchall()
 
-        # display the pet that is currently editing: 
+        # display the Pet that is part of the prescription we're currently editing
         query3 = "SELECT Prescriptions.order_date, Prescriptions.prescription_cost, Prescriptions.was_picked_up, Pets.name AS pet_name FROM Prescriptions INNER JOIN Pets ON Prescriptions.id_pet = Pets.id_pet WHERE id_prescription = %s;"
         cursor3 = db.execute_query(db_connection=db_connection, query=query3, query_params=(id_prescription,))
         current_pet_results = cursor3.fetchall()
@@ -562,10 +564,12 @@ def add_prescriptMeds():
         return redirect("/prescriptMeds")
     
     elif request.method == "GET":
+        # Prescription Dropdown
         query1 = "SELECT Prescriptions.id_prescription AS id_prescription, CONCAT(Pets.name, ', ', Prescriptions.order_date, ' (', Prescriptions.id_prescription, ')') AS pet_order_date_prescription_ID FROM Prescriptions INNER JOIN Pets ON Prescriptions.id_pet = Pets.id_pet ORDER BY Prescriptions.order_date, Pets.name;"
         cursor1 = db.execute_query(db_connection=db_connection, query=query1)
         prescription_results = cursor1.fetchall()
         print("Prescription Results:", prescription_results)
+        # Medication Dropdown
         query2 = "SELECT Medications.id_medication, CONCAT(Medications.name, ' (', Medications.id_medication, ')') AS med_info FROM Medications ORDER BY Medications.name;"
         cursor2 = db.execute_query(db_connection=db_connection, query=query2)
         med_results = cursor2.fetchall()
