@@ -347,12 +347,12 @@ def edit_pet(id_pet):
         current_owner_results = cursor3.fetchall()
 
         # Owner dropdown in edit
-        query4 = "SELECT Owners.id_owner, Owners.name AS owner_name FROM Owners LEFT JOIN Pets ON Pets.id_owner = Owners.id_owner;"
+        query4 = "SELECT DISTINCT Owners.id_owner, Owners.name AS owner_name FROM Owners LEFT JOIN Pets ON Pets.id_owner = Owners.id_owner ORDER BY owner_name;"
         cursor4 = db.execute_query(db_connection=db_connection, query=query4)
         owner_results = cursor4.fetchall()
 
         # Vet dropdown
-        query5 = "SELECT Vets.id_vet, Vets.name AS vet_name FROM Vets LEFT JOIN Pets ON Pets.id_vet = Vets.id_vet;"
+        query5 = "SELECT DISTINCT Vets.id_vet, Vets.name AS vet_name FROM Vets LEFT JOIN Pets ON Pets.id_vet = Vets.id_vet ORDER BY vet_name;"
         cursor5 = db.execute_query(db_connection=db_connection, query=query5)
         vet_results = cursor5.fetchall()
 

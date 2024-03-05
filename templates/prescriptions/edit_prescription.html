@@ -43,13 +43,16 @@
                 <p>Please select the pet whose assigned to this prescription</p>
                     <select class="form-control" id="pet_select" name="pet_select">
                         {% for pet in Pet_Dropdown %}
-                            {% if pet['id_pet'] == results[0]['id_pet'] %}
+                            {# {% if pet['id_pet'] == results[0]['id_pet'] %} #}
+                            {% if pet['order_date'] == results[0].order_date %}
                                 <option value="{{ pet['id_pet'] }}" selected>{{ pet['pet_name_and_id'] }} {{ pet['order_date'] }}</option>
                             {% else %}
                                 <option value="{{ pet['id_pet'] }}">{{ pet['pet_name_and_id'] }} {{ pet['order_date'] }}</option>
                             {% endif %}
                         {% endfor %} 
-                <label> order_date: </label> <input type="datetime-local" value="{{ results[0].order_date }}" class="form-control" id="order_date"
+                        </select>
+                <label> order_date: </label> 
+                <input type="datetime-local" value="{{ results[0].order_date }}" class="form-control" id="order_date"
                     name="order_date">
                 <label> prescription_cost: </label> <input type="text" value="{{ results[0].prescription_cost }}" class="form-control"
                     id="prescription_cost" name="prescription_cost">
