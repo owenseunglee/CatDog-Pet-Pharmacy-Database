@@ -122,7 +122,7 @@ def owners():
     
     # change the name of the data for better readability
     key_dict = {
-    'id_owner': 'ID Owner',
+    'id_owner': 'Owner ID',
     'name': 'Name',
     'address': 'Address',
     'phone_number': 'Phone Number',
