@@ -8,9 +8,7 @@
 
 <html>
 
-<h1>Add Pet</h1>
-
-<div id="insert">
+<div class="table-container" id="insert">
     <form id="addPet" action="/add_pet" method="POST">
         <legend><strong>Add Pet</strong></legend>
         <fieldset class="fields">
@@ -48,10 +46,15 @@
             </select>
 
         </fieldset>
-        <input class="btn" type="submit" id="addPetBtn" value="Add Pet">
+        <div class="button-container">
+            <button class="btn btn-outline-primary" type="submit" id="icon">
+                <ion-icon id="add_button" name="add-outline"></ion-icon>
+                Add Pet
+            </button>
+            <span><a href="/pets" class="btn btn-outline-dark">Go Back</a></span>
+        </div>
     </form>
 </div>
-<td><a href="/pets" class="btn">Go Back</a></td>
 
 </html>
 

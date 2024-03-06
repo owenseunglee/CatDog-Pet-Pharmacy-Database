@@ -142,8 +142,19 @@ h1 {
     display: inline-flex;
 }
 
+.button-container {
+    display: flex;
+    margin-top: 15px;
+    justify-content: space-between;
+}
+
 #edit_button {
     margin-top: 15px;
+}
+
+.backBtn {
+    display: flex;
+    justify-content: flex-end;
 }
 
 .table-container {

@@ -10,7 +10,7 @@
 
 <html>
 <h1>Add Prescription Medication</h1>
-<div id="insert" style="display: block">
+<div class="update-container" id="insert">
   <form id="addpm" action="/add_prescriptMeds" method="POST">
     <legend><strong>Add Prescription Medication</strong></legend>
     <fieldset class="fields">
@@ -18,31 +18,37 @@
       <select class="form-control" id="prescription_select" name="prescription_select">
         {#<option value="">--None--</option>#}
         {% for prescription in Prescriptions_Dropdown %}
-            {% if prescription == Prescriptions_Dropdown[0] %}
-                <option value="{{ prescription['id_prescription'] }}" selected>{{ prescription['pet_order_date_prescription_ID'] }}</option>
-            {% else %}
-                <option value="{{ prescription['id_prescription'] }}">{{ prescription['pet_order_date_prescription_ID'] }}</option>
-            {% endif %}
+        {% if prescription == Prescriptions_Dropdown[0] %}
+        <option value="{{ prescription['id_prescription'] }}" selected>{{ prescription['pet_order_date_prescription_ID']
+          }}</option>
+        {% else %}
+        <option value="{{ prescription['id_prescription'] }}">{{ prescription['pet_order_date_prescription_ID'] }}
+        </option>
+        {% endif %}
         {% endfor %}
       </select>
 
       <select class="form-control" id="medication_select" name="medication_select">
         {% for med in Medications_Dropdown %}
-            {% if med == Medications_Dropdown[0] %}
-                <option value="{{ med['id_medication'] }}" selected>{{ med['med_info'] }}</option>
-            {% else %}
-                <option value="{{ med['id_medication'] }}">{{ med['med_info'] }}</option>
-            {% endif %}
+        {% if med == Medications_Dropdown[0] %}
+        <option value="{{ med['id_medication'] }}" selected>{{ med['med_info'] }}</option>
+        {% else %}
+        <option value="{{ med['id_medication'] }}">{{ med['med_info'] }}</option>
+        {% endif %}
         {% endfor %}
       </select>
 
       <label> Quantity: </label> <input type="number" min="1" name="quantity">
 
     </fieldset>
-    <input class="btn" type="submit" id="addpmBtn" value="Add a Prescription Medication">
-    
+    <div class="button-container">
+      <button class="btn btn-outline-primary" type="submit" id="icon">
+        <ion-icon id="add_button" name="add-outline"></ion-icon>
+        Add prescriptionMedications
+      </button>
+      <span><a href="/prescriptionMedications" class="btn btn-outline-dark">Go Back</a></span>
+    </div>
   </form>
-  <td><a href="/intersection" class="btn">Go Back</a></td>
 </div>
 
 
