@@ -55,8 +55,6 @@
                 <label> Order Date: </label>
                 <input type="datetime-local" value="{{ results[0].order_date }}" class="form-control" id="order_date"
                     name="order_date">
-                <label> Prescription Cost: </label> <input type="text" value="{{ results[0].prescription_cost }}"
-                    class="form-control" id="prescription_cost" name="prescription_cost">
                 <label for="was_picked_up">Was Picked Up:</label>
                 <select id="was_picked_up" name="was_picked_up">
                     <option value="1" {% if results[0].was_picked_up==1 %}selected{% endif %}>Yes</option>

@@ -414,8 +414,6 @@ def prescriptions():
         'prescription_cost': 'Prescription Cost',
         'was_picked_up': 'Was Picked Up',
         'pet_name': 'Pet Name',
-
-
         }
      
      return render_template("prescriptions/prescriptions.html", title='Prescriptions', Prescriptions=results, key_dict = key_dict)
@@ -428,8 +426,22 @@ def del_prescriptions(id):
     cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id,))
     db_connection.commit()
     return redirect("/prescriptions")
-    
 
+def update_cost(pet_id):
+    # query to update the prescription_cost( med's cost X quantity) + previously stored prescription_cost
+    query = """
+    UPDATE Prescriptions
+    INNER JOIN (
+        SELECT PrescriptionMedications.id_prescription, SUM(Medications.cost * PrescriptionMedications.quantity) AS total_cost
+        FROM PrescriptionMedications
+        INNER JOIN Medications ON PrescriptionMedications.id_medication = Medications.id_medication
+        WHERE PrescriptionMedications.id_prescription = %s
+        GROUP BY PrescriptionMedications.id_prescription
+    ) subquery ON Prescriptions.id_prescription = subquery.id_prescription
+    SET Prescriptions.prescription_cost = subquery.total_cost;
+    """
+    cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(pet_id,))
+    db_connection.commit()
 
 @app.route("/add_prescription", methods=["POST", "GET"])
 def add_prescriptions():
@@ -452,12 +464,11 @@ def add_prescriptions():
         query = "INSERT INTO Prescriptions (order_date, prescription_cost, was_picked_up, id_pet) VALUES (%s, %s, %s, %s)"
         cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(order_date, prescription_cost, was_picked_up, pet_id))
         db_connection.commit()
-        
+
         # Redirect to prescriptions page after successful insertion
         return redirect("/prescriptions")
 
     return render_template("prescriptions/add_prescription.html", Pet_Dropdown=pet_results)
-
 
     # db_connection = db.connect_to_database()
 
@@ -569,6 +580,9 @@ def add_prescriptMeds():
         cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(prescription_id, medication_id, quantity))
         db_connection.commit()
 
+        # call this function to automatically update the prescription cost
+        update_cost(prescription_id)
+
         return redirect("/prescriptMeds")
     
     elif request.method == "GET":
@@ -587,7 +601,7 @@ def add_prescriptMeds():
         return render_template("intersection/add_prescriptMeds.html", Prescriptions_Dropdown=prescription_results, Medications_Dropdown=med_results)
 
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 5000)) 
+    port = int(os.environ.get('PORT', 58580)) 
      #                               ^^^^
     #             You can replace this number with any valid port
     

@@ -2,10 +2,14 @@
     --primary-color: RGB(39, 116, 174)
 }
 
+/* variables for colors */
+
 a {
     text-decoration: none;
     color: var(--primary-color);
 }
+
+/* nav link styling */
 
 .nav-bar {
     display: flex;
@@ -17,6 +21,8 @@ a {
     box-shadow: 0 4px 2px -2px rgba(0, 0, 0, .2);
     margin: 0 auto;
 }
+
+/* Container to wrap the entire header */
 
 .navbar-top {
     display: flex;
@@ -31,12 +37,17 @@ a {
     margin-left: 8%;
 }
 
+/* Secondary container to wrap the entire nav-links/
+     group name/contact */
+
 .nav-bar .navbar-links {
     width: 80%;
     height: 95%;
     margin: auto;
     display: flex;
 }
+
+/* Container for just nav-links*/
 
 .test {
     display: flex;
@@ -87,6 +98,8 @@ a {
     align-items: center;
     max-width: 1500px;
 }
+
+/*styling icon from ionicons*/
 
 .btn ion-icon {
     margin-right: 5px;
