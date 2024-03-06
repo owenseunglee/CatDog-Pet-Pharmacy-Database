@@ -13,6 +13,7 @@ https://github.com/osu-cs340-ecampus/flask-starter-app #}
   <table class="table table-sm table-hover">
     <thead>
       <tr>
+        {% if Vets %}
         <!-- Iterate through each key in the first entry to get the
             column name -->
         {% for key in Vets[0].keys() %}
@@ -41,7 +42,9 @@ https://github.com/osu-cs340-ecampus/flask-starter-app #}
       {% endfor %}
     </tbody>
   </table>
-
+  {% else %}
+  There are no veterinarians currently.
+{% endif %}
 
   <a href="/add_vet" class="navPage">Add Veterinarian</a>
 </div>

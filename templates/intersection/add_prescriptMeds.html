@@ -16,6 +16,7 @@
     <fieldset class="fields">
       <p>Please select the prescription and corresponding medication information to be added:</p>
       <select class="form-control" id="prescription_select" name="prescription_select">
+        {#<option value="">--None--</option>#}
         {% for prescription in Prescriptions_Dropdown %}
             {% if prescription == Prescriptions_Dropdown[0] %}
                 <option value="{{ prescription['id_prescription'] }}" selected>{{ prescription['pet_order_date_prescription_ID'] }}</option>

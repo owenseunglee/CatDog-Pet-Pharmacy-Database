@@ -534,6 +534,8 @@ def intersection():
 
     if request.method == "GET":
        query = "SELECT CONCAT(Pets.name, ' (', Prescriptions.order_date, ')') AS pet_and_prescription_order_date, Medications.name AS medication_name, quantity FROM PrescriptionMedications INNER JOIN Prescriptions ON PrescriptionMedications.id_prescription = Prescriptions.id_prescription INNER JOIN Medications ON PrescriptionMedications.id_medication = Medications.id_medication INNER JOIN Pets ON Prescriptions.id_pet = Pets.id_pet ORDER BY Prescriptions.order_date,Pets.name, Medications.name;"
+       # includes None Prescriptions: 
+       # query = "SELECT CONCAT(Pets.name, ' (', Prescriptions.order_date, ')') AS pet_and_prescription_order_date, Medications.name AS medication_name, quantity FROM PrescriptionMedications LEFT JOIN Prescriptions ON PrescriptionMedications.id_prescription = Prescriptions.id_prescription LEFT JOIN Medications ON PrescriptionMedications.id_medication = Medications.id_medication LEFT JOIN Pets ON Prescriptions.id_pet = Pets.id_pet ORDER BY Prescriptions.order_date, Pets.name, Medications.name;"
        cursor = db.execute_query(db_connection=db_connection, query=query)
        results = cursor.fetchall()
        key_dict = {
@@ -556,9 +558,18 @@ def add_prescriptMeds():
             quantity = 1
         else:
             quantity = int(quantity) 
+        
+        # if prescription_id == "":
+        #     prescription_id = None
+        
+        # if prescription_id == None or prescription_id == "":
+        #     query = "INSERT INTO PrescriptionMedications (id_prescription, id_medication, quantity) VALUES (NULL, %s, %s)"
+        #     query_params = (medication_id, quantity)
+        #     cursor = db.execute_query(db_connection=db_connection, query=query, query_params=query_params)
+        #     db_connection.commit()
+        # else:
         query = "INSERT INTO PrescriptionMedications (id_prescription, id_medication, quantity) VALUES (%s, %s, %s)"
         cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(prescription_id, medication_id, quantity))
-
         db_connection.commit()
 
         return redirect("/prescriptMeds")

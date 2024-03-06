@@ -15,6 +15,7 @@ https://github.com/osu-cs340-ecampus/flask-starter-app #}
       <tr>
         <!-- Iterate through each key in the first entry to get the
             column name -->
+        {% if Medications %}
         {% for key in Medications[0].keys() %}
         <!-- Create a <th> tag with the key inside of it, this will be
             our header row -->
@@ -41,6 +42,9 @@ https://github.com/osu-cs340-ecampus/flask-starter-app #}
       {% endfor %}
     </tbody>
   </table>
+  {% else %}
+        There are no medications currently.
+    {% endif %}
 
 
   <a href="/add_med" class="navPage">Add Medication</a>

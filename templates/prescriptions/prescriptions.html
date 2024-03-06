@@ -14,6 +14,7 @@
     <table class="table table-sm table-hover" id="table">
         <thead>
             <tr>
+                {% if Prescriptions %}
                 {% for key in Prescriptions[0].keys() %}
                 <th>
                     {{ key_dict[key] if key in key_dict else key  }}
@@ -35,9 +36,13 @@
                         class="btn btn-outline-dark">Delete</button></td>
             </tr>
             {% endfor %}
+           
 
         </tbody>
     </table>
+    {% else %}
+        There are no prescriptions currently.
+    {% endif %}
 
     <a href="/add_prescription" class="navPage">Add Prescription</a>
 </div>

@@ -13,6 +13,7 @@
       <table class="table table-sm table-hover" id="table">
           <thead>
               <tr>
+                {% if Pets %}
                   {% for key in Pets[0].keys() %}
                   <th>
                     {{ key_dict[key] if key in key_dict else key }}
@@ -44,7 +45,9 @@
   
           </tbody>
       </table>
-  
+      {% else %}
+      There are no pets currently.
+  {% endif %}
       <a href="/add_pet" class="navPage">Add Pet</a>
   </div>
   
