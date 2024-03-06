@@ -11,16 +11,18 @@
 
 <h1>Add Owner</h1>
 <div id="insert">
-  <form id="addOwner">
+  <form id="addOwner" action="/add_owner" method="POST">
     <legend><strong>Add Owner</strong></legend>
     <fieldset class="fields">
-      <label> name: </label> <input type="text" name="name">
-      <label> address: </label> <input type="text" name="address">
-      <label> phone_number: </label> <input type="tel" name="number">
+      <label> Name: </label> <input type="text" name="name">
+      <label> Address: </label> <input type="text" name="address">
+      <label for="phone_number">Phone Number:</label>
+      <input type="number" name="phone_number" id="phone_number" placeholder="Numbers only">
     </fieldset>
     <input class="btn" type="submit" id="addOwnerBtn" value="Add an Owner">
-    <input class="btn" type="button" value="cancel" onclick="confirmRedirect()">
   </form>
+  <td><a href="/owners" class="btn">Go Back</a></td>
+
 </div>
 
 </html>

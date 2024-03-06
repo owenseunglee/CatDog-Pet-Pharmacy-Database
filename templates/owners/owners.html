@@ -12,9 +12,9 @@
 
 <div class="table-container">
   <table class="table table-sm table-hover" id="table">
-    <caption>List of owners</caption>
     <thead>
       <tr>
+        {% if Owners %}
         {% for key in Owners[0].keys() %}
         <th>
           {{ key_dict[key] if key in key_dict else key }}
@@ -23,7 +23,7 @@
       </tr>
     </thead>
 
-    <tbody class="table-group-divider">
+    <tbody>
       {% for owner in Owners %}
       <tr>
         {% for key in owner.keys() %}
@@ -31,12 +31,17 @@
         {% endfor %}
 
         <td> <a href="/edit_owner/{{ owner['id_owner'] }}" type="button" class="btn btn-outline-success">Edit</a> </td>
-        <td> <a href="/del_pet/{{ owner['id_owner'] }}" button class="btn btn-outline-dark">Delete</button></td>
+        <td> <a href="/del_owner/{{ owner['id_owner'] }}" button class="btn btn-outline-dark">Delete</button></td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
+  {% else %}
+  There are no owners currently.
+  {% endif %}
 
-  <a href="/add_owner" class="navPage">Add Owner</a>
+  <a href="/add_owner" type="button" class="btn btn-outline-primary" id="icon">
+    <ion-icon class="icon" name="add-outline"></ion-icon>Add Owner
+  </a>
 </div>
 {% endblock %}

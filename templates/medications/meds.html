@@ -7,64 +7,53 @@ https://github.com/osu-cs340-ecampus/flask-starter-app #}
 {% extends 'layouts.html'%}
 {% block content %}
 
-<!-- will implement 'includes' templates after CRUD -->
 <h1>Browse Medications</h1>
 
 <div class="table-container">
-  <table class="table table-sm table-hover" id="table">
-    <caption>List of Medications</caption>
+  <table class="table table-sm table-hover">
     <thead>
       <tr>
-        <th>id_medication</th>
-        <th>name</th>
-        <th>cost</th>
-        <th></th>
-        <th></th>
+        <!-- Iterate through each key in the first entry to get the
+            column name -->
+        {% if Medications %}
+        {% for key in Medications[0].keys() %}
+        <!-- Create a <th> tag with the key inside of it, this will be
+            our header row -->
+        <th>
+          {{ key_dict[key] if key in key_dict else key }}
+        </th>
+        <!-- End of this for loop -->
+        {% endfor %}
       </tr>
     </thead>
 
-    <tbody class="table-group-divider">
+    <tbody>
+      {% for med in Medications %}
       <tr>
-        <td>1</td>
-        <td>Mirtazapine 15mg, 30 tablets</td>
-        <td>4.50</td>
-        <td> <a href=" /edit_med" type="button" class="btn btn-outline-success">Edit</a> </td>
-        <td><button type="button" class="btn btn-outline-dark">Delete</button></td>
+        <!-- Then iterate through every key in the current veterinarian dictionary -->
+        {% for key in med.keys() %}
+        <!-- Create a <td> element with the value of that key in it -->
+        <td>{{med[key]}}</td>
+        {% endfor %}
+        <td><a href="/edit_med/{{ med['id_medication'] }}" type="button" class="btn btn-outline-success">Edit</a></td>
+        <td><a href="/del_med/{{ med['id_medication'] }}" type="button" class="btn btn-outline-dark">Delete</a></td>
+
       </tr>
-      <tr>
-        <td>2</td>
-        <td>Amoxicillin 250mg, 30 capsules</td>
-        <td>4.20</td>
-        <td> <a href="/edit_med" type="button" class="btn btn-outline-success">Edit</a> </td>
-        <td><button type="button" class="btn btn-outline-dark">Delete</button></td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>Dorzolamide HCL Ophthalmic Solution 2%, 10mL</td>
-        <td>20.49</td>
-        <td> <a href="/edit_med" type="button" class="btn btn-outline-success">Edit</a> </td>
-        <td><button type="button" class="btn btn-outline-dark">Delete</button></td>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td>Piroxicam 7mg, 30 capsules</td>
-        <td>20.64</td>
-        <td> <a href="/edit_med" type="button" class="btn btn-outline-success">Edit</a> </td>
-        <td><button type="button" class="btn btn-outline-dark">Delete</button></td>
-      </tr>
-      <tr>
-        <td>5</td>
-        <td>Furosemide 12.5mg, 30 tablets</td>
-        <td>5.00</td>
-        <td> <a href="/edit_med" type="button" class="btn btn-outline-success">Edit</a> </td>
-        <td><button type="button" class="btn btn-outline-dark">Delete</button></td>
-      </tr>
+      {% endfor %}
     </tbody>
   </table>
+  {% else %}
+  There are no medications currently.
+  {% endif %}
+
+
+  <a href="/add_med" type="button" class="btn btn-outline-primary" id="icon">
+    <ion-icon class="icon" name="add-outline"></ion-icon>Add Medication
+  </a>
 </div>
 
-<a href="/add_med" class="navPage">Add Medication</a>
 
+{# OMITTING THIS UPDATE
 <p>&nbsp;</p>
 <div id="update" style="display: block">
   <form id="updateMedication">
@@ -88,64 +77,6 @@ https://github.com/osu-cs340-ecampus/flask-starter-app #}
 </div><!-- update -->
 <p>&nbsp;</p>
 
+OMITTING THIS UPDATE #}
+
 {% endblock %}
-
-{# THIS CODE USES THE DATABASE
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-
-
-{% include 'navbar.html' %}
-<h1>Browse Medications</h1>
-
-<body id="addDelLink">
-  <table border="1" cellpadding="5">
-    <thead>
-      <tr>
-        <!-- Iterate through each key in the first entry to get the
-              column name -->
-        {% for key in Medications[0].keys() %}
-
-        <!-- Create a <th> tag with the key inside of it, this will be
-              our header row -->
-        <th>{{ key }}</th>
-
-        <!-- End of this for loop -->
-        {% endfor %}
-      </tr>
-    </thead>
-
-    <tbody>
-      <!-- Now, iterate through every medication in Medications -->
-      {% for medication in Medications %}
-      <tr>
-        <!-- Then iterate through every key in the current medication dictionary -->
-        {% for key in medication.keys() %}
-
-        <!-- Create a <td> element with the value of that key in it -->
-        <td>{{medication[key]}}</td>
-        {% endfor %}
-        <td> <a href="/edit_med" class="btn edit-btn">Edit</a> </td>
-        <td><button class="btn">Delete</button></td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-
-  <a href="/add_med" class="navPage">Add a medication</a>
-</body>
-
-<p>&nbsp;</p>
-<div id="update" style="display: block">
-  <form id="updateMedication">
-    <legend><strong>Update Medication</strong></legend>
-    <fieldset class="fields">
-      <p>Please enter the following information of the medication to be updated</p>
-      <label> Name: </label> <input type="text" value="Mirtazapine 15mg, 30 tablets" name="name" size="45">
-      <label> Cost: </label> <input type="number" name="cost" value="4.50">
-    </fieldset>
-    <input class="btn" type="submit" id="UpdateSavePlanet" value="Update Medication">
-    <input class="btn" type="button" value="Cancel">
-  </form>
-</div><!-- update -->
-<p>&nbsp;</p>
-#}

@@ -61,9 +61,9 @@ CREATE OR REPLACE TABLE Prescriptions (
 --  id_prescription and id_medication as foreign keys
 CREATE OR REPLACE TABLE PrescriptionMedications (
     id_prescription_medication INT NOT NULL AUTO_INCREMENT,
-    id_prescription INT DEFAULT NULL,
+    id_prescription INT NOT NULL,
     id_medication INT NOT NULL,
-    quantity INT NOT NULL, -- quantity of each medication prescribed
+    quantity INT NOT NULL,
     PRIMARY KEY (id_prescription_medication),
     FOREIGN KEY (id_prescription) REFERENCES Prescriptions(id_prescription)
     ON DELETE CASCADE,

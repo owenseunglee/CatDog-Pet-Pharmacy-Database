@@ -3,42 +3,56 @@
 --Adapted from: Professor's planets.html file
 --Source URL: https://canvas.oregonstate.edu/courses/1946034/assignments/9456216?module_item_id=23809330
 #}
-
 {% extends 'layouts.html'%}
 {% block content %}
 
 <html>
 
 <h1>Add Pet</h1>
-<div id="insert" style="display: block">
-  <form id="addPet" action="/add_pet" method="POST">
-    <legend><strong>Add Pet</strong></legend>
-    <fieldset class="fields">
-      <label> name: </label> <input type="text" name="name">
-      <label> breed: </label> <input type="text" name="breed">
-      <label> age: </label> <input type="number" name="age" min="0">
-      <label> gender: </label> <input type="text" name="gender">
-      <label for="id_vet">vet (ID):</label>
-      <select id="id_vet" name="id_vet">
-        <option value="1">Dr. Johnson (1)</option>
-        <option value="2">Dr. Smith (2)</option>
-        <option value="3">Dr. Brown (3)</option>
-        <option value="4">Dr. Lee (4)</option>
-        <option value="5">Dr. Chang (5)</option>
-      </select>
-      <label for="id_owner">owner (ID):</label>
-      <select id="id_owner" name="id_owner">
-        <option value="1">John Doe (1)</option>
-        <option value="2">Jane Doe (2)</option>
-        <option value="3">Jack Doe (3)</option>
-        <option value="4">Sarah Lee (4)</option>
-        <option value="5">Mike Chen (5)</option>
-      </select>
-    </fieldset>
-    <input class="btn" type="submit" id="addPetBtn" value="Add Pet">
-    <input class="btn" type="button" value="cancel">
-  </form>
+
+<div id="insert">
+    <form id="addPet" action="/add_pet" method="POST">
+        <legend><strong>Add Pet</strong></legend>
+        <fieldset class="fields">
+            <label>Name: </label> <input type="text" name="name">
+            <label>Breed:</label> <input type="text" name="breed">
+            <label>Age:</label>
+            <input type="number" step="1" name="age">
+            <label>Gender: </label>
+            <select name="gender">
+                <option value="">--Select--</option>
+                <option value="F">F</option>
+                <option value="M">M</option>
+            </select>
+
+            <label>Please select the owner of this pet:</label>
+            <select class="form-control" id="owner_select" name="owner_select">
+                {% for o in Owner_Dropdown %}
+                {% if o == Owner_Dropdown[0] %}
+                <option value="{{ o['id_owner'] }}" selected>{{ o['owner_name_and_id'] }}</option>
+                {% else %}
+                <option value="{{ o['id_owner'] }}">{{ o['owner_name_and_id'] }}</option>
+                {% endif %}
+                {% endfor %}
+            </select>
+            <label>Please select the veterinarian of this pet:</label>
+            <select class="form-control" id="vet_select" name="vet_select">
+                <option value="">--None--</option>
+                {% for v in Vet_Dropdown %}
+                {% if v == Vet_Dropdown[0] %}
+                <option value="{{ v['id_vet'] }}" selected>{{ v['vet_name_and_id'] }}</option>
+                {% else %}
+                <option value="{{ v['id_vet'] }}">{{ v['vet_name_and_id'] }}</option>
+                {% endif %}
+                {% endfor %}
+            </select>
+
+        </fieldset>
+        <input class="btn" type="submit" id="addPetBtn" value="Add Pet">
+    </form>
 </div>
+<td><a href="/pets" class="btn">Go Back</a></td>
 
 </html>
+
 {% endblock %}

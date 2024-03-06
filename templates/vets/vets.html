@@ -10,23 +10,24 @@ https://github.com/osu-cs340-ecampus/flask-starter-app #}
 <h1>Browse Veterinarians</h1>
 
 <div class="table-container">
-  <table class="table table-sm table-hover">
+  <table class="table table-hover">
     <thead>
       <tr>
+        {% if Vets %}
         <!-- Iterate through each key in the first entry to get the
             column name -->
         {% for key in Vets[0].keys() %}
         <!-- Create a <th> tag with the key inside of it, this will be
             our header row -->
         <th>
-          {{ key }}
+          {{ key_dict[key] if key in key_dict else key }}
         </th>
         <!-- End of this for loop -->
         {% endfor %}
       </tr>
     </thead>
 
-    <tbody class="table-group-divider">
+    <tbody>
       {% for veterinarian in Vets %}
       <tr>
         <!-- Then iterate through every key in the current veterinarian dictionary -->
@@ -41,9 +42,13 @@ https://github.com/osu-cs340-ecampus/flask-starter-app #}
       {% endfor %}
     </tbody>
   </table>
+  {% else %}
+  There are no veterinarians currently.
+  {% endif %}
 
-
-  <a href="/add_vet" class="navPage">Add Veterinarian</a>
+  <a href="/add_vet" type="button" class="btn btn-outline-primary" id="icon">
+    <ion-icon class="icon" name="add-outline"></ion-icon>Add Veterinarian
+  </a>
 </div>
 
 {% endblock %}

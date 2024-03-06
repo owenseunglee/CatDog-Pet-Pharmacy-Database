@@ -1,28 +1,52 @@
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+{# Citation for edit_med
+  Date: 2/27/24
+  Adapted from: Professor's Developing in Flask Exploration Video
+  Source URL: https://canvas.oregonstate.edu/courses/1946034/pages/exploration-developing-in-flask?module_item_id=23809337
+  #}
 
-<html>
-{% include 'navbar.html' %}
+{% extends 'layouts.html'%}
+{% block content %}
+
 <h1>Update Medication</h1>
+
 <body>
-<div id="update" style="display: block">
-  <form id="updateMedication">
-      <legend><strong>Update Medication</strong></legend>
-          <fieldset class="fields">
-          <p>Please enter the following information of the medication to be updated</p>
-          <label for="id_med">Select a medication (ID):</label>
-          <select id="id_med" name="id_med">
-                  <option value="1">Mirtazapine 15mg, 30 tablets (1)</option>
-                  <option value="2">Amoxicillin 250mg, 30 capsules (2)</option>
-                  <option value="3">Dorzolamide HCL Ophthalmic Solution 2%, 10mL (3)</option>
-                  <option value="4">Piroxicam 7mg, 30 capsules (4)</option>
-                  <option value="5">Furosemide 12.5mg, 30 tablets (5)</option>
-              </select>
-          <label> Name: </label> <input type="text" value="Mirtazapine 15mg, 30 tablets" name="name" size="45">
-          <label> Cost: </label> <input type="number" name="cost" step = "0.01" value="4.50">
-    </fieldset>
-    <input class="btn" type="submit" id="UpdateSaveMed" value="Update Medication">
-          <input class="btn" type="button" value="Cancel" >
-  </form> 
-</div><!-- update -->
+    <div id="update" style="display: block">
+        <h2>Current Editing:</h2>
+        <div style="float: left;">
+            <table>
+                <tr>
+                    <th>name:</th>
+                    <td>{{ results[0].name }}</td>
+                </tr>
+                <tr>
+                    <th>cost:</th>
+                    <td>{{ results[0].cost }}</td>
+                </tr>
+            </table>
+        </div>
+        <br style="clear: left;">
+        <br>
+
+        <form id="updateMed" method="POST" action="/edit_med/{{results[0].id_medication}}">
+            <legend><strong>Update Medication</strong></legend>
+            <fieldset class="fields">
+                <input type="hidden" value="{{results[0].id_medication}}" class="form-control" id="medID" name="medID"
+                    required>
+                <p>Please enter the following information of the medication to be updated</p>
+                <label> name: </label> <input type="text" value="{{ results[0].name}}" class="form-control" id="name"
+                    name="name">
+                <label> cost: </label> <input type="text" value="{{ results[0].cost }}" class="form-control"
+                    id="cost" name="cost">
+                
+            </fieldset>
+            <input class="btn" type="submit" name="Edit_Med" value="Update Medication">
+
+        </form>
+
+        <td><a href="/meds" class="btn">Go Back</a></td>
+    </div><!-- update -->
 </body>
+
 </html>
+
+{% endblock %}

@@ -9,17 +9,18 @@
 
 <html>
 <h1>Add Veterinarian</h1>
-<div id="insert" style="display: block">
+<div class="update-container" id="insert">
   <form id="addVet" action="/add_vet" method="POST">
     <legend><strong>Add Veterinarian</strong></legend>
     <fieldset class="fields">
-      <label> name: </label> <input type="text" name="name">
-      <label> clinic: </label> <input type="text" name="clinic">
-      <label> email: </label> <input type="email" name="email">
-      <label> no_of_patients: </label> <input type="number" min="0" name="no_of_patients">
+      <p>Please enter the veterinarian information to be added:</p>
+      <label> Name: </label> <input type="text" name="name">
+      <label> Clinic: </label> <input type="text" name="clinic">
+      <label> Email: </label> <input type="email" name="email">
+      <label> Number of Patients: </label> <input type="number" min="0" name="no_of_patients">
     </fieldset>
     <input class="btn" type="submit" id="addVetBtn" value="Add a Veterinarian">
-    
+
   </form>
   <td><a href="/vets" class="btn">Go Back</a></td>
 </div>

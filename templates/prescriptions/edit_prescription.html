@@ -1,7 +1,8 @@
 {% extends 'layouts.html'%}
 {% block content %}
 
-<html>
+
+
 
 <h1>Update Prescription</h1>
 
@@ -10,6 +11,10 @@
         <h2>Current Editing:</h2>
         <div style="float: left;">
             <table>
+                <tr>
+                    <th>Pet:</th>
+                    <td>{{ current_pet_results[0].pet_name }}</td>
+                </tr>
                 <tr>
                     <th>Order Date:</th>
                     <td>{{ results[0].order_date }}</td>
@@ -20,44 +25,52 @@
                 </tr>
                 <tr>
                     <th>Was Picked Up:</th>
-                    <td>{{ results[0].was_picked_up }}</td>
+                    <td>{{ "Yes" if results[0].was_picked_up == 1 else "No" }}</td>
                 </tr>
-                <tr>
-                    <th>ID Pet:</th>
-                    <td>{{ results[0].id_pet }}</td>
-                </tr>
+
             </table>
         </div>
         <br style="clear: left;">
         <br>
 
-        <form id="updatePrescription">
+        <form id="updatePrescription" method="POST" action="/edit_prescription/{{results[0].id_prescription}}">
             <legend><strong>Update Prescription</strong></legend>
             <fieldset class="fields">
-                <p>Please enter the following information of the prescription to be updated</p>
-                <label for="id_prescription">Select a prescription (ID):</label>
-                <select id="id_prescription" name="id_prescription">
-                    <option value="1">2023-05-06 10:00:00 (1)</option>
-                    <option value="2">2023-12-14 11:00:00 (2)</option>
-                    <option value="3">2024-02-01 12:00:00 (3)</option>
+                <input type="hidden" value="{{results[0].id_prescription}}" class="form-control" id="presID"
+                    name="presID" required>
+
+                <p>Please enter the following information of the prescription to be updated:</p>
+                <p>Please select the pet whose assigned to this prescription:</p>
+                <select class="form-control" id="pet_select" name="pet_select">
+                    {% for pet in Pet_Dropdown %}
+                    {# {% if pet['id_pet'] == results[0]['id_pet'] %} #}
+                    {% if pet['order_date'] == results[0].order_date %}
+                    <option value="{{ pet['id_pet'] }}" selected>{{ pet['pet_name_and_id'] }} {{ pet['order_date'] }}
+                    </option>
+                    {% else %}
+                    <option value="{{ pet['id_pet'] }}">{{ pet['pet_name_and_id'] }} {{ pet['order_date'] }}</option>
+                    {% endif %}
+                    {% endfor %}
                 </select>
-                <label> order_date: </label> <input type="datetime-local" name="order_date">
-                <label>prescription_cost (will be calculated automatically):</label> <label> was_picked_up: </label>
-                <select name="picked_up">
-                    <option value="">--Select--</option>
-                    <option value="1">Yes</option>
-                    <option value="0">No</option>
+                <label> Order Date: </label>
+                <input type="datetime-local" value="{{ results[0].order_date }}" class="form-control" id="order_date"
+                    name="order_date">
+                <label> Prescription Cost: </label> <input type="text" value="{{ results[0].prescription_cost }}"
+                    class="form-control" id="prescription_cost" name="prescription_cost">
+                <label for="was_picked_up">Was Picked Up:</label>
+                <select id="was_picked_up" name="was_picked_up">
+                    <option value="1" {% if results[0].was_picked_up==1 %}selected{% endif %}>Yes</option>
+                    <option value="0" {% if results[0].was_picked_up==0 %}selected{% endif %}>No</option>
                 </select>
-                <label for="id_pet">pet (ID):</label>
-                <select id="id_pet" name="id_pet">
-                    <option value="1">Fido (1)</option>
-                    <option value="2">Whiskers (2)</option>
-                    <option value="3">Rex (3)</option>
+
                 </select>
+
             </fieldset>
-            <input class="btn" type="submit" id="UpdateSaveMed" value="Update Medication">
-            <input class="btn" type="button" value="Cancel">
+            <input class="btn" type="submit" name="Edit_Prescription" value="Update Prescription">
+
         </form>
+
+        <td><a href="/prescriptions" class="btn">Go Back</a></td>
     </div><!-- update -->
 </body>
 
