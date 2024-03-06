@@ -8,17 +8,15 @@
 -- gets all attributes for the Vets page
 SELECT * FROM Vets;
 
+-- updated as of step 5 draft
 -- get a single vet's data to pre-populate for the Update Veterinarian page 
 SELECT * FROM Vets WHERE id_vet = %s;
 
--- gets a Vet's name and corresponding id_vet for the dropdown in Browse Veterinarians and Update Vet page
--- Browse Pets, Update Pet page
-SELECT id_vet, CONCAT(Vets.name, ' (', id_vet, ')') AS vet_name_id
-FROM Vets;
-
+-- updated as of step 5 draft
 -- gets the Vet assigned to the current pet we are editing in Edit Pets page
 SELECT Vets.name AS vet_name FROM Pets LEFT JOIN Vets ON Pets.id_vet = Vets.id_vet WHERE Pets.id_pet = %s;
 
+-- updated as of step 5 draft
 -- gets Vet for Vet Dropdown in Edit Pet
 SELECT DISTINCT Vets.id_vet, Vets.name AS vet_name FROM Vets LEFT JOIN Pets ON Pets.id_vet = Vets.id_vet ORDER BY vet_name;
 
@@ -37,12 +35,15 @@ DELETE FROM Vets WHERE id = :vet_ID_selected_from_browse_vet_page;
 -- gets all attributes for the Owners page
 SELECT * FROM Owners;
 
+-- updated as of step 5 draft
 -- get a single owner's data to pre-populate for the Update Owner page 
 SELECT * FROM Owners WHERE id_owner = %s;
 
+-- updated as of step 5 draft
 -- gets an Owner's name for Edit Pet page
 SELECT DISTINCT Owners.id_owner, Owners.name AS owner_name FROM Owners LEFT JOIN Pets ON Pets.id_owner = Owners.id_owner ORDER BY owner_name;
 
+-- updated as of step 5 draft
 -- gets the Owner assigned to the current pet we are editing in Edit Pets page
 SELECT Owners.name AS owner_name FROM Pets INNER JOIN Owners ON Pets.id_owner = Owners.id_owner WHERE id_pet = %s;
 
@@ -58,32 +59,27 @@ DELETE FROM Owners WHERE id = :owner_ID_selected_from_browse_owner_page;
 
 -- ** Pets **
 
--- gets all attributes for the Pets page
-SELECT * FROM Pets;
--- (alternative - more descriptive)
 -- get all attributes for the Pets page along with their owner's name and vet's name
 SELECT Pets.id_pet, Pets.name, breed, age, gender, Owners.name AS owner_name, Vets.name AS vet_name 
 FROM Pets INNER JOIN Owners ON Pets.id_owner = Owners.id_owner 
 LEFT JOIN Vets ON Pets.id_vet = Vets.id_vet 
 ORDER BY Pets.name;
 
+-- updated as of step 5 draft
 -- get a single pet's data to pre-populate for the Update Pet page 
 SELECT * FROM Pets WHERE id_pet = %s;
 
--- gets a Pet's name and corresponding id_pet for the dropdown in Browse Pets and Update Pet page
-SELECT id_pet, CONCAT(Pets.name, ' (', id_pet, ')') AS pet_name_id
-FROM Pets;
-
+-- updated as of step 5 draft
 -- gets Pet dropdown for Edit Prescription page
 SELECT Pets.id_pet, CONCAT(Pets.name, ' (', Pets.id_pet, ')') AS pet_name_and_id, Prescriptions.order_date FROM Pets LEFT JOIN Prescriptions ON Pets.id_pet = Prescriptions.id_pet ORDER BY Pets.name, Prescriptions.order_date;
 
+-- updated as of step 5 draft
 -- display the pet part of the Prescription we're currently editing
 SELECT Prescriptions.order_date, Prescriptions.prescription_cost, Prescriptions.was_picked_up, Pets.name AS pet_name FROM Prescriptions INNER JOIN Pets ON Prescriptions.id_pet = Pets.id_pet WHERE id_prescription = %s;
 
 -- add a new pet. list of vets and owners will be displayed in dropdown 
 INSERT INTO Pets (name, breed, age, gender, id_vet, id_owner)
 VALUES (:nameInput, :breedInput, :ageInput, :genderInput, :vet_id_from_dropdown_Input, :owner_id_from_dropdown_Input);
-
 
 -- update Pets
 UPDATE Pets SET name = :nameInput, breed = :breedInput, age = :ageInput,
@@ -95,15 +91,13 @@ DELETE FROM Pets WHERE id = :pet_ID_selected_from_browse_pet_page;
 
 -- ** Medications **
 
+-- updated as of step 5 draft
 -- gets all attributes for the Medications page
 SELECT * FROM Medications ORDER BY Medications.name;
 
+-- updated as of step 5 draft
 -- get a single medications's data to pre-populate for the Update Medication page 
 SELECT * FROM Medications WHERE id_medication = %s;
-
--- gets a Medication's name and corresponding id_medication for the dropdown in Browse Medications and Update Medication page
-SELECT id_medication, CONCAT(Medications.name, ' (', id_medication, ')') AS med_name_id
-FROM Medications;
 
 -- add a new Medication
 INSERT INTO Medications (name, cost) VALUES (:nameInput, :costInput);
@@ -118,8 +112,10 @@ DELETE FROM Medications WHERE id = :medication_ID_selected_from_browse_medicatio
 
 -- ** Prescriptions **
 
+-- updated as of step 5 draft
 -- gets all attributes for the Prescriptions page
 SELECT Prescriptions.id_prescription, Pets.name AS pet_name, Prescriptions.order_date, Prescriptions.prescription_cost, Prescriptions.was_picked_up FROM Prescriptions INNER JOIN Pets ON Prescriptions.id_pet = Pets.id_pet ORDER BY Prescriptions.order_date;
+
 -- (alternative - more descriptive)
 -- gets all attributes for the Prescriptions page which will show
 -- the Pet name and calculate the prescription_cost
@@ -136,12 +132,9 @@ SELECT Prescriptions.id_prescription, Prescriptions.order_date,
         Prescriptions.was_picked_up, 
         Pets.name;
 
+-- updated as of step 5 draft
 -- get a single prescriptions's data to pre-populate for the Update Prescription page 
 SELECT * FROM Prescriptions WHERE id_prescription = %s;
-
--- gets a Prescription's order_date and corresponding id_prescription for the dropdown in Browse Prescriptions and Update Prescription page
-SELECT id_prescription, CONCAT(Prescription.order_date, ' (', id_prescription, ')') AS prescription_date_id
-FROM Prescriptions;
 
 -- add a new prescription. the prescription cost is calculated from Medications and PrescriptionMedications
 INSERT INTO Prescriptions (order_date, prescription_cost, was_picked_up, id_pet)
@@ -163,18 +156,16 @@ WHERE id_prescription = :prescriptionIDSelectedFromBrowsePrescriptionPage;
 DELETE FROM Prescriptions WHERE id = :prescriptionIDSelectedFromBrowsePrescriptionPage;
 
 -- ** PrescriptionMedications **
--- gets all attributes for the PrescriptionMedications page (more descriptive)
-SELECT Prescriptions.order_date AS Prescription_order_date, Medications.name AS Medication_name
-FROM PrescriptionMedications
-INNER JOIN Prescriptions ON PrescriptionMedications.id_prescription = Prescriptions.id_prescription
-INNER JOIN Medications ON PrescriptionMedications.id_medication = Medications.id_medication 
 
+-- updated as of step 5 draft
 -- gets all attributes for the PrescriptionMedications page
 SELECT CONCAT(Pets.name, ' (', Prescriptions.order_date, ')') AS pet_and_prescription_order_date, Medications.name AS medication_name, quantity FROM PrescriptionMedications INNER JOIN Prescriptions ON PrescriptionMedications.id_prescription = Prescriptions.id_prescription INNER JOIN Medications ON PrescriptionMedications.id_medication = Medications.id_medication INNER JOIN Pets ON Prescriptions.id_pet = Pets.id_pet ORDER BY Prescriptions.order_date,Pets.name;
 
+-- updated as of step 5 draft
 -- gets a corresponding Pet's name, their Prescription order_date, and corresponding id_prescription for the dropdown in Add PrescriptionMedications page
 ELECT Prescriptions.id_prescription AS id_prescription, CONCAT(Pets.name, ', ', Prescriptions.order_date, ' (', Prescriptions.id_prescription, ')') AS pet_order_date_prescription_ID FROM Prescriptions INNER JOIN Pets ON Prescriptions.id_pet = Pets.id_pet ORDER BY Prescriptions.order_date, Pets.name;
 
+-- updated as of step 5 draft
 -- gets a corresponding medication's name and id_medication for the dropdown in Add PrescriptionMedications page
 SELECT Medications.id_medication, CONCAT(Medications.name, ' (', Medications.id_medication, ')') AS med_info FROM Medications ORDER BY Medications.name;
 
@@ -182,32 +173,3 @@ SELECT Medications.id_medication, CONCAT(Medications.name, ' (', Medications.id_
 INSERT INTO PrescriptionMedications (id_prescription, id_medication, quantity) 
 VALUES (:prescription_info_from_dropdown_Input, :medication_info_from_dropdown_Input, :quantityInput);
 
-
--- old queries
--- -- get a single pet's data for the Update Pet page
--- SELECT id_pet, name, breed, age, gender, id_vet, id_owner
--- FROM Pets
--- WHERE id_pet = :pet_ID_selected_from_browse_pet_page
-
--- -- get all pets with their current associated vets
--- SELECT id_pet, id_vet, Pets.name AS pet_name, Vets.name AS vet_name
--- FROM Pets
--- INNER JOIN Vets ON Pets.id_vet = Vets.id_vet
--- ORDER BY pet_name, vet_name;
-
--- -- get all vet IDs and names to populate the vet dropdown
--- SELECT id_vet, name FROM Vets
-
--- -- get all owner IDs and names to populate the owner dropdown
--- SELECT id_owner, name FROM Owners
-
--- -- get all pet IDs and names to populate the pet dropdown
--- SELECT id_pet, name FROM Pets
-
--- -- gets all medication IDs and names to populate the medication dropdown
--- SELECT id_medication, name FROM Medications
-
--- -- gets prescription name and pet name to populate the prescription dropdown in the intersection table
--- SELECT CONCAT(Pets.name, ' - ', order_date) AS prescription_info
--- FROM Prescriptions
--- JOIN Pets ON Prescriptions.id_pet = Pets.id_pet;
