@@ -267,15 +267,30 @@ def update_cost_from_editmed(medication_id):
 def del_meds(id):
 
     db_connection = db.connect_to_database()
+    # find every prescriptions that have a deleted med
+    get_prescriptions_query = "SELECT id_prescription, quantity FROM PrescriptionMedications WHERE id_medication = %s;"
+    cursor = db.execute_query(db_connection=db_connection, query=get_prescriptions_query, query_params=(id,))
+    # result is stored in 'prescriptions'
+    prescriptions = cursor.fetchall()
 
+    # loop through the each perscription that includes the med to be deleted
+    for prescription in prescriptions:
+        # when found, get the cost of the med to be deleted
+        get_med_cost_query = "SELECT cost FROM Medications WHERE id_medication = %s;"
+        cursor = db.execute_query(db_connection=db_connection, query=get_med_cost_query, query_params=(id,))
+        # result is stored in 'med_cost'
+        med_cost = cursor.fetchone()['cost']
+
+        # subtract the cost of the deleted med from the prescription_cost, at this point we run a query similar to the update_cost()
+        update_prescription_cost_query = "UPDATE Prescriptions SET prescription_cost = prescription_cost - (%s * %s) WHERE id_prescription = %s;"
+        db.execute_query(db_connection=db_connection, query=update_prescription_cost_query, query_params=(med_cost, prescription['quantity'], prescription['id_prescription'],))
+        db_connection.commit()
+
+    #delete the med
     query = "DELETE FROM Medications WHERE id_medication = %s;"
     cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id,))
     db_connection.commit()
-
-    # Update the prescription cost after deleting the medication
-    # update_cost_from_delmed(id)
-
-    return redirect("/meds") 
+    return redirect("/meds")
 
 @app.route("/pets", methods=["POST", "GET"])
 def pets():
@@ -651,7 +666,7 @@ def add_prescriptMeds():
         return render_template("intersection/add_prescriptMeds.html", Prescriptions_Dropdown=prescription_results, Medications_Dropdown=med_results)
 
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 58557)) 
+    port = int(os.environ.get('PORT', 58558)) 
      #                               ^^^^
     #             You can replace this number with any valid port
     
