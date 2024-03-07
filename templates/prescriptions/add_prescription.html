@@ -12,12 +12,10 @@
 <h1>Add Prescription</h1>
 
 <div id="insert">
-    <form id="addPrescription" action ="/add_prescription" method="POST">
+    <form id="addPrescription" action="/add_prescription" method="POST">
         <legend><strong>Add Prescription</strong></legend>
         <fieldset class="fields">
             <label> Order Date: </label> <input type="datetime-local" name="order_date">
-            <label>Prescription Cost:</label>
-            <input type="number" step="0.01" name="prescription_cost">
             <label> Was Picked Up: </label>
             <select name="picked_up">
                 <option value="">--Select--</option>
@@ -25,15 +23,15 @@
                 <option value="0">No</option>
             </select>
             <p>Please select the pet whose assigned to this prescription:</p>
-      <select class="form-control" id="pet_select" name="pet_select">
-        {% for pet in Pet_Dropdown %}
-            {% if pet == Pet_Dropdown[0] %}
+            <select class="form-control" id="pet_select" name="pet_select">
+                {% for pet in Pet_Dropdown %}
+                {% if pet == Pet_Dropdown[0] %}
                 <option value="{{ pet['id_pet'] }}" selected>{{ pet['pet_name_and_id'] }}</option>
-            {% else %}
+                {% else %}
                 <option value="{{ pet['id_pet'] }}">{{ pet['pet_name_and_id'] }}</option>
-            {% endif %}
-        {% endfor %} 
-      </select>
+                {% endif %}
+                {% endfor %}
+            </select>
 
 
         </fieldset>

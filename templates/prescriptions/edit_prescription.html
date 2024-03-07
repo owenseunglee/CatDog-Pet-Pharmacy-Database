@@ -36,33 +36,32 @@
         <form id="updatePrescription" method="POST" action="/edit_prescription/{{results[0].id_prescription}}">
             <legend><strong>Update Prescription</strong></legend>
             <fieldset class="fields">
-                <input type="hidden" value="{{results[0].id_prescription}}" class="form-control" id="presID" name="presID"
-                    required>
+                <input type="hidden" value="{{results[0].id_prescription}}" class="form-control" id="presID"
+                    name="presID" required>
 
                 <p>Please enter the following information of the prescription to be updated:</p>
                 <p>Please select the pet whose assigned to this prescription:</p>
-                    <select class="form-control" id="pet_select" name="pet_select">
-                        {% for pet in Pet_Dropdown %}
-                            {# {% if pet['id_pet'] == results[0]['id_pet'] %} #}
-                            {% if pet['order_date'] == results[0].order_date %}
-                                <option value="{{ pet['id_pet'] }}" selected>{{ pet['pet_name_and_id'] }} {{ pet['order_date'] }}</option>
-                            {% else %}
-                                <option value="{{ pet['id_pet'] }}">{{ pet['pet_name_and_id'] }} {{ pet['order_date'] }}</option>
-                            {% endif %}
-                        {% endfor %} 
-                        </select>
-                <label> Order Date: </label> 
+                <select class="form-control" id="pet_select" name="pet_select">
+                    {% for pet in Pet_Dropdown %}
+                    {# {% if pet['id_pet'] == results[0]['id_pet'] %} #}
+                    {% if pet['order_date'] == results[0].order_date %}
+                    <option value="{{ pet['id_pet'] }}" selected>{{ pet['pet_name_and_id'] }} {{ pet['order_date'] }}
+                    </option>
+                    {% else %}
+                    <option value="{{ pet['id_pet'] }}">{{ pet['pet_name_and_id'] }} {{ pet['order_date'] }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                <label> Order Date: </label>
                 <input type="datetime-local" value="{{ results[0].order_date }}" class="form-control" id="order_date"
                     name="order_date">
-                <label> Prescription Cost: </label> <input type="text" value="{{ results[0].prescription_cost }}" class="form-control"
-                    id="prescription_cost" name="prescription_cost">
-                    <label for="was_picked_up">Was Picked Up:</label>
-                    <select id="was_picked_up" name="was_picked_up">
-                        <option value="1" {% if results[0].was_picked_up == 1 %}selected{% endif %}>Yes</option>
-                        <option value="0" {% if results[0].was_picked_up == 0 %}selected{% endif %}>No</option>
-                    </select>
-                    
-                    </select>
+                <label for="was_picked_up">Was Picked Up:</label>
+                <select id="was_picked_up" name="was_picked_up">
+                    <option value="1" {% if results[0].was_picked_up==1 %}selected{% endif %}>Yes</option>
+                    <option value="0" {% if results[0].was_picked_up==0 %}selected{% endif %}>No</option>
+                </select>
+
+                </select>
 
             </fieldset>
             <input class="btn" type="submit" name="Edit_Prescription" value="Update Prescription">

@@ -173,3 +173,40 @@ SELECT Medications.id_medication, CONCAT(Medications.name, ' (', Medications.id_
 INSERT INTO PrescriptionMedications (id_prescription, id_medication, quantity) 
 VALUES (:prescription_info_from_dropdown_Input, :medication_info_from_dropdown_Input, :quantityInput);
 
+DELIMITER $$
+
+CREATE TRIGGER update_prescription_cost_after_insert 
+AFTER INSERT ON PrescriptionMedications
+FOR EACH ROW 
+BEGIN
+    DECLARE total_cost DECIMAL(5,2);
+
+    SELECT SUM(Medications.cost * PrescriptionMedications.quantity)
+    INTO total_cost
+    FROM PrescriptionMedications
+    JOIN Medications ON PrescriptionMedications.id_medication = Medications.id_medication
+    WHERE PrescriptionMedications.id_prescription = NEW.id_prescription;
+
+    UPDATE Prescriptions
+    SET prescription_cost = total_cost
+    WHERE id_prescription = NEW.id_prescription;
+END$$
+
+CREATE TRIGGER update_prescription_cost_after_update 
+AFTER UPDATE ON PrescriptionMedications
+FOR EACH ROW 
+BEGIN
+    DECLARE total_cost DECIMAL(5,2);
+
+    SELECT SUM(Medications.cost * PrescriptionMedications.quantity)
+    INTO total_cost
+    FROM PrescriptionMedications
+    JOIN Medications ON PrescriptionMedications.id_medication = Medications.id_medication
+    WHERE PrescriptionMedications.id_prescription = NEW.id_prescription;
+
+    UPDATE Prescriptions
+    SET prescription_cost = total_cost
+    WHERE id_prescription = NEW.id_prescription;
+END$$
+
+DELIMITER ;

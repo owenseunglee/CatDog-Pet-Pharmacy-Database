@@ -10,7 +10,7 @@ https://github.com/osu-cs340-ecampus/flask-starter-app #}
 <h1>Browse Veterinarians</h1>
 
 <div class="table-container">
-  <table class="table table-sm table-hover">
+  <table class="table table-hover">
     <thead>
       <tr>
         {% if Vets %}
@@ -27,7 +27,7 @@ https://github.com/osu-cs340-ecampus/flask-starter-app #}
       </tr>
     </thead>
 
-    <tbody class="table-group-divider">
+    <tbody>
       {% for veterinarian in Vets %}
       <tr>
         <!-- Then iterate through every key in the current veterinarian dictionary -->
@@ -44,9 +44,11 @@ https://github.com/osu-cs340-ecampus/flask-starter-app #}
   </table>
   {% else %}
   There are no veterinarians currently.
-{% endif %}
+  {% endif %}
 
-  <a href="/add_vet" class="navPage">Add Veterinarian</a>
+  <a href="/add_vet" type="button" class="btn btn-outline-primary" id="icon">
+    <ion-icon class="icon" name="add-outline"></ion-icon>Add Veterinarian
+  </a>
 </div>
 
 {% endblock %}

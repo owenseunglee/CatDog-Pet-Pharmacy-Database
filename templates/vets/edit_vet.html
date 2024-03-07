@@ -7,12 +7,9 @@ Source URL: https://canvas.oregonstate.edu/courses/1946034/pages/exploration-dev
 {% extends 'layouts.html'%}
 {% block content %}
 
-<h1>Update Veterinarian</h1>
-
 <body>
-    <div id="update" style="display: block">
-        <h2>Current Editing:</h2>
-        <div style="float: left;">
+    <div class="update-container">
+        <div class="edit-container" id="update">
             <table>
                 <tr>
                     <th>Name:</th>
@@ -31,11 +28,11 @@ Source URL: https://canvas.oregonstate.edu/courses/1946034/pages/exploration-dev
                     <td>{{ results[0].no_of_patients }}</td>
                 </tr>
             </table>
+            <br style="clear: left;">
+            <br>
         </div>
-        <br style="clear: left;">
-        <br>
 
-        <form id="updateVet" method="POST" action="/edit_vet/{{results[0].id_vet}}">
+        <form class="updateForm" id="updateVet" method="POST" action="/edit_vet/{{results[0].id_vet}}">
             <legend><strong>Update Veterinarian</strong></legend>
             <fieldset class="fields">
                 <input type="hidden" value="{{results[0].id_vet}}" class="form-control" id="vetID" name="vetID"
@@ -50,13 +47,13 @@ Source URL: https://canvas.oregonstate.edu/courses/1946034/pages/exploration-dev
                 <label> Number of Patients: </label> <input type="number" id="no_of_patients" class="form-control"
                     name="no_of_patients" value="{{ results[0].no_of_patients }}">
             </fieldset>
-            <input class="btn" type="submit" name="Edit_Vet" value="Update Veterinarian">
+            <input class="btn btn-outline-primary" type="submit" id="edit_button" name="Edit_Vet"
+                value="Update Veterinarian">
+        </form><!-- update -->
 
-        </form>
-
-        <td><a href="/vets" class="btn">Go Back</a></td>
-    </div><!-- update -->
+    </div>
 </body>
+<a href="/vets" class="btn">Go Back</a>
 
 </html>
 

@@ -2,10 +2,14 @@
     --primary-color: RGB(39, 116, 174)
 }
 
+/* variables for colors */
+
 a {
     text-decoration: none;
     color: var(--primary-color);
 }
+
+/* nav link styling */
 
 .nav-bar {
     display: flex;
@@ -18,6 +22,8 @@ a {
     margin: 0 auto;
 }
 
+/* Container to wrap the entire header */
+
 .navbar-top {
     display: flex;
 }
@@ -28,8 +34,11 @@ a {
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-left: 11%;
+    margin-left: 8%;
 }
+
+/* Secondary container to wrap the entire nav-links/
+     group name/contact */
 
 .nav-bar .navbar-links {
     width: 80%;
@@ -37,6 +46,8 @@ a {
     margin: auto;
     display: flex;
 }
+
+/* Container for just nav-links*/
 
 .test {
     display: flex;
@@ -81,6 +92,19 @@ a {
     margin: 0;
 }
 
+#icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 1500px;
+}
+
+/*styling icon from ionicons*/
+
+.btn ion-icon {
+    margin-right: 5px;
+}
+
 .nav-bar .navbar-site-links li {
     list-style-type: none;
     font-weight: bold;
@@ -107,15 +131,26 @@ h1 {
     margin-top: 20px;
 }
 
+.table thead tr {
+    border-bottom: 2px solid black;
+}
+
 .edit-container {
     width: 55%;
     padding: 120px 0;
+    justify-content: center;
+    display: inline-flex;
+}
+
+#edit_button {
+    margin-top: 15px;
 }
 
 .table-container {
     margin: auto;
     width: 50%;
     padding: 10px;
+    max-width: 900px;
 }
 
 thead th {
@@ -145,8 +180,8 @@ td {
     align-items: center;
     max-width: 1500px;
     margin: auto;
-    width: 100%;
-    background-color: var(--primary-color);
+    width: 80%;
+
 }
 
 #group-name {

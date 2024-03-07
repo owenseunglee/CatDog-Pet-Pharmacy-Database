@@ -42,47 +42,50 @@
         <br style="clear: left;">
         <br>
 
-        <form id="updatePet" method="POST" action="/edit_pet/{{results[0].id_pet}}">
-          <legend><strong>Update Pet</strong></legend>
-          <fieldset class="fields">
-              <input type="hidden" value="{{results[0].id_pet}}" class="form-control" id="petID" name="petID" required>
-      
-              <p>Please enter the following information of the pet to be updated:</p>
-              <label> Pet Name: </label> <input type="text" value="{{ results[0].name }}" class="form-control" id="name" name="name">
-              <label>Please select the owner whose assigned to this pet:</label>
-              <select class="form-control" id="owner_select" name="owner_select">
-                  {% for owner in Owner_Dropdown %}
-                      {% if owner['id_owner'] == results[0]['id_owner'] %}
-                          <option value="{{ owner['id_owner'] }}" selected>{{ owner['owner_name'] }} </option>
-                      {% else %}
-                          <option value="{{ owner['id_owner'] }}">{{ owner['owner_name'] }}</option>
-                      {% endif %}
-                  {% endfor %} 
-              </select>
-      
-              <label> Please select the vet whose assigned to this pet: </label>
-              <select class="form-control" id="vet_select" name="vet_select">
-                <option value="">--None--</option>
-                  {% for vet in Vet_Dropdown %}
-                      {% if vet['id_vet'] == results[0]['id_vet'] %}
-                          <option value="{{ vet['id_vet'] }}" selected>{{ vet['vet_name'] }} </option>
-                      {% else %}
-                          <option value="{{ vet['id_vet'] }}">{{ vet['vet_name'] }}</option>
-                      {% endif %}
-                  {% endfor %}
-              </select>
-      
-              
-              <label> Breed: </label> <input type="text" value="{{ results[0].breed }}" class="form-control" id="breed" name="breed">
-              <label> Age: </label> <input type="number" value="{{ results[0].age }}" class="form-control" id="age" name="age">
-              <label for="gender">Gender:</label>
-              <select id="gender" name="gender">
-                  <option value="M">M</option>
-                  <option value="F">F</option>
-              </select>
-          </fieldset>
-          <input class="btn" type="submit" name="Edit_Pet" value="Update Pet">
-      </form>
+    <form id="updatePet" method="POST" action="/edit_pet/{{results[0].id_pet}}">
+      <legend><strong>Update Pet</strong></legend>
+      <fieldset class="fields">
+        <input type="hidden" value="{{results[0].id_pet}}" class="form-control" id="petID" name="petID" required>
+
+        <p>Please enter the following information of the pet to be updated:</p>
+        <label> Pet Name: </label> <input type="text" value="{{ results[0].name }}" class="form-control" id="name"
+          name="name">
+        <label>Please select the owner whose assigned to this pet:</label>
+        <select class="form-control" id="owner_select" name="owner_select">
+          {% for owner in Owner_Dropdown %}
+          {% if owner['id_owner'] == results[0]['id_owner'] %}
+          <option value="{{ owner['id_owner'] }}" selected>{{ owner['owner_name'] }} </option>
+          {% else %}
+          <option value="{{ owner['id_owner'] }}">{{ owner['owner_name'] }}</option>
+          {% endif %}
+          {% endfor %}
+        </select>
+
+        <label> Please select the vet whose assigned to this pet: </label>
+        <select class="form-control" id="vet_select" name="vet_select">
+          <option value="">--None--</option>
+          {% for vet in Vet_Dropdown %}
+          {% if vet['id_vet'] == results[0]['id_vet'] %}
+          <option value="{{ vet['id_vet'] }}" selected>{{ vet['vet_name'] }} </option>
+          {% else %}
+          <option value="{{ vet['id_vet'] }}">{{ vet['vet_name'] }}</option>
+          {% endif %}
+          {% endfor %}
+        </select>
+
+
+        <label> Breed: </label> <input type="text" value="{{ results[0].breed }}" class="form-control" id="breed"
+          name="breed">
+        <label> Age: </label> <input type="number" value="{{ results[0].age }}" class="form-control" id="age"
+          name="age">
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender">
+          <option value="M">M</option>
+          <option value="F">F</option>
+        </select>
+      </fieldset>
+      <input class="btn" type="submit" name="Edit_Pet" value="Update Pet">
+    </form>
 
         <td><a href="/pets" class="btn">Go Back</a></td>
     </div><!-- update -->

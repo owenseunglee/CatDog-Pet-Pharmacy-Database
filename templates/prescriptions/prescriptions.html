@@ -23,7 +23,7 @@
             </tr>
         </thead>
 
-        <tbody class="table-group-divider">
+        <tbody>
             {% for prescription in Prescriptions %}
             <tr>
                 {% for key in prescription.keys() %}
@@ -33,7 +33,7 @@
                 <td> <a href="/edit_prescription/{{ prescription['id_prescription']}}" type="button"
                         class="btn btn-outline-success">Edit</a> </td>
                 <td> <a href="/del_prescription/{{ prescription['id_prescription']}}" type="button"
-                        class="btn btn-outline-dark">Delete</button></td>
+                        class="btn btn-outline-dark">Delete</a></td>
             </tr>
             {% endfor %}
            
@@ -41,10 +41,14 @@
         </tbody>
     </table>
     {% else %}
-        There are no prescriptions currently.
+    There are no prescriptions currently.
     {% endif %}
 
-    <a href="/add_prescription" class="navPage">Add Prescription</a>
+
+    <a href="/add_prescription" type="button" class="btn btn-outline-primary" id="icon">
+        <ion-icon class="icon" name="add-outline"></ion-icon>Add Prescription
+    </a>
+
 </div>
 
 {% endblock %}

@@ -11,44 +11,44 @@
 
 
 <div class="table-container">
-    <table class="table table-sm table-hover">
-      <thead>
-        <tr>
-          <!-- Iterate through each key in the first entry to get the
+  <table class="table table-sm table-hover">
+    <thead>
+      <tr>
+        <!-- Iterate through each key in the first entry to get the
               column name -->
-          {% if PrescriptionMedications %}
-          {% for key in PrescriptionMedications[0].keys() %}
-          <!-- Create a <th> tag with the key inside of it, this will be
+        {% if PrescriptionMedications %}
+        {% for key in PrescriptionMedications[0].keys() %}
+        <!-- Create a <th> tag with the key inside of it, this will be
               our header row -->
-          <th>
-            {{ key_dict[key] if key in key_dict else key }}
-          </th>
-          <!-- End of this for loop -->
-          {% endfor %}
-
-        </tr>
-      </thead>
-  
-      <tbody class="table-group-divider">
-        {% for pm in PrescriptionMedications %}
-        <tr>
-          <!-- Then iterate through every key in the current veterinarian dictionary -->
-          {% for key in pm.keys() %}
-          <!-- Create a <td> element with the value of that key in it -->
-          <td>
-            {{pm[key]}}</td>
-          {% endfor %}
-
-        </tr>
+        <th>
+          {{ key_dict[key] if key in key_dict else key }}
+        </th>
+        <!-- End of this for loop -->
         {% endfor %}
-      </tbody>
-    </table>
-    {% else %}
-        There are no PrescriptionMedications currently.
-    {% endif %}
-  
-  
-    <a href="/add_prescriptMeds" class="navPage">Add PrescriptionMedication</a>
-  </div>
+
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for pm in PrescriptionMedications %}
+      <tr>
+        <!-- Then iterate through every key in the current veterinarian dictionary -->
+        {% for key in pm.keys() %}
+        <!-- Create a <td> element with the value of that key in it -->
+        <td>
+          {{pm[key]}}</td>
+        {% endfor %}
+
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  There are no PrescriptionMedications currently.
+  {% endif %}
+
+
+  <a href="/add_prescriptMeds" class="navPage">Add PrescriptionMedication</a>
+</div>
 
 {% endblock %}
