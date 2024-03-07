@@ -65,10 +65,10 @@ def add_vets():
        name = request.form["name"]
        clinic = request.form["clinic"]
        email = request.form["email"]
-       no_of_patients = request.form["no_of_patients"]
+       
 
-       query = "INSERT INTO Vets (name, clinic, email, no_of_patients) VALUES (%s, %s, %s, %s)"
-       cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(name, clinic, email, no_of_patients))
+       query = "INSERT INTO Vets (name, clinic, email) VALUES (%s, %s, %s)"
+       cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(name, clinic, email))
        db_connection.commit()
        return redirect("/vets")
 
@@ -102,9 +102,9 @@ def edit_vet(id_vet):
             name = request.form["name"]
             clinic = request.form["clinic"]
             email = request.form["email"]
-            no_of_patients = request.form["no_of_patients"]
-            query = "UPDATE Vets SET name=%s, clinic=%s, email=%s, no_of_patients=%s WHERE id_vet=%s;"
-            values = (name, clinic, email, no_of_patients, id_vet)
+          
+            query = "UPDATE Vets SET name=%s, clinic=%s, email=%s WHERE id_vet=%s;"
+            values = (name, clinic, email, id_vet)
             db.execute_query(db_connection=db_connection, query=query, query_params= values)
             db_connection.commit()
             return redirect("/vets")
@@ -320,6 +320,11 @@ def add_pets():
                 query_params = (name, breed, age, gender, id_owner, id_vet)
                 cursor = db.execute_query(db_connection=db_connection, query=query, query_params=query_params)
                 db_connection.commit()
+
+                update_query = "UPDATE Vets SET no_of_patients = no_of_patients + 1 WHERE id_vet = %s"
+                db.execute_query(db_connection=db_connection, query=update_query, query_params=(id_vet,))
+                db_connection.commit()
+                
             return redirect("/pets")
     
 
@@ -393,6 +398,7 @@ def edit_pet(id_pet):
                 values = (name, id_owner, id_vet, breed, age, gender, id_pet)
                 db.execute_query(db_connection=db_connection, query=query, query_params= values)
                 db_connection.commit()
+
 
             return redirect("/pets")
             
