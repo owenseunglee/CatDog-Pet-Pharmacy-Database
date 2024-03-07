@@ -23,12 +23,7 @@ Source URL: https://canvas.oregonstate.edu/courses/1946034/pages/exploration-dev
                     <th>Email:</th>
                     <td>{{ results[0].email }}</td>
                 </tr>
-                
-                
             </table>
-            <br style="clear: left;">
-            
-            <br>
         </div>
 
         <form class="updateForm" id="updateVet" method="POST" action="/edit_vet/{{results[0].id_vet}}">
@@ -43,15 +38,16 @@ Source URL: https://canvas.oregonstate.edu/courses/1946034/pages/exploration-dev
                     id="clinic" name="clinic">
                 <label> Email: </label> <input type="text" value="{{ results[0].email }}" class="form-control"
                     id="email" name="email">
-                
+
             </fieldset>
-            <input class="btn btn-outline-primary" type="submit" id="edit_button" name="Edit_Vet"
-                value="Update Veterinarian">
+            <div class="button-container">
+                <input class="btn btn-outline-primary" type="submit" name="Edit_Vet" value="Update Veterinarian">
+                <span><a href="/vets" type="button" class="btn btn-outline-dark">Go Back</a></span>
+            </div>
         </form><!-- update -->
 
     </div>
 </body>
-<a href="/vets" class="btn">Go Back</a>
 
 </html>
 

@@ -3,43 +3,45 @@
 --Adapted from: Flask Starter App Guide
 --Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app #}
 
-  {% extends 'layouts.html'%}
-  {% block content %}
-  
-  <!-- will implement 'includes' templates after CRUD -->
-  
-  <h1>Browse Owners</h1>
-  
-  <div class="table-container">
-    <table class="table table-sm table-hover" id="table">
-      <thead>
-        <tr>
-          {% if Owners %}
-          {% for key in Owners[0].keys() %}
-          <th>
-            {{ key_dict[key] if key in key_dict else key }}
-          </th>
-          {% endfor %}
-        </tr>
-      </thead>
-  
-      <tbody class="table-group-divider">
-        {% for owner in Owners %}
-        <tr>
-          {% for key in owner.keys() %}
-          <td>{{owner[key]}}</td>
-          {% endfor %}
-  
-          <td> <a href="/edit_owner/{{ owner['id_owner'] }}" type="button" class="btn btn-outline-success">Edit</a> </td>
-          <td> <a href="/del_owner/{{ owner['id_owner'] }}" button class="btn btn-outline-dark">Delete</button></td>
-        </tr>
+{% extends 'layouts.html'%}
+{% block content %}
+
+<!-- will implement 'includes' templates after CRUD -->
+
+<h1>Browse Owners</h1>
+
+<div class="table-container">
+  <table class="table table-sm table-hover" id="table">
+    <thead>
+      <tr>
+        {% if Owners %}
+        {% for key in Owners[0].keys() %}
+        <th>
+          {{ key_dict[key] if key in key_dict else key }}
+        </th>
         {% endfor %}
-      </tbody>
-    </table>
-    {% else %}
-        There are no owners currently.
-    {% endif %}
-  
-    <a href="/add_owner" class="navPage">Add Owner</a>
-  </div>
-  {% endblock %}
+      </tr>
+    </thead>
+
+    <tbody class="table-group-divider">
+      {% for owner in Owners %}
+      <tr>
+        {% for key in owner.keys() %}
+        <td>{{owner[key]}}</td>
+        {% endfor %}
+
+        <td> <a href="/edit_owner/{{ owner['id_owner'] }}" type="button" class="btn btn-outline-success">Edit</a> </td>
+        <td> <a href="/del_owner/{{ owner['id_owner'] }}" button class="btn btn-outline-dark">Delete</button></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  There are no owners currently.
+  {% endif %}
+
+  <a href="/add_owner" type="button" class="btn btn-outline-primary" id="icon">
+    <ion-icon class="icon" name="add-outline"></ion-icon>Add Owner
+  </a>
+</div>
+{% endblock %}

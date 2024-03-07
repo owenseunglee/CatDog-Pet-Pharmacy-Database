@@ -7,48 +7,48 @@
 {% block content %}
 
 
-  <h1>Browse Pets</h1>
-  
-  <div class="table-container">
-      <table class="table table-sm table-hover" id="table">
-          <thead>
-              <tr>
-                {% if Pets %}
-                  {% for key in Pets[0].keys() %}
-                  <th>
-                    {{ key_dict[key] if key in key_dict else key }}
-                </th>
-                  {% endfor %}
-              </tr>
-          </thead>
-  
-          <tbody class="table-group-divider">
-              {% for pet in Pets %}
-              <tr>
-                  {% for key in pet.keys() %}
-                  <td>
-                    {# {% if key == 'vet_name' and pet[key] == None %}
-                    NULL
-                    {% else %}
-                    {{ pet[key] }}
-                    {% endif %} #}
-                    {{pet[key]}}
-                </td>
-                  {% endfor %}
-  
-                  <td> <a href="/edit_pet/{{ pet['id_pet']}}" type="button"
-                          class="btn btn-outline-success">Edit</a> </td>
-                  <td> <a href="/del_pet/{{ pet['id_pet']}}" type="button"
-                          class="btn btn-outline-dark">Delete</button></td>
-              </tr>
-              {% endfor %}
-  
-          </tbody>
-      </table>
-      {% else %}
-      There are no pets currently.
+<h1>Browse Pets</h1>
+
+<div class="table-container">
+  <table class="table table-sm table-hover" id="table">
+    <thead>
+      <tr>
+        {% if Pets %}
+        {% for key in Pets[0].keys() %}
+        <th>
+          {{ key_dict[key] if key in key_dict else key }}
+        </th>
+        {% endfor %}
+      </tr>
+    </thead>
+
+    <tbody class="table-group-divider">
+      {% for pet in Pets %}
+      <tr>
+        {% for key in pet.keys() %}
+        <td>
+          {# {% if key == 'vet_name' and pet[key] == None %}
+          NULL
+          {% else %}
+          {{ pet[key] }}
+          {% endif %} #}
+          {{pet[key]}}
+        </td>
+        {% endfor %}
+
+        <td> <a href="/edit_pet/{{ pet['id_pet']}}" type="button" class="btn btn-outline-success">Edit</a> </td>
+        <td> <a href="/del_pet/{{ pet['id_pet']}}" type="button" class="btn btn-outline-dark">Delete</button></td>
+      </tr>
+      {% endfor %}
+
+    </tbody>
+  </table>
+  {% else %}
+  There are no pets currently.
   {% endif %}
-      <a href="/add_pet" class="navPage">Add Pet</a>
-  </div>
-  
-  {% endblock %}
+  <a href="/add_pet" type="button" class="btn btn-outline-primary" id="icon">
+    <ion-icon class="icon" name="add-outline"></ion-icon>Add Pet
+  </a>
+</div>
+
+{% endblock %}
