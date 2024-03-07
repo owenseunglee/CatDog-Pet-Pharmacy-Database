@@ -319,6 +319,10 @@ def add_pets():
                 query_params = (name, breed, age, gender, id_owner, id_vet)
                 cursor = db.execute_query(db_connection=db_connection, query=query, query_params=query_params)
                 db_connection.commit()
+
+                update_query = "UPDATE Vets SET no_of_patients = no_of_patients + 1 WHERE id_vet = %s"
+                db.execute_query(db_connection=db_connection, query=update_query, query_params=(id_vet,))
+                db_connection.commit()
             return redirect("/pets")
     
 
@@ -391,6 +395,10 @@ def edit_pet(id_pet):
                 query = "UPDATE Pets set Pets.name=%s, Pets.id_owner=%s, Pets.id_vet=%s, Pets.breed=%s, Pets.age=%s, Pets.gender=%s WHERE Pets.id_pet = %s"
                 values = (name, id_owner, id_vet, breed, age, gender, id_pet)
                 db.execute_query(db_connection=db_connection, query=query, query_params= values)
+                db_connection.commit()
+
+                update_query = "UPDATE Vets SET no_of_patients = no_of_patients + 1 WHERE id_vet = %s"
+                db.execute_query(db_connection=db_connection, query=update_query, query_params=(id_vet,))
                 db_connection.commit()
 
             return redirect("/pets")
@@ -526,12 +534,14 @@ def edit_prescription(id_prescription):
     if request.method == "POST":
         if request.form.get("Edit_Prescription"):
             order_date = request.form["order_date"]
-            prescription_cost = request.form["prescription_cost"]
+            #prescription_cost = request.form["prescription_cost"]
             was_picked_up = request.form["was_picked_up"]
             id_pet = request.form["pet_select"]
 
-            query = "UPDATE Prescriptions SET order_date=%s, prescription_cost=%s, was_picked_up=%s, id_pet=%s WHERE id_prescription=%s;"
-            values = (order_date, prescription_cost, was_picked_up, id_pet, id_prescription)
+            #query = "UPDATE Prescriptions SET order_date=%s, prescription_cost=%s, was_picked_up=%s, id_pet=%s WHERE id_prescription=%s;"
+            #values = (order_date, prescription_cost, was_picked_up, id_pet, id_prescription)
+            query = "UPDATE Prescriptions SET order_date=%s, was_picked_up=%s, id_pet=%s WHERE id_prescription=%s;"
+            values = (order_date, was_picked_up, id_pet, id_prescription)
             db.execute_query(db_connection=db_connection, query=query, query_params= values)
             db_connection.commit()
             return redirect("/prescriptions")
