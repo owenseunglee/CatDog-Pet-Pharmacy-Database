@@ -457,7 +457,7 @@ def add_prescriptions():
     elif request.method == "POST":
         # Get form data
         order_date = request.form["order_date"]
-        prescription_cost = request.form["prescription_cost"]
+        prescription_cost = 0
         was_picked_up = request.form["picked_up"]
         pet_id = request.form["pet_select"]
         
@@ -527,12 +527,12 @@ def edit_prescription(id_prescription):
     if request.method == "POST":
         if request.form.get("Edit_Prescription"):
             order_date = request.form["order_date"]
-            prescription_cost = request.form["prescription_cost"]
+            # prescription_cost = request.form["prescription_cost"]
             was_picked_up = request.form["was_picked_up"]
             id_pet = request.form["pet_select"]
 
-            query = "UPDATE Prescriptions SET order_date=%s, prescription_cost=%s, was_picked_up=%s, id_pet=%s WHERE id_prescription=%s;"
-            values = (order_date, prescription_cost, was_picked_up, id_pet, id_prescription)
+            query = "UPDATE Prescriptions SET order_date=%s, was_picked_up=%s, id_pet=%s WHERE id_prescription=%s;"
+            values = (order_date, was_picked_up, id_pet, id_prescription)
             db.execute_query(db_connection=db_connection, query=query, query_params= values)
             db_connection.commit()
             return redirect("/prescriptions")
@@ -602,7 +602,7 @@ def add_prescriptMeds():
         return render_template("intersection/add_prescriptMeds.html", Prescriptions_Dropdown=prescription_results, Medications_Dropdown=med_results)
 
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 58580)) 
+    port = int(os.environ.get('PORT', 58511)) 
      #                               ^^^^
     #             You can replace this number with any valid port
     
