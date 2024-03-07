@@ -262,6 +262,7 @@ def update_cost_from_editmed(medication_id):
     db_connection.commit()
 
 # deleting med page
+
 @app.route("/del_med/<int:id>")
 def del_meds(id):
 
@@ -271,28 +272,10 @@ def del_meds(id):
     cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id,))
     db_connection.commit()
 
+    # Update the prescription cost after deleting the medication
     # update_cost_from_delmed(id)
-    return redirect("/meds")
 
-def update_cost_from_delmed(medication_id):
-    db_connection = db.connect_to_database()
-
-    # Query to update the prescription cost after deleting a medication
-    query = """
-    UPDATE Prescriptions
-    SET prescription_cost = (
-        SELECT SUM(Medications.cost * PrescriptionMedications.quantity) AS total_cost
-        FROM PrescriptionMedications
-        INNER JOIN Medications ON PrescriptionMedications.id_medication = Medications.id_medication
-        WHERE PrescriptionMedications.id_prescription = Prescriptions.id_prescription
-        AND PrescriptionMedications.id_medication != %s  
-    )
-    WHERE Prescriptions.id_prescription IN (
-        SELECT id_prescription FROM PrescriptionMedications WHERE id_medication = %s
-    );
-    """
-    cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(medication_id, medication_id))
-    db_connection.commit()
+    return redirect("/meds") 
 
 @app.route("/pets", methods=["POST", "GET"])
 def pets():
