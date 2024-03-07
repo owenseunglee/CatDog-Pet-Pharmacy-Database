@@ -267,10 +267,19 @@ def pets():
 @app.route("/del_pet/<int:id>")
 def del_pets(id):
     db_connection = db.connect_to_database()
-
+    # find the vet_id from Pets table
+    get_vet_id_query = "SELECT id_vet FROM Pets WHERE id_pet = %s;"
+    cursor = db.execute_query(db_connection=db_connection, query=get_vet_id_query, query_params=(id,))
+    id_vet = cursor.fetchone()['id_vet']
+    # delete the pet
     query = "DELETE FROM Pets WHERE id_pet = %s;"
     cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id,))
     db_connection.commit()
+    # update the vet's no_of_patients by decrementing 1
+    update_query = "UPDATE Vets SET no_of_patients = no_of_patients - 1 WHERE id_vet = %s;"
+    cursor = db.execute_query(db_connection=db_connection, query=update_query, query_params=(id_vet,))
+    db_connection.commit()
+
     return redirect("/pets")
 
 @app.route("/add_pet", methods=["POST", "GET"])
@@ -608,7 +617,7 @@ def add_prescriptMeds():
         return render_template("intersection/add_prescriptMeds.html", Prescriptions_Dropdown=prescription_results, Medications_Dropdown=med_results)
 
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 58511)) 
+    port = int(os.environ.get('PORT', 58589)) 
      #                               ^^^^
     #             You can replace this number with any valid port
     
