@@ -49,12 +49,7 @@ def vets():
         'no_of_patients': 'Number of Patients',
         }
 
-   
-       
-        
-   
    return render_template("vets/vets.html", title='Veterinarians', Vets=results, key_dict=key_dict)
-
 
 # adding vet page
 @app.route("/add_vet", methods=["POST", "GET"])
@@ -66,7 +61,6 @@ def add_vets():
        clinic = request.form["clinic"]
        email = request.form["email"]
        
-
        query = "INSERT INTO Vets (name, clinic, email) VALUES (%s, %s, %s)"
        cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(name, clinic, email))
        db_connection.commit()
@@ -113,7 +107,6 @@ def edit_vet(id_vet):
 @app.route("/owners")
 def owners():
     db_connection = db.connect_to_database()
-
     
     query = "SELECT * FROM Owners ORDER BY Owners.name;"
     cursor = db.execute_query(db_connection=db_connection, query=query)
@@ -129,7 +122,6 @@ def owners():
     return render_template("owners/owners.html", title='Owners', Owners = results, key_dict=key_dict)
 
 # adding owner page
-@app.route("/add_owner", methods=["POST", "GET"])
 @app.route("/add_owner", methods=["POST", "GET"])
 def add_owner():
     db_connection = db.connect_to_database()
@@ -189,8 +181,7 @@ def meds():
         key_dict = {
         'id_medication': 'Medication ID',
         'name': 'Name',
-        'cost': 'Cost',
-     
+        'cost': 'Cost', 
         }
 
     return render_template("medications/meds.html", title='Medications', Medications=results, key_dict=key_dict)
@@ -327,14 +318,6 @@ def add_pets():
             
             if id_vet == "":
                 id_vet = None
-            
-            print("Received form data:")
-            print("Name:", name)
-            print("Breed:", breed)
-            print("Age:", age)
-            print("Gender:", gender)
-            print("Owner ID:", id_owner)
-            print("Vet ID:", id_vet) # confirmed id_vet is None
 
             # if Vet doesn't exist yet
             if id_vet == None or id_vet == "":
@@ -429,7 +412,6 @@ def edit_pet(id_pet):
                 # Increase the no_of_patients for the new vet
                 query = "UPDATE Vets SET no_of_patients = no_of_patients + 1 WHERE id_vet = %s;"
                 db.execute_query(db_connection=db_connection, query=query, query_params=(new_id_vet,))
-
             return redirect("/pets")  
         
 @app.route("/prescriptions", methods=["POST", "GET"])
@@ -450,8 +432,7 @@ def prescriptions():
         'prescription_cost': 'Prescription Cost',
         'was_picked_up': 'Was Picked Up',
         'pet_name': 'Pet Name',
-        }
-     
+        }    
      return render_template("prescriptions/prescriptions.html", title='Prescriptions', Prescriptions=results, key_dict = key_dict)
 
 @app.route("/del_prescription/<int:id>")
@@ -506,32 +487,6 @@ def add_prescriptions():
 
     return render_template("prescriptions/add_prescription.html", Pet_Dropdown=pet_results)
 
-    # db_connection = db.connect_to_database()
-
-    # if request.method == "GET":
-    #     query1 = "SELECT id_pet, CONCAT(name, ' (', id_pet, ')') AS pet_name_and_id FROM Pets;"
-    #     cursor1 = db.execute_query(db_connection=db_connection, query=query1)
-    #     pet_results = cursor1.fetchall()
-        
-    #     return render_template("prescriptions/add_prescription.html", Pet_Dropdown=pet_results)
-    
-    # elif request.method == "POST":
-    #     # Get data from the form
-    #     order_date = request.form["order_date"]
-    #     was_picked_up = request.form["picked_up"]
-    #     pet_id = request.form["pet_select"]
-
-    #     # Insert the prescription into the database
-    #     query = "INSERT INTO Prescriptions (order_date, prescription_cost, was_picked_up, id_pet) VALUES (%s, %s, %s, %s)"
-    #     # Assuming prescription_cost is calculated elsewhere or has a default value
-    #     cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(order_date, None, was_picked_up, pet_id))
-    #     db_connection.commit()
-
-    #     # Redirect the user to the prescriptions page
-    #     return redirect("/prescriptions")
-
-    # return render_template("prescriptions/add_prescription.html")
-
 @app.route("/edit_prescription/<int:id_prescription>", methods=["GET", "POST"])
 def edit_prescription(id_prescription):
 
@@ -555,7 +510,6 @@ def edit_prescription(id_prescription):
         query3 = "SELECT Prescriptions.order_date, Prescriptions.prescription_cost, Prescriptions.was_picked_up, Pets.name AS pet_name FROM Prescriptions INNER JOIN Pets ON Prescriptions.id_pet = Pets.id_pet WHERE id_prescription = %s;"
         cursor3 = db.execute_query(db_connection=db_connection, query=query3, query_params=(id_prescription,))
         current_pet_results = cursor3.fetchall()
-
         
         return render_template("prescriptions/edit_prescription.html", results=results, Pet_Dropdown = pet_results, current_pet_results = current_pet_results )
     
@@ -590,7 +544,6 @@ def intersection():
    
     return render_template("intersection/prescriptMeds.html", title='prescriptionMedications', PrescriptionMedications=results, key_dict=key_dict)
 
-
 @app.route("/add_prescriptMeds", methods=["POST", "GET"])
 def add_prescriptMeds():
     db_connection = db.connect_to_database()
@@ -603,15 +556,6 @@ def add_prescriptMeds():
         else:
             quantity = int(quantity) 
         
-        # if prescription_id == "":
-        #     prescription_id = None
-        
-        # if prescription_id == None or prescription_id == "":
-        #     query = "INSERT INTO PrescriptionMedications (id_prescription, id_medication, quantity) VALUES (NULL, %s, %s)"
-        #     query_params = (medication_id, quantity)
-        #     cursor = db.execute_query(db_connection=db_connection, query=query, query_params=query_params)
-        #     db_connection.commit()
-        # else:
         query = "INSERT INTO PrescriptionMedications (id_prescription, id_medication, quantity) VALUES (%s, %s, %s)"
         cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(prescription_id, medication_id, quantity))
         db_connection.commit()
