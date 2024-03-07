@@ -399,6 +399,9 @@ def edit_pet(id_pet):
                 db.execute_query(db_connection=db_connection, query=query, query_params= values)
                 db_connection.commit()
 
+                update_query = "UPDATE Vets SET no_of_patients = no_of_patients + 1 WHERE id_vet = %s"
+                db.execute_query(db_connection=db_connection, query=update_query, query_params=(id_vet,))
+                db_connection.commit()
 
             return redirect("/pets")
             

@@ -142,8 +142,19 @@ h1 {
     display: inline-flex;
 }
 
+.button-container {
+    display: flex;
+    margin-top: 15px;
+    justify-content: space-between;
+}
+
 #edit_button {
     margin-top: 15px;
+}
+
+.backBtn {
+    display: flex;
+    justify-content: flex-end;
 }
 
 .table-container {
@@ -186,6 +197,34 @@ td {
 
 #group-name {
     font-size: x-large;
+}
+
+footer {
+    padding: 100px 0 30px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    background-color: var(--primary-color);
+    border-top-left-radius: 125px;
+}
+
+.row {
+    width: 85%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.col {
+    flex-basis: 25%;
+    padding: 10px;
+}
+
+.logo {
+    width: 80px;
+    margin-bottom: 30px;
 }
 
 @media (max-width: 1479px) {

@@ -11,7 +11,7 @@
 
 <h1>Add Prescription</h1>
 
-<div id="insert">
+<div class="update-container" id="insert">
     <form id="addPrescription" action="/add_prescription" method="POST">
         <legend><strong>Add Prescription</strong></legend>
         <fieldset class="fields">
@@ -35,10 +35,15 @@
 
 
         </fieldset>
-        <input class="btn" type="submit" id="addPrescriptionBtn" value="Add Prescription">
+        <div class="button-container">
+            <button class="btn btn-outline-primary" type="submit" id="icon">
+                <ion-icon id="add_button" name="add-outline"></ion-icon>
+                Add Prescription
+            </button>
+            <span><a href="/prescriptions" class="btn btn-outline-dark">Go Back</a></span>
+        </div>
     </form>
 </div>
-<td><a href="/prescriptions" class="btn">Go Back</a></td>
 
 </html>
 
