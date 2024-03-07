@@ -238,7 +238,26 @@ def edit_meds(id_medication):
 def del_meds(id):
 
     db_connection = db.connect_to_database()
+    # find every prescriptions that have a deleted med
+    get_prescriptions_query = "SELECT id_prescription, quantity FROM PrescriptionMedications WHERE id_medication = %s;"
+    cursor = db.execute_query(db_connection=db_connection, query=get_prescriptions_query, query_params=(id,))
+    # result is stored in 'prescriptions'
+    prescriptions = cursor.fetchall()
 
+    # loop through the each perscription that includes the med to be deleted
+    for prescription in prescriptions:
+        # when found, get the cost of the med to be deleted
+        get_med_cost_query = "SELECT cost FROM Medications WHERE id_medication = %s;"
+        cursor = db.execute_query(db_connection=db_connection, query=get_med_cost_query, query_params=(id,))
+        # result is stored in 'med_cost'
+        med_cost = cursor.fetchone()['cost']
+
+        # subtract the cost of the deleted med from the prescription_cost, at this point we run a query similar to the update_cost()
+        update_prescription_cost_query = "UPDATE Prescriptions SET prescription_cost = prescription_cost - (%s * %s) WHERE id_prescription = %s;"
+        db.execute_query(db_connection=db_connection, query=update_prescription_cost_query, query_params=(med_cost, prescription['quantity'], prescription['id_prescription'],))
+        db_connection.commit()
+
+    #delete the med
     query = "DELETE FROM Medications WHERE id_medication = %s;"
     cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id,))
     db_connection.commit()
@@ -267,10 +286,19 @@ def pets():
 @app.route("/del_pet/<int:id>")
 def del_pets(id):
     db_connection = db.connect_to_database()
-
+    # find the vet_id from Pets table
+    get_vet_id_query = "SELECT id_vet FROM Pets WHERE id_pet = %s;"
+    cursor = db.execute_query(db_connection=db_connection, query=get_vet_id_query, query_params=(id,))
+    id_vet = cursor.fetchone()['id_vet']
+    # delete the pet
     query = "DELETE FROM Pets WHERE id_pet = %s;"
     cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id,))
     db_connection.commit()
+    # update the vet's no_of_patients by decrementing 1
+    update_query = "UPDATE Vets SET no_of_patients = no_of_patients - 1 WHERE id_vet = %s;"
+    db.execute_query(db_connection=db_connection, query=update_query, query_params=(id_vet,))
+    db_connection.commit()
+
     return redirect("/pets")
 
 @app.route("/add_pet", methods=["POST", "GET"])
@@ -285,8 +313,7 @@ def add_pets():
         query2 = "SELECT id_vet, CONCAT(name, ' (', id_vet, ')') AS vet_name_and_id FROM Vets;"
         cursor2 = db.execute_query(db_connection=db_connection, query=query2)
         vet_results = cursor2.fetchall()
-    
-        
+
         return render_template("pets/add_pet.html", Owner_Dropdown=owner_results, Vet_Dropdown=vet_results)
 
     elif request.method == "POST":
@@ -327,8 +354,6 @@ def add_pets():
                 
             return redirect("/pets")
     
-
-    
 @app.route("/edit_pet/<int:id_pet>", methods=["GET", "POST"])
 def edit_pet(id_pet):
     db_connection = db.connect_to_database()
@@ -365,28 +390,24 @@ def edit_pet(id_pet):
 
         return render_template("pets/edit_pet.html", results=results, current_owner_results=current_owner_results, current_vet_results=current_vet_results, Owner_Dropdown = owner_results,Vet_Dropdown = vet_results)
 
+    # Get the current vet id
+    query = "SELECT id_vet FROM Pets WHERE id_pet = %s;"
+    cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id_pet,))
+    old_id_vet = cursor.fetchone()['id_vet']
+    
     if request.method == "POST":
         if request.form.get("Edit_Pet"):
             name = request.form["name"]
             id_owner = request.form["owner_select"]
-            id_vet = request.form["vet_select"]
+            new_id_vet = request.form["vet_select"]
             breed = request.form["breed"]
             age = request.form["age"]
             gender = request.form["gender"]
 
+            if new_id_vet == "": 
+                new_id_vet = None
 
-            if id_vet == "": 
-                id_vet = None
-
-            # Print statements for debugging
-            print("Name:", name)
-            print("Owner ID:", id_owner)
-            print("Vet ID:", id_vet)
-            print("Breed:", breed)
-            print("Age:", age)
-            print("Gender:", gender)
-            
-            if id_vet == None or id_vet == "":
+            if new_id_vet == None or new_id_vet == "":
                 print("this is none")
                 query = "UPDATE Pets SET Pets.name=%s, Pets.id_owner=%s, Pets.id_vet= NULL, Pets.breed=%s, Pets.age=%s, Pets.gender=%s WHERE Pets.id_pet = %s"
                 values = (name, id_owner, breed, age, gender, id_pet)
@@ -395,13 +416,21 @@ def edit_pet(id_pet):
             else: 
                 print("not none")
                 query = "UPDATE Pets set Pets.name=%s, Pets.id_owner=%s, Pets.id_vet=%s, Pets.breed=%s, Pets.age=%s, Pets.gender=%s WHERE Pets.id_pet = %s"
-                values = (name, id_owner, id_vet, breed, age, gender, id_pet)
+                values = (name, id_owner, new_id_vet, breed, age, gender, id_pet)
                 db.execute_query(db_connection=db_connection, query=query, query_params= values)
                 db_connection.commit()
 
-
-            return redirect("/pets")
+            # If the vet id has changed, update the no_of_patients for the old and new vet
+            if old_id_vet != new_id_vet:
+                # Decrease the no_of_patients for the old vet
+                query = "UPDATE Vets SET no_of_patients = no_of_patients - 1 WHERE id_vet = %s;"
+                db.execute_query(db_connection=db_connection, query=query, query_params=(old_id_vet,))
             
+                # Increase the no_of_patients for the new vet
+                query = "UPDATE Vets SET no_of_patients = no_of_patients + 1 WHERE id_vet = %s;"
+                db.execute_query(db_connection=db_connection, query=query, query_params=(new_id_vet,))
+
+            return redirect("/pets")  
         
 @app.route("/prescriptions", methods=["POST", "GET"])
 def prescriptions():
