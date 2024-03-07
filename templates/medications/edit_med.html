@@ -1,8 +1,8 @@
 {# Citation for edit_med
-  Date: 2/27/24
-  Adapted from: Professor's Developing in Flask Exploration Video
-  Source URL: https://canvas.oregonstate.edu/courses/1946034/pages/exploration-developing-in-flask?module_item_id=23809337
-  #}
+Date: 2/27/24
+Adapted from: Professor's Developing in Flask Exploration Video
+Source URL: https://canvas.oregonstate.edu/courses/1946034/pages/exploration-developing-in-flask?module_item_id=23809337
+#}
 
 {% extends 'layouts.html'%}
 {% block content %}
@@ -10,9 +10,8 @@
 <h1>Update Medication</h1>
 
 <body>
-    <div id="update" style="display: block">
-        <h2>Current Editing:</h2>
-        <div style="float: left;">
+    <div class="update-container">
+        <div class="edit-container" id="update">
             <table>
                 <tr>
                     <th>name:</th>
@@ -24,10 +23,9 @@
                 </tr>
             </table>
         </div>
-        <br style="clear: left;">
-        <br>
 
-        <form id="updateMed" method="POST" action="/edit_med/{{results[0].id_medication}}">
+
+        <form class="updateForm" id="updateMed" method="POST" action="/edit_med/{{results[0].id_medication}}">
             <legend><strong>Update Medication</strong></legend>
             <fieldset class="fields">
                 <input type="hidden" value="{{results[0].id_medication}}" class="form-control" id="medID" name="medID"
@@ -35,16 +33,16 @@
                 <p>Please enter the following information of the medication to be updated</p>
                 <label> name: </label> <input type="text" value="{{ results[0].name}}" class="form-control" id="name"
                     name="name">
-                <label> cost: </label> <input type="text" value="{{ results[0].cost }}" class="form-control"
-                    id="cost" name="cost">
-                
+                <label> cost: </label> <input type="text" value="{{ results[0].cost }}" class="form-control" id="cost"
+                    name="cost">
+
             </fieldset>
-            <input class="btn" type="submit" name="Edit_Med" value="Update Medication">
-
+            <div class="button-container">
+                <input class="btn btn-outline-primary" type="submit" name="Edit_Med" value="Update Medication">
+                <span><a href="/meds" type="button" class="btn btn-outline-dark">Go Back</a></span>
+            </div>
         </form>
-
-        <td><a href="/meds" class="btn">Go Back</a></td>
-    </div><!-- update -->
+    </div>
 </body>
 
 </html>

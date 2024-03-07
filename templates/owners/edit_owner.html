@@ -6,9 +6,8 @@
 <h1>Update Owner</h1>
 
 <body>
-  <div id="update" style="display: block">
-    <h2>Current Editing:</h2>
-    <div style="float: left;">
+  <div class="update-container">
+    <div class="edit-container" id="update">
       <table>
         <tr>
           <th>Name:</th>
@@ -24,10 +23,8 @@
         </tr>
       </table>
     </div>
-    <br style="clear: left;">
-    <br>
 
-    <form id="updateOwner" method="POST" action="/edit_owner/{{results[0].id_owner}}">
+    <form class="updateForm" id="updateOwner" method="POST" action="/edit_owner/{{results[0].id_owner}}">
       <legend><strong>Update Owner</strong></legend>
       <fieldset class="fields">
         <input type="hidden" value="{{results[0].id_owner}}" class="form-control" id="ownerID" name="id_owner" required>
@@ -40,11 +37,12 @@
         <input type="number" name="phone_number" id="phone_number" value="{{ results[0].phone_number }}">
 
       </fieldset>
-      <input class="btn" type="submit" name="Edit_Owner" value="Update Owner">
-
+      <div class="button-container">
+        <input class="btn btn-outline-primary" type="submit" name="Edit_Owner" value="Update Owner">
+        <span><a href="/owners" type="button" class="btn btn-outline-dark">Go Back</a></span>
+      </div>
     </form>
-    <td><a href="/owners" class="btn">Go Back</a></td>
-
+  </div>
 </body>
 
 </html>

@@ -7,9 +7,8 @@
 <h1>Update Prescription</h1>
 
 <body>
-    <div id="update" style="display: block">
-        <h2>Current Editing:</h2>
-        <div style="float: left;">
+    <div class="update-container">
+        <div class="edit-container" id="update">
             <table>
                 <tr>
                     <th>Pet:</th>
@@ -27,13 +26,11 @@
                     <th>Was Picked Up:</th>
                     <td>{{ "Yes" if results[0].was_picked_up == 1 else "No" }}</td>
                 </tr>
-
             </table>
         </div>
-        <br style="clear: left;">
-        <br>
 
-        <form id="updatePrescription" method="POST" action="/edit_prescription/{{results[0].id_prescription}}">
+        <form class="updateForm" id="updatePrescription" method="POST"
+            action="/edit_prescription/{{results[0].id_prescription}}">
             <legend><strong>Update Prescription</strong></legend>
             <fieldset class="fields">
                 <input type="hidden" value="{{results[0].id_prescription}}" class="form-control" id="presID"
@@ -45,10 +42,12 @@
                     {% for pet in Pet_Dropdown %}
                     {# {% if pet['id_pet'] == results[0]['id_pet'] %} #}
                     {% if pet['order_date'] == results[0].order_date %}
-                    <option value="{{ pet['id_pet'] }}" selected>{{ pet['pet_name_and_id'] }} {{ pet['order_date'] }}
+                    <option value="{{ pet['id_pet'] }}" selected>{{ pet['pet_name_and_id'] }} {{ pet['order_date']
+                        }}
                     </option>
                     {% else %}
-                    <option value="{{ pet['id_pet'] }}">{{ pet['pet_name_and_id'] }} {{ pet['order_date'] }}</option>
+                    <option value="{{ pet['id_pet'] }}">{{ pet['pet_name_and_id'] }} {{ pet['order_date'] }}
+                    </option>
                     {% endif %}
                     {% endfor %}
                 </select>
@@ -64,12 +63,13 @@
                 </select>
 
             </fieldset>
-            <input class="btn" type="submit" name="Edit_Prescription" value="Update Prescription">
-
+            <div class="button-container">
+                <input class="btn btn-outline-primary" type="submit" name="Edit_Prescription"
+                    value="Update Prescription">
+                <span><a href="/prescriptions" type="button" class="btn btn-outline-dark">Go Back</a></span>
+            </div>
         </form>
-
-        <td><a href="/prescriptions" class="btn">Go Back</a></td>
-    </div><!-- update -->
+    </div>
 </body>
 
 </html>

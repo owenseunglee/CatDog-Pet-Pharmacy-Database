@@ -65,10 +65,10 @@ def add_vets():
        name = request.form["name"]
        clinic = request.form["clinic"]
        email = request.form["email"]
-       no_of_patients = request.form["no_of_patients"]
+       
 
-       query = "INSERT INTO Vets (name, clinic, email, no_of_patients) VALUES (%s, %s, %s, %s)"
-       cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(name, clinic, email, no_of_patients))
+       query = "INSERT INTO Vets (name, clinic, email) VALUES (%s, %s, %s)"
+       cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(name, clinic, email))
        db_connection.commit()
        return redirect("/vets")
 
@@ -102,9 +102,9 @@ def edit_vet(id_vet):
             name = request.form["name"]
             clinic = request.form["clinic"]
             email = request.form["email"]
-            no_of_patients = request.form["no_of_patients"]
-            query = "UPDATE Vets SET name=%s, clinic=%s, email=%s, no_of_patients=%s WHERE id_vet=%s;"
-            values = (name, clinic, email, no_of_patients, id_vet)
+          
+            query = "UPDATE Vets SET name=%s, clinic=%s, email=%s WHERE id_vet=%s;"
+            values = (name, clinic, email, id_vet)
             db.execute_query(db_connection=db_connection, query=query, query_params= values)
             db_connection.commit()
             return redirect("/vets")
@@ -129,6 +129,7 @@ def owners():
     return render_template("owners/owners.html", title='Owners', Owners = results, key_dict=key_dict)
 
 # adding owner page
+@app.route("/add_owner", methods=["POST", "GET"])
 @app.route("/add_owner", methods=["POST", "GET"])
 def add_owner():
     db_connection = db.connect_to_database()
@@ -323,6 +324,7 @@ def add_pets():
                 update_query = "UPDATE Vets SET no_of_patients = no_of_patients + 1 WHERE id_vet = %s"
                 db.execute_query(db_connection=db_connection, query=update_query, query_params=(id_vet,))
                 db_connection.commit()
+                
             return redirect("/pets")
     
 
@@ -397,9 +399,6 @@ def edit_pet(id_pet):
                 db.execute_query(db_connection=db_connection, query=query, query_params= values)
                 db_connection.commit()
 
-                update_query = "UPDATE Vets SET no_of_patients = no_of_patients + 1 WHERE id_vet = %s"
-                db.execute_query(db_connection=db_connection, query=update_query, query_params=(id_vet,))
-                db_connection.commit()
 
             return redirect("/pets")
             
@@ -464,7 +463,7 @@ def add_prescriptions():
     elif request.method == "POST":
         # Get form data
         order_date = request.form["order_date"]
-        prescription_cost = request.form["prescription_cost"]
+        prescription_cost = 0
         was_picked_up = request.form["picked_up"]
         pet_id = request.form["pet_select"]
         
@@ -534,12 +533,10 @@ def edit_prescription(id_prescription):
     if request.method == "POST":
         if request.form.get("Edit_Prescription"):
             order_date = request.form["order_date"]
-            #prescription_cost = request.form["prescription_cost"]
+            # prescription_cost = request.form["prescription_cost"]
             was_picked_up = request.form["was_picked_up"]
             id_pet = request.form["pet_select"]
 
-            #query = "UPDATE Prescriptions SET order_date=%s, prescription_cost=%s, was_picked_up=%s, id_pet=%s WHERE id_prescription=%s;"
-            #values = (order_date, prescription_cost, was_picked_up, id_pet, id_prescription)
             query = "UPDATE Prescriptions SET order_date=%s, was_picked_up=%s, id_pet=%s WHERE id_prescription=%s;"
             values = (order_date, was_picked_up, id_pet, id_prescription)
             db.execute_query(db_connection=db_connection, query=query, query_params= values)
@@ -611,7 +608,7 @@ def add_prescriptMeds():
         return render_template("intersection/add_prescriptMeds.html", Prescriptions_Dropdown=prescription_results, Medications_Dropdown=med_results)
 
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 5000)) 
+    port = int(os.environ.get('PORT', 58511)) 
      #                               ^^^^
     #             You can replace this number with any valid port
     

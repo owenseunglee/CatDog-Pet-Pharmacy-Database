@@ -30,14 +30,14 @@
                 <option value="{{ o['id_owner'] }}" selected>{{ o['owner_name_and_id'] }}</option>
                 {% else %}
                 <option value="{{ o['id_owner'] }}">{{ o['owner_name_and_id'] }}</option>
-                {% endif %}
-                {% endfor %}
-            </select>
-            <label>Please select the veterinarian of this pet:</label>
-            <select class="form-control" id="vet_select" name="vet_select">
-                <option value="">--None--</option>
-                {% for v in Vet_Dropdown %}
-                {% if v == Vet_Dropdown[0] %}
+            {% endif %}
+        {% endfor %} 
+      </select>
+      <label>Please select the veterinarian of this pet:</label>
+      <select class="form-control" id="vet_select" name="vet_select">
+        <option value="">--None--</option>
+        {% for v in Vet_Dropdown %}
+            {% if v == Vet_Dropdown[0] %}
                 <option value="{{ v['id_vet'] }}" selected>{{ v['vet_name_and_id'] }}</option>
                 {% else %}
                 <option value="{{ v['id_vet'] }}">{{ v['vet_name_and_id'] }}</option>
