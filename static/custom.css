@@ -107,13 +107,26 @@ h1 {
     margin-top: 20px;
 }
 
+.edit-container {
+    width: 55%;
+    padding: 120px 0;
+}
+
 .table-container {
     margin: auto;
     width: 50%;
     padding: 10px;
 }
 
+thead th {
+    cursor: pointer;
+}
+
 thead {
+    text-align: center;
+}
+
+th {
     text-align: center;
 }
 
@@ -124,6 +137,16 @@ td {
 .test1 {
     display: flex;
     flex-direction: row;
+}
+
+.update-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    max-width: 1500px;
+    margin: auto;
+    width: 100%;
+    background-color: var(--primary-color);
 }
 
 #group-name {

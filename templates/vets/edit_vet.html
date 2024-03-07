@@ -1,43 +1,8 @@
 {# Citation for edit_vet
- Date: 2/27/24
- Adapted from: Professor's Developing in Flask Exploration Video
- Source URL: https://canvas.oregonstate.edu/courses/1946034/pages/exploration-developing-in-flask?module_item_id=23809337
- #}
-
-{# edit_vet.j2 page COMMENTED OUT.. 
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<html>
-{% include 'navbar.html' %}
-<h1>Update Veterinarian</h1>
-
-<body>
-    <div id="update" style="display: block">
-        <form id="updateVet" method="POST" action="/edit_vet/{{results[0].id_vet}}">
-            <legend><strong>Update Veterinarian</strong></legend>
-            <fieldset class="fields">
-                <input type="hidden" value="{{results[0].id_vet}}" class="form-control" id="vetID" name="vetID"
-                    required>
-                <p>Please enter the following information of the veterinarian to be updated:</p>
-                <label> Name: </label> <input type="text" value="{{ results[0].name}}" class="form-control" id="name"
-                    name="name">
-                <label> Clinic: </label> <input type="text" value="{{ results[0].clinic }}" class="form-control"
-                    id="clinic" name="clinic">
-                <label> Email: </label> <input type="text" value="{{ results[0].email }}" class="form-control"
-                    id="email" name="email">
-                <label> Number of Patients: </label> <input type="number" id="no_of_patients" class="form-control"
-                    name="no_of_patients" value="{{ results[0].no_of_patients }}">
-            </fieldset>
-            <input class="btn" type="submit" name="Edit_Vet" value="Update Veterinarian">
-            <input class="btn" type="button" value="Cancel">
-        </form>
-
-    </div><!-- update -->
-</body>
-
-</html>
-
-edit_vet.j2 page COMMENTED OUT..  #}
-
+Date: 2/27/24
+Adapted from: Professor's Developing in Flask Exploration Video
+Source URL: https://canvas.oregonstate.edu/courses/1946034/pages/exploration-developing-in-flask?module_item_id=23809337
+#}
 
 {% extends 'layouts.html'%}
 {% block content %}
