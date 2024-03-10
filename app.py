@@ -38,7 +38,7 @@ def vets():
    db_connection = db.connect_to_database()
 
    if request.method == "GET":
-       query = "SELECT * FROM Vets ORDER BY Vets.name;"
+       query = "SELECT * FROM Vets;"
        cursor = db.execute_query(db_connection=db_connection, query=query)
        results = cursor.fetchall()
        key_dict = {
@@ -115,7 +115,7 @@ def owners():
     db_connection = db.connect_to_database()
 
     
-    query = "SELECT * FROM Owners ORDER BY Owners.name;"
+    query = "SELECT * FROM Owners;"
     cursor = db.execute_query(db_connection=db_connection, query=query)
     results = cursor.fetchall()
     
@@ -183,7 +183,7 @@ def edit_owner(id_owner):
 def meds():
     db_connection = db.connect_to_database()
     if request.method == "GET":
-        query = "SELECT * FROM Medications ORDER BY Medications.name;"
+        query = "SELECT * FROM Medications;"
         cursor = db.execute_query(db_connection=db_connection, query=query)
         results = cursor.fetchall()
         key_dict = {
@@ -296,7 +296,7 @@ def del_meds(id):
 def pets():
      db_connection = db.connect_to_database()
      # query = "SELECT Pets.id_pet, Pets.name, breed, age, gender, Owners.name AS owner_name, Vets.name AS vet_name FROM Pets INNER JOIN Owners ON Pets.id_owner = Owners.id_owner INNER JOIN Vets ON Pets.id_vet = Vets.id_vet;"
-     query = "SELECT Pets.id_pet, Pets.name, breed, age, gender, Owners.name AS owner_name, Vets.name AS vet_name FROM Pets INNER JOIN Owners ON Pets.id_owner = Owners.id_owner LEFT JOIN Vets ON Pets.id_vet = Vets.id_vet ORDER BY Pets.name;"
+     query = "SELECT Pets.id_pet, Pets.name, breed, age, gender, Owners.name AS owner_name, Vets.name AS vet_name FROM Pets INNER JOIN Owners ON Pets.id_owner = Owners.id_owner LEFT JOIN Vets ON Pets.id_vet = Vets.id_vet;"
 
      cursor = db.execute_query(db_connection=db_connection, query=query)
      results = cursor.fetchall()
@@ -652,7 +652,7 @@ def add_prescriptMeds():
 
         # call this function to automatically update the prescription cost
         update_cost(prescription_id)
-        print("Prescription cost updated.")
+        db_connection.commit()
 
         return redirect("/prescriptMeds")
     
@@ -661,12 +661,12 @@ def add_prescriptMeds():
         query1 = "SELECT Prescriptions.id_prescription AS id_prescription, CONCAT(Pets.name, ', ', Prescriptions.order_date, ' (', Prescriptions.id_prescription, ')') AS pet_order_date_prescription_ID FROM Prescriptions INNER JOIN Pets ON Prescriptions.id_pet = Pets.id_pet ORDER BY Prescriptions.order_date, Pets.name;"
         cursor1 = db.execute_query(db_connection=db_connection, query=query1)
         prescription_results = cursor1.fetchall()
-        print("Prescription Results:", prescription_results)
+        # print("Prescription Results:", prescription_results)
         # Medication Dropdown
         query2 = "SELECT Medications.id_medication, CONCAT(Medications.name, ' (', Medications.id_medication, ')') AS med_info FROM Medications ORDER BY Medications.name;"
         cursor2 = db.execute_query(db_connection=db_connection, query=query2)
         med_results = cursor2.fetchall()
-        print("Medication Results:", med_results)
+        # print("Medication Results:", med_results)
 
 
         return render_template("intersection/add_prescriptMeds.html", Prescriptions_Dropdown=prescription_results, Medications_Dropdown=med_results)

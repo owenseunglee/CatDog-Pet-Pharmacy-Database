@@ -70,6 +70,7 @@ CREATE OR REPLACE TABLE PrescriptionMedications (
     FOREIGN KEY (id_medication) REFERENCES Medications(id_medication)
     ON DELETE CASCADE);
 
+-- updated draft 5 - number of patients
 -- Add sample data to tables
 INSERT INTO Vets (name, clinic, email, no_of_patients) VALUES
 ('Dr. Johnson', 'PetCare Clinic', 'johnson@petcare.com', 1),
