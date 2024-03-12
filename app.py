@@ -690,7 +690,7 @@ def add_prescriptMeds():
         return render_template("intersection/add_prescriptMeds.html", Prescriptions_Dropdown=prescription_results, Medications_Dropdown=med_results)
 
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 58558)) 
+    port = int(os.environ.get('PORT', 58518)) 
      #                               ^^^^
     #             You can replace this number with any valid port
     
