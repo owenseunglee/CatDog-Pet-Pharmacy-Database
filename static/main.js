@@ -26,16 +26,21 @@ window.onload = function () {
     })
 }
 
-let errorMessage = "Please enter a correct value."
-
 document.addEventListener('DOMContentLoaded', function () {
-    // 이곳에 코드를 추가하세요.
-    var orderDateElement = document.getElementById('order_date');
-    if (orderDateElement) {
-        orderDateElement.addEventListener('change', function () {
-            console.log(this.value);
+    let addPrescription = document.getElementById('addPrescription');
+    if (addPrescription) {
+        addPrescription.addEventListener('submit', function (e) {
+            let orderDateValue = document.getElementById('order_date');
+            let wasPickedUp = document.getElementById('picked_up');
+            if (orderDateValue.value === '') {
+                e.preventDefault();
+                alert('Please Enter a Correct Order Date');
+            }
+            else if (wasPickedUp.value != 1 || wasPickedUp.value != 2) {
+                e.preventDefault();
+                alert('Please Select "Yes" or "No" for Was Picked Up');
+            }
         });
-    } else {
-        console.log('Element with ID "order_date" was not found.');
     }
 });
+

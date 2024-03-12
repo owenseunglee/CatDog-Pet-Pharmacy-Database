@@ -477,6 +477,9 @@ def add_prescriptions():
         cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(order_date, prescription_cost, was_picked_up, pet_id))
         db_connection.commit()
 
+        if order_date == "":
+            print("enter a value")
+
         # Redirect to prescriptions page after successful insertion
         return redirect("/prescriptions")
 
