@@ -202,13 +202,13 @@ def add_meds():
 
     return render_template("medications/add_med.html")
 
+# editing med page
 @app.route("/edit_med/<int:id_medication>", methods=["GET", "POST"])
 def edit_meds(id_medication):
     db_connection = db.connect_to_database()
 
     if request.method == "GET":
         # get a single medications's data to pre-populate for the Update Medication page 
-
         query = "SELECT * FROM Medications WHERE id_medication = %s;"
         cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id_medication,))
         results = cursor.fetchall()
@@ -227,14 +227,12 @@ def edit_meds(id_medication):
 # deleting med page
 @app.route("/del_med/<int:id>")
 def del_meds(id):
-
     db_connection = db.connect_to_database()
     # find every prescriptions that have a deleted med
     get_prescriptions_query = "SELECT id_prescription, quantity FROM PrescriptionMedications WHERE id_medication = %s;"
     cursor = db.execute_query(db_connection=db_connection, query=get_prescriptions_query, query_params=(id,))
     # result is stored in 'prescriptions'
     prescriptions = cursor.fetchall()
-
     # loop through the each perscription that includes the med to be deleted
     for prescription in prescriptions:
         # when found, get the cost of the med to be deleted
@@ -242,24 +240,22 @@ def del_meds(id):
         cursor = db.execute_query(db_connection=db_connection, query=get_med_cost_query, query_params=(id,))
         # result is stored in 'med_cost'
         med_cost = cursor.fetchone()['cost']
-
         # subtract the cost of the deleted med from the prescription_cost, at this point we run a query similar to the update_cost()
         update_prescription_cost_query = "UPDATE Prescriptions SET prescription_cost = prescription_cost - (%s * %s) WHERE id_prescription = %s;"
         db.execute_query(db_connection=db_connection, query=update_prescription_cost_query, query_params=(med_cost, prescription['quantity'], prescription['id_prescription'],))
         db_connection.commit()
-
     #delete the med
     query = "DELETE FROM Medications WHERE id_medication = %s;"
     cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id,))
     db_connection.commit()
     return redirect("/meds")
 
+# pets page
 @app.route("/pets", methods=["POST", "GET"])
 def pets():
      db_connection = db.connect_to_database()
      # query = "SELECT Pets.id_pet, Pets.name, breed, age, gender, Owners.name AS owner_name, Vets.name AS vet_name FROM Pets INNER JOIN Owners ON Pets.id_owner = Owners.id_owner INNER JOIN Vets ON Pets.id_vet = Vets.id_vet;"
      query = "SELECT Pets.id_pet, Pets.name, breed, age, gender, Owners.name AS owner_name, Vets.name AS vet_name FROM Pets INNER JOIN Owners ON Pets.id_owner = Owners.id_owner LEFT JOIN Vets ON Pets.id_vet = Vets.id_vet ORDER BY Pets.name;"
-
      cursor = db.execute_query(db_connection=db_connection, query=query)
      results = cursor.fetchall()
      key_dict = {
@@ -369,7 +365,6 @@ def edit_pet(id_pet):
         query5 = "SELECT DISTINCT Vets.id_vet, Vets.name AS vet_name FROM Vets LEFT JOIN Pets ON Pets.id_vet = Vets.id_vet ORDER BY vet_name;"
         cursor5 = db.execute_query(db_connection=db_connection, query=query5)
         vet_results = cursor5.fetchall()
-
 
         return render_template("pets/edit_pet.html", results=results, current_owner_results=current_owner_results, current_vet_results=current_vet_results, Owner_Dropdown = owner_results,Vet_Dropdown = vet_results)
 

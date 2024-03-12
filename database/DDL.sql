@@ -47,7 +47,7 @@ CREATE OR REPLACE TABLE Pets (
 CREATE OR REPLACE TABLE Prescriptions (
     id_prescription int NOT NULL AUTO_INCREMENT,
     order_date DATETIME NOT NULL,
-    prescription_cost DECIMAL(5, 2) DEFAULT 0.00,
+    prescription_cost DECIMAL(7, 2) DEFAULT 0.00,
     -- total cost of all medications in a given prescription
     -- default value is set to 0.00 since the cost is calculated elsewhere
     was_picked_up TINYINT(1) NOT NULL,

@@ -12,12 +12,15 @@
 
 <div class="table-container">
     <table class="table table-sm table-hover" id="table">
+        <p>*Please first add Prescription before entering a prescribed medication into the "PrescriptionMedications"
+            table, and the Prescription Cost
+            will be automatically calculated.</p>
         <thead>
             <tr>
                 {% if Prescriptions %}
                 {% for key in Prescriptions[0].keys() %}
                 <th>
-                    {{ key_dict[key] if key in key_dict else key  }}
+                    {{ key_dict[key] if key in key_dict else key }}
                 </th>
                 {% endfor %}
             </tr>
@@ -36,7 +39,7 @@
                         class="btn btn-outline-dark">Delete</a></td>
             </tr>
             {% endfor %}
-           
+
 
         </tbody>
     </table>
