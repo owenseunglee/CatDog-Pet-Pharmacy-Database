@@ -2,9 +2,10 @@
 # Date: 2/13/24
 # Adapted from: Flask Starter App Guide
 # Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app
-# Adapted from: Professor's Developing in Flask Exploration Video
+# Adapted from: Professor Curry's Developing in Flask Exploration Video
 # Source URL: https://canvas.oregonstate.edu/courses/1946034/pages/exploration-developing-in-flask?module_item_id=23809337
-
+# All code is adapted from Flask Starter App Guide and Developing in Flask video 
+# except for update_cost, update_cost_from_editmed, and update_query in del_pet and add_pet
 from flask import Flask, render_template, json
 from flask import request, redirect
 from flask_mysqldb import MySQL
@@ -154,6 +155,7 @@ def del_owner(id):
     db_connection.commit()
     return redirect("/owners")
 
+# edit owner page
 @app.route("/edit_owner/<int:id_owner>", methods=["GET", "POST"])
 def edit_owner(id_owner):
     db_connection = db.connect_to_database()
@@ -210,6 +212,7 @@ def add_meds():
 
     return render_template("medications/add_med.html")
 
+# edit med page
 @app.route("/edit_med/<int:id_medication>", methods=["GET", "POST"])
 def edit_meds(id_medication):
     db_connection = db.connect_to_database()
@@ -236,7 +239,6 @@ def edit_meds(id_medication):
             return redirect("/meds")
     
         
-            
 def update_cost_from_editmed(medication_id):
     db_connection = db.connect_to_database()
 
@@ -291,6 +293,7 @@ def del_meds(id):
     db_connection.commit()
     return redirect("/meds")
 
+# pets page 
 @app.route("/pets", methods=["POST", "GET"])
 def pets():
      db_connection = db.connect_to_database()
@@ -311,6 +314,7 @@ def pets():
      
      return render_template("pets/pets.html", title='Pets', Pets=results, key_dict=key_dict)
 
+# delete pet page
 @app.route("/del_pet/<int:id>")
 def del_pets(id):
     db_connection = db.connect_to_database()
@@ -334,6 +338,7 @@ def del_pets(id):
 
     return redirect("/pets")
 
+# add pet page
 @app.route("/add_pet", methods=["POST", "GET"])
 def add_pets():
     db_connection = db.connect_to_database()
@@ -386,7 +391,8 @@ def add_pets():
                 db_connection.commit()
                 
             return redirect("/pets")
-    
+
+# edit pet page 
 @app.route("/edit_pet/<int:id_pet>", methods=["GET", "POST"])
 def edit_pet(id_pet):
     db_connection = db.connect_to_database()
@@ -464,7 +470,8 @@ def edit_pet(id_pet):
                 db.execute_query(db_connection=db_connection, query=query, query_params=(new_id_vet,))
 
             return redirect("/pets")  
-        
+
+# prescriptions page
 @app.route("/prescriptions", methods=["POST", "GET"])
 def prescriptions():
      db_connection = db.connect_to_database()
@@ -487,6 +494,7 @@ def prescriptions():
      
      return render_template("prescriptions/prescriptions.html", title='Prescriptions', Prescriptions=results, key_dict = key_dict)
 
+# delete prescription
 @app.route("/del_prescription/<int:id>")
 def del_prescriptions(id):
     db_connection = db.connect_to_database()
@@ -513,6 +521,7 @@ def update_cost(pet_id):
     cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(pet_id,))
     db_connection.commit()
 
+# add prescription
 @app.route("/add_prescription", methods=["POST", "GET"])
 def add_prescriptions():
     db_connection = db.connect_to_database()
@@ -566,6 +575,7 @@ def add_prescriptions():
 
     # return render_template("prescriptions/add_prescription.html")
 
+# edit prescription
 @app.route("/edit_prescription/<int:id_prescription>", methods=["GET", "POST"])
 def edit_prescription(id_prescription):
 
@@ -605,7 +615,8 @@ def edit_prescription(id_prescription):
             db.execute_query(db_connection=db_connection, query=query, query_params= values)
             db_connection.commit()
             return redirect("/prescriptions")
-        
+
+# intersection table prescriptMeds
 @app.route("/prescriptMeds", methods=["POST", "GET"])
 def intersection():
     db_connection = db.connect_to_database()
@@ -624,7 +635,7 @@ def intersection():
    
     return render_template("intersection/prescriptMeds.html", title='prescriptionMedications', PrescriptionMedications=results, key_dict=key_dict)
 
-
+# add to intersection table
 @app.route("/add_prescriptMeds", methods=["POST", "GET"])
 def add_prescriptMeds():
     db_connection = db.connect_to_database()
