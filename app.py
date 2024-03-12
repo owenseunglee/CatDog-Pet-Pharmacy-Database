@@ -130,7 +130,6 @@ def owners():
 
 # adding owner page
 @app.route("/add_owner", methods=["POST", "GET"])
-@app.route("/add_owner", methods=["POST", "GET"])
 def add_owner():
     db_connection = db.connect_to_database()
 
@@ -498,6 +497,7 @@ def del_prescriptions(id):
     return redirect("/prescriptions")
 
 def update_cost(pet_id):
+    db_connection = db.connect_to_database()
     # query to update the prescription_cost( med's cost X quantity) + previously stored prescription_cost
     query = """
     UPDATE Prescriptions
