@@ -26,10 +26,10 @@ window.onload = function () {
     })
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
     let addPrescription = document.getElementById('addPrescription');
     if (addPrescription) {
-        addPrescription.addEventListener('submit', function (e) {
+        addPrescription.addEventListener('submit', (e) => {
             let orderDateValue = document.getElementById('order_date');
             let wasPickedUp = document.getElementById('picked_up');
             if (orderDateValue.value === '') {
