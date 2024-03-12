@@ -1,3 +1,4 @@
+// Underline bars for nav styling 
 let horizontalUnderLine = document.getElementById("horizontal-underline");
 let navbarSiteLinks = document.querySelectorAll(".navbar-site-links:first-child a");
 
@@ -26,6 +27,7 @@ window.onload = function () {
     })
 }
 
+// Check for any null values under 'Prescriptions' page
 document.addEventListener('DOMContentLoaded', () => {
     let addPrescription = document.getElementById('addPrescription');
     if (addPrescription) {
@@ -44,3 +46,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+    let addMedication = document.getElementById('addMedication');
+    if (addMedication) {
+        addMedication.addEventListener('submit', (e) => {
+            let medName = document.getElementById('name');
+            let medCost = document.getElementById('cost');
+            if (medName === '') {
+                e.preventDefault();
+                alert('Please Enter a Correct Medication Name');
+            }
+            else if (medCost === '') {
+                e.preventDefault();
+                alert('Please Enter a Correct Medication Cost');
+            }
+        })
+    }
+})
