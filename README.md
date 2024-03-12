@@ -1,5 +1,5 @@
 # cs340_database
-cs340_database portfolio project
+CS340 portfolio project
 
 Team CatDog
 Group 12
@@ -9,8 +9,6 @@ Jessica Ly
 Owen Lee
 
 Citations
-
-3/11/24 
 
 Flask Starter App Guide
 - adapted in db_connector, prescriptMeds, meds, owners, pets, prescriptions, vets, app.py for the file set up, jinja templating to retrieve table values, CRUD operations, routing functions, and database connections
