@@ -46,6 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// check for any null values under 'Medications' page
 document.addEventListener('DOMContentLoaded', () => {
     let addMedication = document.getElementById('addMedication');
     if (addMedication) {
