@@ -53,14 +53,36 @@ document.addEventListener('DOMContentLoaded', () => {
         addMedication.addEventListener('submit', (e) => {
             let medName = document.getElementById('name');
             let medCost = document.getElementById('cost');
-            if (medName === '') {
+            if (medName.value === '') {
                 e.preventDefault();
                 alert('Please Enter a Correct Medication Name');
             }
-            else if (medCost === '') {
+            else if (medCost.value === '') {
                 e.preventDefault();
                 alert('Please Enter a Correct Medication Cost');
             }
         })
     }
 })
+
+// check for any null values under 'Owners' page
+document.addEventListener('DOMContentLoaded', () => {
+    let addOwner = document.getElementById('addOwner');
+    if (addOwner) {
+        addOwner.addEventListener('submit', (e) => {
+            let name = document.getElementById('name');
+            let address = document.getElementById('address');
+            let phoneNumber = document.getElementById('phone_number');
+            if (name.value === '') {
+                e.preventDefault();
+                alert('Please Enter a Correct Owner Name');
+            } else if (address.value === '') {
+                e.preventDefault();
+                alert('Please Enter a Correct Address');
+            } else if (phoneNumber === '') {
+                e.preventDefault();
+                alert('Please Enter a Correct Phone Number');
+            }
+        });
+    }
+});

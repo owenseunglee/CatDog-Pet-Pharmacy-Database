@@ -254,6 +254,7 @@ def del_meds(id):
 @app.route("/pets", methods=["POST", "GET"])
 def pets():
      db_connection = db.connect_to_database()
+     page = request.args.get('page', 1, type=int)
      # query = "SELECT Pets.id_pet, Pets.name, breed, age, gender, Owners.name AS owner_name, Vets.name AS vet_name FROM Pets INNER JOIN Owners ON Pets.id_owner = Owners.id_owner INNER JOIN Vets ON Pets.id_vet = Vets.id_vet;"
      query = "SELECT Pets.id_pet, Pets.name, breed, age, gender, Owners.name AS owner_name, Vets.name AS vet_name FROM Pets INNER JOIN Owners ON Pets.id_owner = Owners.id_owner LEFT JOIN Vets ON Pets.id_vet = Vets.id_vet ORDER BY Pets.name;"
      cursor = db.execute_query(db_connection=db_connection, query=query)
@@ -269,6 +270,7 @@ def pets():
         }
      
      return render_template("pets/pets.html", title='Pets', Pets=results, key_dict=key_dict)
+
 
 @app.route("/del_pet/<int:id>")
 def del_pets(id):
@@ -476,9 +478,6 @@ def add_prescriptions():
         query = "INSERT INTO Prescriptions (order_date, prescription_cost, was_picked_up, id_pet) VALUES (%s, %s, %s, %s)"
         cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(order_date, prescription_cost, was_picked_up, pet_id))
         db_connection.commit()
-
-        if order_date == "":
-            print("enter a value")
 
         # Redirect to prescriptions page after successful insertion
         return redirect("/prescriptions")
