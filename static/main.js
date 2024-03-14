@@ -1,14 +1,25 @@
-// Underline bars for nav styling 
 let horizontalUnderLine = document.getElementById("horizontal-underline");
-let navbarSiteLinks = document.querySelectorAll(".navbar-site-links:first-child a");
+let navbarSiteLinks = document.querySelectorAll(".navbar-site-links li a");
+let currentActiveLink;
 
-navbarSiteLinks.forEach(link => link.addEventListener("mouseover", (e) => horizontalIndicator(e)))
+navbarSiteLinks.forEach(link => {
+    link.addEventListener("mouseover", (e) => {
+        horizontalIndicator(e.currentTarget);
+        currentActiveLink = e.currentTarget;
+    })
+})
 
-function horizontalIndicator(e) {
-    horizontalUnderLine.style.left = e.currentTarget.offsetLeft + "px";
-    horizontalUnderLine.style.width = e.currentTarget.offsetWidth + "px";
-    horizontalUnderLine.style.top = e.currentTarget.offsetTop + e.currentTarget.offsetHeight + "px";
+function horizontalIndicator(linkElement) {
+    horizontalUnderLine.style.left = linkElement.offsetLeft + "px";
+    horizontalUnderLine.style.width = linkElement.offsetWidth + "px";
+    horizontalUnderLine.style.top = linkElement.offsetTop + linkElement.offsetHeight + "px";
 }
+
+window.addEventListener('resize', () => {
+    if (currentActiveLink) {
+        horizontalIndicator(currentActiveLink);
+    }
+});
 
 const confirmRedirect = () => {
     if (confirm('Are you sure you want to go back?')) {
