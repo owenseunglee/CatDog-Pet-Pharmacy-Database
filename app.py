@@ -233,7 +233,7 @@ def edit_meds(id_medication):
 
             return redirect("/meds")
     
-        
+
 def update_cost_from_editmed(medication_id):
     db_connection = db.connect_to_database()
 
