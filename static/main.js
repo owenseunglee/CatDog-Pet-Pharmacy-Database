@@ -49,10 +49,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 // loop through the form and its fields
                 for (let fieldId of fields) {
                     let field = document.getElementById(fieldId);
-                    if (form === 'modPrescription') {
+                    if (formId === 'modPrescription') {
                         if (!field || field.value === '') {
                             e.preventDefault();
                             alert(`Please Enter a Corerct ${fieldId.replace('_', ' ')}`);
+                            break;
                         }
                     }
                     // check for their values for conditionals
