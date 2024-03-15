@@ -1,20 +1,21 @@
+// Responsive underline bar for nav links
 let horizontalUnderLine = document.getElementById("horizontal-underline");
 let navbarSiteLinks = document.querySelectorAll(".navbar-site-links li a");
 let currentActiveLink;
-
+// hover effect when mouse over nav links
 navbarSiteLinks.forEach(link => {
     link.addEventListener("mouseover", (e) => {
         horizontalIndicator(e.currentTarget);
         currentActiveLink = e.currentTarget;
     })
 })
-
+// position the underline bar for nav links
 function horizontalIndicator(linkElement) {
     horizontalUnderLine.style.left = linkElement.offsetLeft + "px";
     horizontalUnderLine.style.width = linkElement.offsetWidth + "px";
     horizontalUnderLine.style.top = linkElement.offsetTop + linkElement.offsetHeight + "px";
 }
-
+// when browser gets resized, move its position according to the size
 window.addEventListener('resize', () => {
     if (currentActiveLink) {
         horizontalIndicator(currentActiveLink);
@@ -38,62 +39,40 @@ window.onload = function () {
     })
 }
 
-// Check for any null values under 'Prescriptions' page
+// Check for any null values 
 document.addEventListener('DOMContentLoaded', () => {
-    let addPrescription = document.getElementById('addPrescription');
-    if (addPrescription) {
-        addPrescription.addEventListener('submit', (e) => {
-            let orderDateValue = document.getElementById('order_date');
-            let wasPickedUp = document.getElementById('picked_up');
-            if (orderDateValue.value === '') {
-                e.preventDefault();
-                alert('Please Enter a Correct Order Date');
-            }
-            else if (wasPickedUp.value != 1 || wasPickedUp.value != 2) {
-                e.preventDefault();
-                alert('Please Select "Yes" or "No" for Was Picked Up');
-            }
-        });
+    function checkFormFields(formId, fields) {
+        let form = document.getElementById(formId);
+        // if form exists
+        if (form) {
+            form.addEventListener('submit', (e) => {
+                // loop through the form and its fields
+                for (let fieldId of fields) {
+                    let field = document.getElementById(fieldId);
+                    if (form === 'modPrescription') {
+                        if (!field || field.value === '') {
+                            e.preventDefault();
+                            alert(`Please Enter a Corerct ${fieldId.replace('_', ' ')}`);
+                        }
+                    }
+                    // check for their values for conditionals
+                    else if (!field || field.value === '' || field.value <= 0) {
+                        e.preventDefault();
+                        alert(`Please Enter a Correct ${fieldId.replace('_', ' ')}`);
+                        break;
+                    }
+                }
+            });
+        }
     }
-});
 
-// check for any null values under 'Medications' page
-document.addEventListener('DOMContentLoaded', () => {
-    let addMedication = document.getElementById('addMedication');
-    if (addMedication) {
-        addMedication.addEventListener('submit', (e) => {
-            let medName = document.getElementById('name');
-            let medCost = document.getElementById('cost');
-            if (medName.value === '') {
-                e.preventDefault();
-                alert('Please Enter a Correct Medication Name');
-            }
-            else if (medCost.value === '') {
-                e.preventDefault();
-                alert('Please Enter a Correct Medication Cost');
-            }
-        })
-    }
-})
+    // 'Adding/Editing Medications' 
+    checkFormFields('modMeds', ['Name', 'Cost']);
+    // 'Adding/Editing Owners' 
+    checkFormFields('modOwner', ['Name', 'Address', 'Phone Number']);
+    // 'Prescriptions'
+    checkFormFields('modPrescription', ['Order Date', 'Was Picked Up']);
+    // 'Adding/Editing Pets'
+    checkFormFields('modPet', ['Name', 'Breed', 'Age', 'Gender']);
 
-// check for any null values under 'Owners' page
-document.addEventListener('DOMContentLoaded', () => {
-    let addOwner = document.getElementById('addOwner');
-    if (addOwner) {
-        addOwner.addEventListener('submit', (e) => {
-            let name = document.getElementById('name');
-            let address = document.getElementById('address');
-            let phoneNumber = document.getElementById('phone_number');
-            if (name.value === '') {
-                e.preventDefault();
-                alert('Please Enter a Correct Owner Name');
-            } else if (address.value === '') {
-                e.preventDefault();
-                alert('Please Enter a Correct Address');
-            } else if (phoneNumber === '') {
-                e.preventDefault();
-                alert('Please Enter a Correct Phone Number');
-            }
-        });
-    }
 });

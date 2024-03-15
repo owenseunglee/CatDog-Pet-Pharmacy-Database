@@ -24,17 +24,17 @@
       </table>
     </div>
 
-    <form class="updateForm" id="updateOwner" method="POST" action="/edit_owner/{{results[0].id_owner}}">
+    <form class="updateForm" id="modOwner" method="POST" action="/edit_owner/{{results[0].id_owner}}">
       <legend><strong>Update Owner</strong></legend>
       <fieldset class="fields">
         <input type="hidden" value="{{results[0].id_owner}}" class="form-control" id="ownerID" name="id_owner" required>
         <p>Please enter the following information of the veterinarian to be updated:</p>
-        <label> Name: </label> <input type="text" value="{{ results[0].name}}" class="form-control" id="name"
+        <label> Name: </label> <input type="text" value="{{ results[0].name}}" class="form-control" id="Name"
           name="name">
-        <label> Address: </label> <input type="text" value="{{ results[0].address }}" class="form-control" id="address"
+        <label> Address: </label> <input type="text" value="{{ results[0].address }}" class="form-control" id="Address"
           name="address" required>
         <label> Phone Number: </label>
-        <input type="number" name="phone_number" id="phone_number" value="{{ results[0].phone_number }}">
+        <input type="number" name="phone_number" id="Phone Number" value="{{ results[0].phone_number }}">
 
       </fieldset>
       <div class="button-container">

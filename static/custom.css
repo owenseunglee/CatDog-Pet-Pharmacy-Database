@@ -166,7 +166,6 @@ td {
     max-width: 1500px;
     margin: auto;
     width: 80%;
-
 }
 
 #group-name {
@@ -190,7 +189,8 @@ footer {
     justify-content: space-between;
 }
 
-.col {
+.col,
+.quick {
     flex-basis: 25%;
     padding: 10px;
     display: flex;
@@ -236,9 +236,4 @@ footer {
 
 .copyright {
     text-align: center;
-}
-
-.pagination-container {
-    display: flex;
-    justify-content: center;
 }

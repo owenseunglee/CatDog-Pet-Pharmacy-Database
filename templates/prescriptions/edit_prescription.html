@@ -29,7 +29,7 @@
             </table>
         </div>
 
-        <form class="updateForm" id="updatePrescription" method="POST"
+        <form class="updateForm" id="modPrescription" method="POST"
             action="/edit_prescription/{{results[0].id_prescription}}">
             <legend><strong>Update Prescription</strong></legend>
             <fieldset class="fields">
@@ -52,10 +52,10 @@
                     {% endfor %}
                 </select>
                 <label> Order Date: </label>
-                <input type="datetime-local" value="{{ results[0].order_date }}" class="form-control" id="order_date"
+                <input type="datetime-local" value="{{ results[0].order_date }}" class="form-control" id="Order Date"
                     name="order_date">
                 <label for="was_picked_up">Was Picked Up:</label>
-                <select id="was_picked_up" name="was_picked_up">
+                <select id="Was Picked Up" name="was_picked_up">
                     <option value="1" {% if results[0].was_picked_up==1 %}selected{% endif %}>Yes</option>
                     <option value="0" {% if results[0].was_picked_up==0 %}selected{% endif %}>No</option>
                 </select>

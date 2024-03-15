@@ -38,13 +38,13 @@
 
       </table>
     </div>
-    <form class="updateForm" id="updatePet" method="POST" action="/edit_pet/{{results[0].id_pet}}">
+    <form class="updateForm" id="modPet" method="POST" action="/edit_pet/{{results[0].id_pet}}">
       <legend><strong>Update Pet</strong></legend>
       <fieldset class="fields">
         <input type="hidden" value="{{results[0].id_pet}}" class="form-control" id="petID" name="petID" required>
 
         <p>Please enter the following information of the pet to be updated:</p>
-        <label> Pet Name: </label> <input type="text" value="{{ results[0].name }}" class="form-control" id="name"
+        <label> Pet Name: </label> <input type="text" value="{{ results[0].name }}" class="form-control" id="Name"
           name="name">
         <label>Please select the owner whose assigned to this pet:</label>
         <select class="form-control" id="owner_select" name="owner_select">
@@ -70,14 +70,14 @@
         </select>
 
 
-        <label> Breed: </label> <input type="text" value="{{ results[0].breed }}" class="form-control" id="breed"
+        <label> Breed: </label> <input type="text" value="{{ results[0].breed }}" class="form-control" id="Breed"
           name="breed">
-        <label> Age: </label> <input type="number" value="{{ results[0].age }}" class="form-control" id="age"
+        <label> Age: </label> <input type="number" value="{{ results[0].age }}" class="form-control" id="Age"
           name="age">
         <label for="gender">Gender:</label>
-        <select id="gender" name="gender">
-          <option value="M">M</option>
-          <option value="F">F</option>
+        <select id="Gender" name="gender">
+          <option value="1">M</option>
+          <option value="2">F</option>
         </select>
       </fieldset>
       <div class="button-container">
