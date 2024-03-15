@@ -1,13 +1,14 @@
 {# Citation for add_med
-  --Date: 2/13/24
-  --Adapted from: Professor Curry's planets.html file:
-  -- General layout, including labels and forms
-  --Source URL: https://canvas.oregonstate.edu/courses/1946034/assignments/9456216?module_item_id=23809330
-  --Date: 3/11/24
-  --Adapted from: Professor Curry's Developing in Flask Exploration Video:
-  --Dropdowns
-  --Source URL: https://canvas.oregonstate.edu/courses/1946034/pages/exploration-developing-in-flask?module_item_id=23809337
-  #}
+--Date: 2/13/24
+--Adapted from: Professor Curry's planets.html file:
+-- General layout, including labels and forms
+--Source URL: https://canvas.oregonstate.edu/courses/1946034/assignments/9456216?module_item_id=23809330
+--Date: 3/11/24
+--Adapted from: Professor Curry's Developing in Flask Exploration Video:
+--Dropdowns
+--Source URL:
+https://canvas.oregonstate.edu/courses/1946034/pages/exploration-developing-in-flask?module_item_id=23809337
+#}
 
 {% extends 'layouts.html'%}
 {% block content %}
@@ -19,8 +20,8 @@
     <legend><strong>Add Medication</strong></legend>
     <fieldset class="fields">
       <p>Please enter the medication information to be added:</p>
-      <label> name: </label> <input type="text" name="name">
-      <label> cost: </label> <input type="number" min="0" step="0.01" name="cost">
+      <label> name: </label> <input type="text" id="Name" name="name">
+      <label> cost: </label> <input type="number" id="Cost" min="0" step="0.01" name="cost">
     </fieldset>
     <div class="button-container">
       <span><a href="/meds" class="btn btn-outline-dark">Go Back</a></span>
