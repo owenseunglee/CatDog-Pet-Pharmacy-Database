@@ -1,8 +1,13 @@
 {# Citation for edit_med
-Date: 2/27/24
-Adapted from: Professor's Developing in Flask Exploration Video
-Source URL: https://canvas.oregonstate.edu/courses/1946034/pages/exploration-developing-in-flask?module_item_id=23809337
-#}
+    --Date: 2/13/24
+    --Adapted from: Professor Curry's planets.html file:
+    -- General layout, including labels and forms
+    --Source URL: https://canvas.oregonstate.edu/courses/1946034/assignments/9456216?module_item_id=23809330
+    --Date: 3/11/24
+    --Adapted from: Professor Curry's Developing in Flask Exploration Video:
+    --Retrieving results from app.py
+    --Source URL: https://canvas.oregonstate.edu/courses/1946034/pages/exploration-developing-in-flask?module_item_id=23809337
+    #}
 
 {% extends 'layouts.html'%}
 {% block content %}
@@ -14,11 +19,11 @@ Source URL: https://canvas.oregonstate.edu/courses/1946034/pages/exploration-dev
         <div class="edit-container" id="update">
             <table>
                 <tr>
-                    <th>name:</th>
+                    <th>Name: </th>
                     <td>{{ results[0].name }}</td>
                 </tr>
                 <tr>
-                    <th>cost:</th>
+                    <th>Cost:</th>
                     <td>{{ results[0].cost }}</td>
                 </tr>
             </table>

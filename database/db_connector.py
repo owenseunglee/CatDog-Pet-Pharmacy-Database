@@ -1,3 +1,8 @@
+# Citation for db_connector file set up
+# Date: 3/11/24
+# Adapted from: Flask Starter App Guide
+# Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app
+
 import MySQLdb
 import os
 from dotenv import load_dotenv, find_dotenv

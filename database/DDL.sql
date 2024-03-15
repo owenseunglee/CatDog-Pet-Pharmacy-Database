@@ -70,13 +70,14 @@ CREATE OR REPLACE TABLE PrescriptionMedications (
     FOREIGN KEY (id_medication) REFERENCES Medications(id_medication)
     ON DELETE CASCADE);
 
+-- updated draft 5 - number of patients
 -- Add sample data to tables
 INSERT INTO Vets (name, clinic, email, no_of_patients) VALUES
-('Dr. Johnson', 'PetCare Clinic', 'johnson@petcare.com', 200),
-('Dr. Smith', 'Animal Hospital', 'smith@animalhospital.com', 300),
-('Dr. Brown', 'Pet Wellness Center', 'brown@petwellness.com', 150),
-('Dr. Lee', 'Animal Clinic', 'dr.lee@animalclinic.com', 10),
-('Dr. Chang', 'Healthy Paw Clinic', 'chang@healthypaw.com', 20); -- Illustrates an optional relationship between Vets and Pets. 
+('Dr. Johnson', 'PetCare Clinic', 'johnson@petcare.com', 1),
+('Dr. Smith', 'Animal Hospital', 'smith@animalhospital.com', 1),
+('Dr. Brown', 'Pet Wellness Center', 'brown@petwellness.com', 2),
+('Dr. Lee', 'Animal Clinic', 'dr.lee@animalclinic.com', 0),
+('Dr. Chang', 'Healthy Paw Clinic', 'chang@healthypaw.com', 0); -- Illustrates an optional relationship between Vets and Pets. 
 -- This vet does not have any pet clients with the pharmacy yet. Note the number of patients is for the vet clinic, not the pharmacy.
 
 INSERT INTO Owners (name, address, phone_number) VALUES
