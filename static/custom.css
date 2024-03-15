@@ -210,14 +210,6 @@ footer {
     margin-bottom: 30px;
 }
 
-/* not sure if this needs to be edited out */
-@media (max-width: 1479px) {
-    .nav-bar {
-        height: 95%;
-        width: 95%;
-    }
-}
-
 .col a {
     text-decoration: none;
     padding: 10px;

@@ -284,7 +284,6 @@ def del_meds(id):
     db_connection.commit()
     return redirect("/meds")
 
-# pets page 
 # pets page
 @app.route("/pets", methods=["POST", "GET"])
 def pets():
