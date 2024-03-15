@@ -172,6 +172,7 @@ td {
     font-size: x-large;
 }
 
+/*
 footer {
     padding: 100px 0 30px;
     width: 100%;
@@ -180,6 +181,7 @@ footer {
     min-width: 1500px;
     background-color: var(--primary-color);
 }
+*/
 
 .row {
     width: 85%;
