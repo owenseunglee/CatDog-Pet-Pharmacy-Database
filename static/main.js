@@ -70,9 +70,12 @@ document.addEventListener('DOMContentLoaded', () => {
     checkFormFields('modMeds', ['Name', 'Cost']);
     // 'Adding/Editing Owners' 
     checkFormFields('modOwner', ['Name', 'Address', 'Phone Number']);
-    // 'Prescriptions'
+    // 'Adding/Editing Prescriptions'
     checkFormFields('modPrescription', ['Order Date', 'Was Picked Up']);
     // 'Adding/Editing Pets'
     checkFormFields('modPet', ['Name', 'Breed', 'Age', 'Gender']);
-
+    // 'Adding/Editing Vets'
+    checkFormFields('modVet', ['Name', 'Clinic', 'Email']);
+    // 'Adding prescriptionMedications'
+    checkFormFields('addpm', ['Quantity']);
 });

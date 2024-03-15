@@ -26,18 +26,18 @@ Source URL: https://canvas.oregonstate.edu/courses/1946034/pages/exploration-dev
             </table>
         </div>
 
-        <form class="updateForm" id="updateVet" method="POST" action="/edit_vet/{{results[0].id_vet}}">
+        <form class="updateForm" id="modVet" method="POST" action="/edit_vet/{{results[0].id_vet}}">
             <legend><strong>Update Veterinarian</strong></legend>
             <fieldset class="fields">
                 <input type="hidden" value="{{results[0].id_vet}}" class="form-control" id="vetID" name="vetID"
                     required>
                 <p>Please enter the following information of the veterinarian to be updated:</p>
-                <label> Name: </label> <input type="text" value="{{ results[0].name}}" class="form-control" id="name"
+                <label> Name: </label> <input type="text" value="{{ results[0].name}}" class="form-control" id="Name"
                     name="name">
                 <label> Clinic: </label> <input type="text" value="{{ results[0].clinic }}" class="form-control"
-                    id="clinic" name="clinic">
+                    id="Clinic" name="clinic">
                 <label> Email: </label> <input type="text" value="{{ results[0].email }}" class="form-control"
-                    id="email" name="email">
+                    id="Email" name="email">
 
             </fieldset>
             <div class="button-container">

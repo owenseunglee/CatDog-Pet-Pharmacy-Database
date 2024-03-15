@@ -10,13 +10,13 @@
 <html>
 <h1>Add Veterinarian</h1>
 <div class="update-container" id="insert">
-  <form id="addVet" action="/add_vet" method="POST">
+  <form id="modVet" action="/add_vet" method="POST">
     <legend><strong>Add Veterinarian</strong></legend>
     <fieldset class="fields">
       <p>Please enter the veterinarian information to be added:</p>
-      <label> Name: </label> <input type="text" name="name">
-      <label> Clinic: </label> <input type="text" name="clinic">
-      <label> Email: </label> <input type="email" name="email">
+      <label> Name: </label> <input type="text" id="Name" name="name">
+      <label> Clinic: </label> <input type="text" id="Clinic" name="clinic">
+      <label> Email: </label> <input type="email" id="Email" name="email">
     </fieldset>
     <div class="button-container">
       <span><a href="/vets" class="btn btn-outline-dark">Go Back</a></span>
