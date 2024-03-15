@@ -19,8 +19,10 @@
 <div class="update-container" id="insert">
     <form id="addPrescription" action="/add_prescription" method="POST">
         <legend><strong>Add Prescription</strong></legend>
+        <p>Please enter the prescription information to be added:</p>
+        <label> Note: Prescription cost will be automatically calculated once medication(s) are added to the PrescriptionMedications table. </label> 
+
         <fieldset class="fields">
-            <label> Note: Prescription cost will be automatically calculated once medication(s) are added to the PrescriptionMedications table. </label> 
             <br>
             <label> Order Date: </label> <input type="datetime-local" name="order_date">
             <label> Was Picked Up: </label>
