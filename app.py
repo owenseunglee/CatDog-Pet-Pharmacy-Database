@@ -595,7 +595,7 @@ def edit_prescription(id_prescription):
 
         # Pet dropdown in edit
         # this query allows us to update to any pet, including those who don't have a prescription yet
-        query2 = "SELECT Pets.id_pet, Pets.name, ' (', Pets.id_pet, ')') AS pet_name_and_id, Prescriptions.order_date FROM Pets LEFT JOIN Prescriptions ON Pets.id_pet = Prescriptions.id_pet ORDER BY Pets.name, Prescriptions.order_date;"
+        query2 = "SELECT Pets.id_pet, Pets.name AS pet_name, Prescriptions.order_date FROM Pets LEFT JOIN Prescriptions ON Pets.id_pet = Prescriptions.id_pet ORDER BY Pets.name, Prescriptions.order_date;"
 
         cursor2 = db.execute_query(db_connection=db_connection, query=query2)
         pet_results = cursor2.fetchall()
