@@ -28,65 +28,69 @@
 </head>
 
 <body>
-    <nav class="nav-bar">
-        <div class="navbar-logo">
-            <img src="../static/logo1.png" alt="CATDOG Pharmacy logo"></img>
+    <div class="page-container">
+        <div class="content-wrap">
+            <nav class="nav-bar">
+                <div class="navbar-logo">
+                    <img src="../static/logo1.png" alt="CATDOG Pharmacy logo"></img>
+                </div>
+                <div class="navbar-links">
+                    <ul class="navbar-utility-links">
+                        <h1 id="group-name">CATDOG Pharmacy</h1>
+                        <li><button type="button" id="contact" class="btn btn-primary">CONTACT US</button></li>
+                    </ul>
+                    <div class="navbar-site-links-wrapper">
+                        <ul class="navbar-site-links">
+                            <div id="horizontal-underline"></div>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/vets">Veterinarians</a></li>
+                            <li><a href="/owners">Owners</a></li>
+                            <li><a href="/pets">Pets</a></li>
+                            <li><a href="/meds">Medications</a></li>
+                            <li><a href="/prescriptions">Prescriptions</a></li>
+                            <li><a href="/prescriptMeds">PrescriptionMedications</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
         </div>
-        <div class="navbar-links">
-            <ul class="navbar-utility-links">
-                <h1 id="group-name">CATDOG Pharmacy</h1>
-                <li><button type="button" id="contact" class="btn btn-primary">CONTACT US</button></li>
-            </ul>
-            <div class="navbar-site-links-wrapper">
-                <ul class="navbar-site-links">
-                    <div id="horizontal-underline"></div>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/vets">Veterinarians</a></li>
-                    <li><a href="/owners">Owners</a></li>
-                    <li><a href="/pets">Pets</a></li>
-                    <li><a href="/meds">Medications</a></li>
-                    <li><a href="/prescriptions">Prescriptions</a></li>
-                    <li><a href="/prescriptMeds">PrescriptionMedications</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
 
-    <!-- JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-    <script src="../static/main.js"></script>
+        <!-- JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+        <script src="../static/main.js"></script>
 
-    <!-- Ionicon -->
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    {% block content %}
-    {% endblock content %}
-    <!--
-    <footer>
-        <div class="row">
-            <div class="col">
-                CatDog Pharmacy
+        <!-- Ionicon -->
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+        {% block content %}
+        {% endblock content %}
+
+
+        <footer>
+            <div class="row">
+                <div class="col">
+                    CatDog Pharmacy
+                </div>
+                <div class="quick">
+                    <ul>
+                        <li>Quick Links:</li>
+                        <li><a href="/">Home</a></li>
+                        <li>About</li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <a href=""><i class="fa-brands fa-facebook"></i></a>
+                    <a href=""><i class="fa-brands fa-instagram"></i></a>
+                    <a href=""><i class="fa-brands fa-github"></i></a>
+                    <a href=""><i class="fa-brands fa-twitter"></i></a>
+                    <a href=""><i class="fa-brands fa-google-plus"></i></a>
+                </div>
+                <p class="copyright"><strong>Copyright &copy; 2024 CATDOG Pharmacy</strong></p>
             </div>
-            <div class="quick">
-                <ul>
-                    <li>Quick Links:</li>
-                    <li><a href="/">Home</a></li>
-                    <li>About</li>
-                </ul>
-            </div>
-            <div class="col">
-                <a href=""><i class="fa-brands fa-facebook"></i></a>
-                <a href=""><i class="fa-brands fa-instagram"></i></a>
-                <a href=""><i class="fa-brands fa-github"></i></a>
-                <a href=""><i class="fa-brands fa-twitter"></i></a>
-                <a href=""><i class="fa-brands fa-google-plus"></i></a>
-            </div>
-            <p class="copyright"><strong>Copyright &copy; 2024 CATDOG Pharmacy</strong></p>
-        </div>
-    </footer>
-    -->
+        </footer>
+    </div>
 </body>
 
 </html>

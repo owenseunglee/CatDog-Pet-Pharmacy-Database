@@ -14,6 +14,18 @@ a {
     padding: 0;
 }
 
+.page-container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    min-height: 100vh;
+}
+
+.content-wrap {
+    padding-bottom: 2.5rem;
+    /* Footer height */
+}
+
 nav {
     display: flex;
     justify-content: center;
@@ -132,9 +144,11 @@ h1 {
 }
 
 .table-container {
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
     width: 900px;
     padding: 10px;
+    justify-content: center;
 }
 
 thead th {
@@ -171,16 +185,16 @@ td {
     font-size: x-large;
 }
 
-/*
+
 footer {
-    padding: 100px 0 30px;
+    padding: 30px 0;
     width: 100%;
-    position: absolute;
     bottom: 0;
+    margin-top: auto;
     min-width: 1500px;
     background-color: var(--primary-color);
 }
-*/
+
 
 .row {
     width: 85%;
@@ -196,6 +210,14 @@ footer {
     padding: 10px;
     display: flex;
     justify-content: center;
+}
+
+.quick li {
+    list-style-type: none;
+}
+
+.quick a {
+    color: black;
 }
 
 .col li {
@@ -237,4 +259,6 @@ footer {
 
 .copyright {
     text-align: center;
+    padding: 0;
+    margin: 0;
 }
