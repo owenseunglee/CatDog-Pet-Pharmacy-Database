@@ -1,8 +1,9 @@
-{# Citation for add_owner.js
---Date: 2/13/24
---Adapted from: Professor's planets.html file
---Source URL: https://canvas.oregonstate.edu/courses/1946034/assignments/9456216?module_item_id=23809330
-#}
+{# Citation for add_owner
+  --Date: 2/13/24
+  --Adapted from: Professor Curry's planets.html file:
+  -- General layout, including labels and forms
+  --Source URL: https://canvas.oregonstate.edu/courses/1946034/assignments/9456216?module_item_id=23809330
+  #}
 
 {% extends 'layouts.html'%}
 {% block content %}
@@ -11,7 +12,7 @@
 
 <h1>Add Owner</h1>
 <div class="update-container" id="insert">
-  <form id="addOwner" action="/add_owner" method="POST">
+  <form id="modOwner" action="/add_owner" method="POST">
     <legend><strong>Add Owner</strong></legend>
     <fieldset class="fields">
       <label> Name: </label> <input type="text" id="Name" name="name">

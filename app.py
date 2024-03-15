@@ -222,7 +222,31 @@ def edit_meds(id_medication):
             values = (name, cost, id_medication)
             db.execute_query(db_connection=db_connection, query=query, query_params= values)
             db_connection.commit()
+            update_cost_from_editmed(id_medication)
             return redirect("/meds")
+
+def update_cost_from_editmed(medication_id):
+    db_connection = db.connect_to_database()
+
+    # Query to update the prescription cost based on the updated medication cost
+    query = """
+    UPDATE Prescriptions
+    INNER JOIN (
+        SELECT id_prescription, SUM(cost * quantity) AS total_cost
+        FROM (
+            SELECT PrescriptionMedications.id_prescription, Medications.cost, PrescriptionMedications.quantity
+            FROM PrescriptionMedications
+            INNER JOIN Medications ON PrescriptionMedications.id_medication = Medications.id_medication
+            WHERE PrescriptionMedications.id_prescription IN (
+                SELECT id_prescription FROM PrescriptionMedications WHERE id_medication = %s
+            )
+        ) AS subquery
+        GROUP BY id_prescription
+    ) AS prescription_costs ON Prescriptions.id_prescription = prescription_costs.id_prescription
+    SET Prescriptions.prescription_cost = prescription_costs.total_cost;
+    """
+    cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(medication_id,))
+    db_connection.commit()
 
 # deleting med page
 @app.route("/del_med/<int:id>")
@@ -498,7 +522,8 @@ def edit_prescription(id_prescription):
 
         # Pet dropdown in edit
         # this query allows us to update to any pet, including those who don't have a prescription yet
-        query2 = "SELECT Pets.id_pet, CONCAT(Pets.name, ' (', Pets.id_pet, ')') AS pet_name_and_id, Prescriptions.order_date FROM Pets LEFT JOIN Prescriptions ON Pets.id_pet = Prescriptions.id_pet ORDER BY Pets.name, Prescriptions.order_date;"
+        query2 = "SELECT Pets.id_pet, Pets.name AS pet_name, Prescriptions.order_date FROM Pets LEFT JOIN Prescriptions ON Pets.id_pet = Prescriptions.id_pet ORDER BY Pets.name, Prescriptions.order_date;"
+
 
         cursor2 = db.execute_query(db_connection=db_connection, query=query2)
         pet_results = cursor2.fetchall()
@@ -559,6 +584,7 @@ def add_prescriptMeds():
 
         # call this function to automatically update the prescription cost
         update_cost(prescription_id)
+        db_connection.commit()
 
         return redirect("/prescriptMeds")
     
@@ -578,7 +604,7 @@ def add_prescriptMeds():
         return render_template("intersection/add_prescriptMeds.html", Prescriptions_Dropdown=prescription_results, Medications_Dropdown=med_results)
 
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 58541)) 
+    port = int(os.environ.get('PORT', 57591)) 
      #                               ^^^^
     #             You can replace this number with any valid port
     

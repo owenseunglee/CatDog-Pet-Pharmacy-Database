@@ -3,14 +3,14 @@
 
 <body>
     <h1>The Overview</h1>
-    <article>
+    <article class="flex-container" style="padding: 20px 70px;">
         <p id="overview">
             The CatDog Pet Pharmacy, working closely with a network of 10 local Veterinarians, provides services to an
             average of 500 pet clients annually.
             These services are exclusively for owned pets; the pharmacy and its associated veterinarians do not cater to
             stray animals. Additionally,
             it is assumed that each pet client is assigned to only one veterinarian to ensure consistency and
-            personalized care.The pharmacy offers a range
+            personalized care. The pharmacy offers a range
             of Medications, dispensing approximately 1,000 Prescriptions per year, generating an average annual revenue
             of $50,000. CatDog Pet Pharmacy
             hopes to deploy a website that will record prescriptions dispensed per year, number of prescriptions that
@@ -32,37 +32,42 @@
             deleted completely for clients that we no longer serve.
         </p>
     </article>
-    <table>
+    <div class="table-container">
+    <table class="table table-sm table-hover">
+      <thead>
         <tr>
           <th>Table Name</th>
           <th>Description</th>
         </tr>
+      </thead>
         <tr>
-          <td>Vets</td>
+          <td><a href="/vets">Vets</a></td>
           <td>Records the details of Vets that do business with us</td>
         </tr>
         <tr>
-          <td>Owners</td>
+          <td><a href="/owners">Owners</a></td>
           <td>Records the details of Owners of our pet clients</td>
         </tr>
         <tr>
-          <td>Pets</td>
+          <td><a href="/pets">Pets</a></td>
           <td>Records the details of Pets that we serve</td>
         </tr>
         <tr>
-          <td>Medications</td>
+          <td><a href="/meds">Medications</a></td>
           <td>Records the details of Medications that our pharmacy dispenses</td>
         </tr>
         <tr>
-          <td>Prescriptions</td>
+          <td><a href="/prescriptions">Prescriptions</a></td>
           <td>Records the details of Prescriptions that we issue</td>
         </tr>
         <tr>
-            <td>PrescriptionMedications</td>
-            <td>Records the details of Prescriptions and Medications in an intersection table</td>
-          </tr>
-      </table>
+          <td><a href="/prescriptMeds">PrescriptionMedications</a></td>
+          <td>Records the details of Prescriptions and Medications in an intersection table</td>
+        </tr>
 
+      </table>
+      
+    </div>
 </body>
 
 {% endblock %}
