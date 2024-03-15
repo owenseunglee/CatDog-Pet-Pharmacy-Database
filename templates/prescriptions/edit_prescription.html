@@ -39,16 +39,26 @@
                 <p>Please enter the following information of the prescription to be updated:</p>
                 <p>Please select the pet whose assigned to this prescription:</p>
                 <select class="form-control" id="pet_select" name="pet_select">
+                    {# keeps track of the pet to ensure no duplicate names are shown in the dropdown #}
+                    {% set seen_names = [] %}
+                    
                     {% for pet in Pet_Dropdown %}
-                    {# {% if pet['id_pet'] == results[0]['id_pet'] %} #}
-                    {% if pet['order_date'] == results[0].order_date %}
-                    <option value="{{ pet['id_pet'] }}" selected>{{ pet['pet_name_and_id'] }} {{ pet['order_date']
-                        }}
-                    </option>
-                    {% else %}
-                    <option value="{{ pet['id_pet'] }}">{{ pet['pet_name_and_id'] }} {{ pet['order_date'] }}
-                    </option>
-                    {% endif %}
+
+                        {% if pet['order_date'] == results[0].order_date %}
+                            {% if pet['pet_name'] not in seen_names %}
+                                {% set _ = seen_names.append(pet['pet_name']) %}
+                                {# sets our default pet in the dropdown input #}
+                                <option value="{{ pet['id_pet'] }}" selected>{{ pet['pet_name'] }}</option>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+
+                    {% for pet in Pet_Dropdown %}
+                        {# add non duplicate pets into our dropdown options #}
+                        {% if pet['pet_name'] not in seen_names %}
+                            {% set _ = seen_names.append(pet['pet_name']) %}
+                            <option value="{{ pet['id_pet'] }}">{{ pet['pet_name'] }}</option>
+                        {% endif %}
                     {% endfor %}
                 </select>
                 <label> Order Date: </label>

@@ -1,50 +1,50 @@
 {# Citation for add_prescription.js
---Date: 2/13/24
---Adapted from: Professor's planets.html file
---Source URL: https://canvas.oregonstate.edu/courses/1946034/assignments/9456216?module_item_id=23809330
-#}
-
-{% extends 'layouts.html'%}
-{% block content %}
-
-<html>
-
-<h1>Add Prescription</h1>
-
-<div class="update-container" id="insert">
-    <form id="addPrescription" action="/add_prescription" method="POST">
-        <legend><strong>Add Prescription</strong></legend>
-        <fieldset class="fields">
-            <label> Order Date: </label> <input type="datetime-local" id="Order Date" name="order_date">
-            <label> Was Picked Up: </label>
-            <select id="Was Picked Up" name="picked_up">
-                <option value="">--Select--</option>
-                <option value="1">Yes</option>
-                <option value="0">No</option>
-            </select>
-            <p>Please select the pet whose assigned to this prescription:</p>
-            <select class="form-control" id="pet_select" name="pet_select">
-                {% for pet in Pet_Dropdown %}
-                {% if pet == Pet_Dropdown[0] %}
-                <option value="{{ pet['id_pet'] }}" selected>{{ pet['pet_name_and_id'] }}</option>
-                {% else %}
-                <option value="{{ pet['id_pet'] }}">{{ pet['pet_name_and_id'] }}</option>
-                {% endif %}
-                {% endfor %}
-            </select>
-
-
-        </fieldset>
-        <div class="button-container">
-            <span><a href="/prescriptions" class="btn btn-outline-dark">Go Back</a></span>
-            <button class="btn btn-outline-primary" type="submit" id="icon">
-                <ion-icon id="add_button" name="add-outline"></ion-icon>
-                Add Prescription
-            </button>
-        </div>
-    </form>
-</div>
-
-</html>
-
-{% endblock %}
+    --Date: 2/13/24
+    --Adapted from: Professor's planets.html file
+    --Source URL: https://canvas.oregonstate.edu/courses/1946034/assignments/9456216?module_item_id=23809330
+    #}
+    
+    {% extends 'layouts.html'%}
+    {% block content %}
+    
+    <html>
+    
+    <h1>Add Prescription</h1>
+    
+    <div class="update-container" id="modPrescription">
+        <form id="modPrescription" action="/add_prescription" method="POST">
+            <legend><strong>Add Prescription</strong></legend>
+            <fieldset class="fields">
+                <label> Order Date: </label> <input type="datetime-local" id="Order Date" name="order_date">
+                <label> Was Picked Up: </label>
+                <select id="Was Picked Up" name="picked_up">
+                    <option value="">--Select--</option>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+                <p>Please select the pet whose assigned to this prescription:</p>
+                <select class="form-control" id="pet_select" name="pet_select">
+                    {% for pet in Pet_Dropdown %}
+                    {% if pet == Pet_Dropdown[0] %}
+                    <option value="{{ pet['id_pet'] }}" selected>{{ pet['pet_name_and_id'] }}</option>
+                    {% else %}
+                    <option value="{{ pet['id_pet'] }}">{{ pet['pet_name_and_id'] }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+    
+    
+            </fieldset>
+            <div class="button-container">
+                <span><a href="/prescriptions" class="btn btn-outline-dark">Go Back</a></span>
+                <button class="btn btn-outline-primary" type="submit" id="icon">
+                    <ion-icon id="add_button" name="add-outline"></ion-icon>
+                    Add Prescription
+                </button>
+            </div>
+        </form>
+    </div>
+    
+    </html>
+    
+    {% endblock %}
