@@ -9,87 +9,68 @@ a {
     color: var(--primary-color);
 }
 
-/* nav link styling */
-
-.nav-bar {
-    display: flex;
-    width: 100%;
-    padding: 10px;
-    padding-bottom: 15px;
-    justify-content: center;
-    max-width: 1500px;
-    box-shadow: 0 4px 2px -2px rgba(0, 0, 0, .2);
-    margin: 0 auto;
+* {
+    margin: 0;
+    padding: 0;
 }
 
-/* Container to wrap the entire header */
-
-.navbar-top {
-    display: flex;
-}
-
-.nav-bar .nav-container {
-    height: 120px;
-    box-sizing: border-box;
-    width: 100%;
+nav {
     display: flex;
     justify-content: center;
-    margin-left: 8%;
-}
-
-/* Secondary container to wrap the entire nav-links/
-     group name/contact */
-
-.nav-bar .navbar-links {
-    width: 80%;
-    height: 95%;
+    align-items: center;
+    height: 130px;
+    width: 70vw;
     margin: auto;
-    display: flex;
+    flex-wrap: wrap;
+    box-shadow: 0px 4px 2px -2px rgba(0, 0, 0, .2);
+    min-width: 1300px;
 }
 
-/* Container for just nav-links*/
+#group-name {
+    text-align: center;
+    font-family: "Inter", sans-serif;
+    width: 100%;
+    font-size: xx-large;
+}
 
-.test {
+.navbar-links {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
 }
 
-.nav-bar .navbar-utility-links {
-    list-style-type: none;
+.navbar-utility-links {
     display: flex;
-    /*justify-content: flex-end;*/
-    flex-direction: row;
+    margin: 0;
+    padding: 0;
     align-items: center;
-    width: 71%;
-    margin-left: 19%;
     justify-content: space-between;
 }
 
 .navbar-utility-links li {
-    padding: 10px;
-    padding-top: 20px;
-    display: inline-block;
+    list-style-type: none;
+}
+
+#contact .btn {
+    border-radius: 0;
+}
+
+.navbar-site-links li a {
+    margin: 0 20px;
+    font-weight: bold;
+    text-decoration: none;
     text-transform: uppercase;
-}
-
-.navbar-utility-links li:nth-child(1) {
-    margin-right: 25px;
-}
-
-.navbar-site-links-wrapper {
-    display: flex;
-    position: relative;
-    box-sizing: border-box;
-    background-color: white;
-    justify-content: center;
-    height: 50%;
 }
 
 .navbar-site-links {
     display: flex;
-    padding-right: 10%;
-    position: relative;
     margin: 0;
+    padding: 0;
+}
+
+.navbar-site-links li {
+    list-style-type: none;
 }
 
 #icon {
@@ -105,14 +86,6 @@ a {
     margin-right: 5px;
 }
 
-.nav-bar .navbar-site-links li {
-    list-style-type: none;
-    font-weight: bold;
-    font-size: larger;
-    padding: 20px;
-    color: var(--primary-color);
-}
-
 #horizontal-underline {
     position: absolute;
     width: 0%;
@@ -125,6 +98,7 @@ a {
 #contact.btn {
     border-radius: 0%;
 }
+
 
 h1 {
     text-align: center;
@@ -192,7 +166,6 @@ td {
     max-width: 1500px;
     margin: auto;
     width: 80%;
-
 }
 
 #group-name {
@@ -204,22 +177,32 @@ footer {
     width: 100%;
     position: absolute;
     bottom: 0;
+    min-width: 1500px;
     background-color: var(--primary-color);
-    border-top-left-radius: 125px;
 }
 
 .row {
     width: 85%;
     margin: auto;
     display: flex;
-    flex-wrap: wrap;
     align-items: flex-start;
     justify-content: space-between;
 }
 
-.col {
+.col,
+.quick {
     flex-basis: 25%;
     padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.col li {
+    display: flex;
+    list-style-type: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .logo {
@@ -227,6 +210,7 @@ footer {
     margin-bottom: 30px;
 }
 
+/* not sure if this needs to be edited out */
 @media (max-width: 1479px) {
     .nav-bar {
         height: 95%;
@@ -234,5 +218,30 @@ footer {
     }
 }
 
+.col a {
+    text-decoration: none;
+    padding: 10px;
+    background-color: white;
+    border-radius: 50%;
+    margin: 10px;
+}
 
+.col a i {
+    color: var(--primary-color);
+    font-size: 2em;
+    opacity: 0.9;
+}
 
+.col a:hover {
+    background-color: var(--primary-color);
+    transition: 0.5s;
+}
+
+.col a:hover i {
+    color: white;
+    transition: 0.5s;
+}
+
+.copyright {
+    text-align: center;
+}

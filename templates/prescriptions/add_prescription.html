@@ -23,10 +23,9 @@
         <label> Note: Prescription cost will be automatically calculated once medication(s) are added to the PrescriptionMedications table. </label> 
 
         <fieldset class="fields">
-            <br>
-            <label> Order Date: </label> <input type="datetime-local" name="order_date">
+            <label> Order Date: </label> <input type="datetime-local" id="Order Date" name="order_date">
             <label> Was Picked Up: </label>
-            <select name="picked_up">
+            <select id="Was Picked Up" name="picked_up">
                 <option value="">--Select--</option>
                 <option value="1">Yes</option>
                 <option value="0">No</option>
@@ -45,11 +44,11 @@
 
         </fieldset>
         <div class="button-container">
+            <span><a href="/prescriptions" class="btn btn-outline-dark">Go Back</a></span>
             <button class="btn btn-outline-primary" type="submit" id="icon">
                 <ion-icon id="add_button" name="add-outline"></ion-icon>
                 Add Prescription
             </button>
-            <span><a href="/prescriptions" class="btn btn-outline-dark">Go Back</a></span>
         </div>
     </form>
 </div>

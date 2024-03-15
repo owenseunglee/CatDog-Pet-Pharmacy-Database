@@ -30,16 +30,16 @@
         </div>
 
 
-        <form class="updateForm" id="updateMed" method="POST" action="/edit_med/{{results[0].id_medication}}">
+        <form class="updateForm" id="modMeds" method="POST" action="/edit_med/{{results[0].id_medication}}">
             <legend><strong>Update Medication</strong></legend>
             <fieldset class="fields">
                 <input type="hidden" value="{{results[0].id_medication}}" class="form-control" id="medID" name="medID"
                     required>
                 <p>Please enter the following information of the medication to be updated</p>
-                <label> Name: </label> <input type="text" value="{{ results[0].name}}" class="form-control" id="name"
+                <label> Name: </label> <input type="text" value="{{ results[0].name}}" class="form-control" id="Name"
                     name="name">
-                <label> Cost: </label> <input type="text" value="{{ results[0].cost }}" class="form-control" id="cost"
-                    name="cost">
+                <label> Cost: </label> <input type="number" value="{{ results[0].cost }}" class="form-control" id="Cost"
+                    name="cost" min="0">
 
             </fieldset>
             <div class="button-container">
