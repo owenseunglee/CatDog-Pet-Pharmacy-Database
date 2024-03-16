@@ -444,11 +444,12 @@ def edit_pet(id_pet):
                 db_connection.commit()
 
             # If the vet id has changed, update the no_of_patients for the old and new vet
-            if old_id_vet != new_id_vet:
+            if old_id_vet is not None and old_id_vet != new_id_vet:
+            #if old_id_vet != new_id_vet
                 # Decrease the no_of_patients for the old vet
                 query = "UPDATE Vets SET no_of_patients = no_of_patients - 1 WHERE id_vet = %s;"
                 db.execute_query(db_connection=db_connection, query=query, query_params=(old_id_vet,))
-            
+            if new_id_vet is not None:
                 # Increase the no_of_patients for the new vet
                 query = "UPDATE Vets SET no_of_patients = no_of_patients + 1 WHERE id_vet = %s;"
                 db.execute_query(db_connection=db_connection, query=query, query_params=(new_id_vet,))
