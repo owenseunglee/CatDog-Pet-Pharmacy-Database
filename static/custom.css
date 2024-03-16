@@ -120,7 +120,7 @@ nav {
 #horizontal-underline {
     position: absolute;
     width: 0%;
-    background-color: pink;
+    background-color: teal;
     top: 0;
     left: 0;
     height: 5px;
@@ -134,7 +134,7 @@ nav {
     display: flex;
     justify-content: center;
     width: 100%;
-    background-color: rgb(241, 240, 240);
+    background-color: rgb(250, 247, 247);
 }
 
 #section1 {
@@ -146,6 +146,7 @@ nav {
 
 #overview {
     justify-content: center;
+    font-size: 15px;
 }
 
 h1 {
@@ -157,8 +158,24 @@ h1 {
     border-bottom: 2px solid black;
 }
 
-.edit-container {
-    width: 55%;
+.update-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    max-width: 1500px;
+    margin: auto;
+    width: 80%;
+}
+
+.l-edit-container {
+    width: 40%;
+    padding: 120px 0;
+    justify-content: center;
+    display: inline-flex;
+}
+
+.r-edit-container {
+    width: 38%;
     padding: 120px 0;
     justify-content: center;
     display: inline-flex;
@@ -206,15 +223,6 @@ td {
 .test1 {
     display: flex;
     flex-direction: row;
-}
-
-.update-container {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    max-width: 1500px;
-    margin: auto;
-    width: 80%;
 }
 
 #group-name {
