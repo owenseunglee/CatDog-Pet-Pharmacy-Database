@@ -14,6 +14,10 @@ a {
     padding: 0;
 }
 
+p {
+    font-family: "Inter", sans-serif;
+}
+
 .page-container {
     display: flex;
     flex-direction: column;
@@ -111,6 +115,25 @@ nav {
     border-radius: 0%;
 }
 
+.sectionDivider {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background-color: rgb(241, 240, 240);
+}
+
+#section1 {
+    margin-left: auto;
+    margin-right: auto;
+    width: 900px;
+    padding: 10px;
+    justify-content: center;
+}
+
+#overview {
+    display: flex;
+    justify-content: center;
+}
 
 h1 {
     text-align: center;
