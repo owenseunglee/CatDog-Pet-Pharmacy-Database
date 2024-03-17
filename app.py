@@ -417,6 +417,7 @@ def edit_pet(id_pet):
     query = "SELECT id_vet FROM Pets WHERE id_pet = %s;"
     cursor = db.execute_query(db_connection=db_connection, query=query, query_params=(id_pet,))
     old_id_vet = cursor.fetchone()['id_vet']
+    print(old_id_vet)
     
     if request.method == "POST":
         if request.form.get("Edit_Pet"):
@@ -449,10 +450,12 @@ def edit_pet(id_pet):
                 # Decrease the no_of_patients for the old vet
                 query = "UPDATE Vets SET no_of_patients = no_of_patients - 1 WHERE id_vet = %s;"
                 db.execute_query(db_connection=db_connection, query=query, query_params=(old_id_vet,))
+                print(f"old id vet is {old_id_vet}")
             if new_id_vet is not None:
                 # Increase the no_of_patients for the new vet
                 query = "UPDATE Vets SET no_of_patients = no_of_patients + 1 WHERE id_vet = %s;"
                 db.execute_query(db_connection=db_connection, query=query, query_params=(new_id_vet,))
+                print(f"new id vet is {new_id_vet}")
             return redirect("/pets")  
 
 # prescriptions page
@@ -632,7 +635,7 @@ def add_prescriptMeds():
         return render_template("intersection/add_prescriptMeds.html", Prescriptions_Dropdown=prescription_results, Medications_Dropdown=med_results)
 
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 58511)) 
+    port = int(os.environ.get('PORT', 58561)) 
      #                               ^^^^
     #             You can replace this number with any valid port
     
