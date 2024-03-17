@@ -11,6 +11,10 @@
 <h1>Browse Owners</h1>
 
 <div class="table-container">
+  <form action="/owners" method="get" class="search-form">
+    <input type="text" name="search" placeholder="Search Owners By Name">
+    <button class="btn btn-primary btn-sm" id="searchBtn" type="submit">Search</button>
+  </form>
   <table class="table table-sm table-hover" id="table">
     <thead>
       <tr>
@@ -35,10 +39,13 @@
       </tr>
       {% endfor %}
     </tbody>
+    {% elif no_results%}
+    There are no results with searched owner name.
+    <a href="/owners" class="btn btn-outline-dark">Go Back</a>
+    {% else %}
+    There are no owners currently.
+    {% endif %}
   </table>
-  {% else %}
-  There are no owners currently.
-  {% endif %}
 
   <a href="/add_owner" type="button" class="btn btn-outline-primary" id="icon">
     <ion-icon class="icon" name="add-outline"></ion-icon>Add Owner

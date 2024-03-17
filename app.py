@@ -36,20 +36,33 @@ def root():
 # veterinarian page
 @app.route("/vets", methods=["POST", "GET"])
 def vets():
-   db_connection = db.connect_to_database()
-    # display our vets table
-   if request.method == "GET":
-       query = "SELECT * FROM Vets;"
-       cursor = db.execute_query(db_connection=db_connection, query=query)
-       results = cursor.fetchall()
-       key_dict = {
+    db_connection = db.connect_to_database()
+    search_query = request.args.get('search')
+
+    # display vet data when using search bar
+    if search_query:
+        query = "SELECT * FROM Vets WHERE name LIKE %s;"
+        query_params = ('%' + search_query + '%',)
+    # when not using search bar
+    else:
+        query = "SELECT * FROM Vets;"
+        query_params = ()
+
+    cursor = db.execute_query(db_connection=db_connection, query=query, query_params=query_params)
+    results = cursor.fetchall()
+
+    no_results = len(results) == 0
+
+    # key dictionary to convert the table header names
+    key_dict = {
         'id_vet': 'Vet ID',
         'name': 'Name',
         'clinic': 'Clinic',
         'email': 'Email Address',
         'no_of_patients': 'Number of Patients',
-        }
-   return render_template("vets/vets.html", title='Veterinarians', Vets=results, key_dict=key_dict)
+    }
+
+    return render_template("vets/vets.html", title='Veterinarians', Vets=results, no_results=no_results, key_dict=key_dict)
 
 # adding vet page
 @app.route("/add_vet", methods=["POST", "GET"])
@@ -108,11 +121,21 @@ def edit_vet(id_vet):
 @app.route("/owners")
 def owners():
     db_connection = db.connect_to_database()
+    search_query = request.args.get('search')
 
+    if search_query:
+        query = "SELECT * FROM Owners WHERE name LIKE %s;"
+        query_params = ('%' + search_query + '%',)
+    
+    else:
     # display this owner's information
-    query = "SELECT * FROM Owners;"
-    cursor = db.execute_query(db_connection=db_connection, query=query)
+        query = "SELECT * FROM Owners;"
+        query_params = ()
+
+    cursor = db.execute_query(db_connection=db_connection, query=query, query_params=query_params)
     results = cursor.fetchall()
+
+    no_results = len(results) == 0
     
     # change the name of the data for better readability
     key_dict = {
@@ -121,7 +144,7 @@ def owners():
     'address': 'Address',
     'phone_number': 'Phone Number',
     }
-    return render_template("owners/owners.html", title='Owners', Owners = results, key_dict=key_dict)
+    return render_template("owners/owners.html", title='Owners', Owners = results, no_results=no_results, key_dict=key_dict)
 
 # adding owner page
 @app.route("/add_owner", methods=["POST", "GET"])
@@ -288,12 +311,22 @@ def del_meds(id):
 @app.route("/pets", methods=["POST", "GET"])
 def pets():
      db_connection = db.connect_to_database()
-     page = request.args.get('page', 1, type=int)
-     # query = "SELECT Pets.id_pet, Pets.name, breed, age, gender, Owners.name AS owner_name, Vets.name AS vet_name FROM Pets INNER JOIN Owners ON Pets.id_owner = Owners.id_owner INNER JOIN Vets ON Pets.id_vet = Vets.id_vet;"
-     query = "SELECT Pets.id_pet, Pets.name, breed, age, gender, Owners.name AS owner_name, Vets.name AS vet_name FROM Pets INNER JOIN Owners ON Pets.id_owner = Owners.id_owner LEFT JOIN Vets ON Pets.id_vet = Vets.id_vet;"
+     search_query = request.args.get('search')
 
-     cursor = db.execute_query(db_connection=db_connection, query=query)
+     if search_query:
+        query = "SELECT * FROM Pets WHERE name LIKE %s;"
+        query_params = ('%' + search_query + '%',)
+    
+     else:
+        # display this owner's information
+        query = "SELECT Pets.id_pet, Pets.name, breed, age, gender, Owners.name AS owner_name, Vets.name AS vet_name FROM Pets INNER JOIN Owners ON Pets.id_owner = Owners.id_owner LEFT JOIN Vets ON Pets.id_vet = Vets.id_vet;"
+        query_params = ()
+
+     cursor = db.execute_query(db_connection=db_connection, query=query, query_params=query_params)
      results = cursor.fetchall()
+
+     no_results = len(results) == 0
+
      key_dict = {
         'id_pet': 'Pet ID',
         'name': 'Name',
@@ -304,7 +337,7 @@ def pets():
         'vet_name': 'Vet Name',
         }
      
-     return render_template("pets/pets.html", title='Pets', Pets=results, key_dict=key_dict)
+     return render_template("pets/pets.html", title='Pets', Pets=results, no_results=no_results, key_dict=key_dict)
 
 # delete pet page
 @app.route("/del_pet/<int:id>")

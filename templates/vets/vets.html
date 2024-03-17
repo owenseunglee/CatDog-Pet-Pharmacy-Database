@@ -10,6 +10,11 @@ https://github.com/osu-cs340-ecampus/flask-starter-app #}
 <h1>Browse Veterinarians</h1>
 
 <div class="table-container">
+  <form action="/vets" method="get" class="search-form">
+    <input type="text" name="search" placeholder="Search Vets By Name">
+    <button class="btn btn-primary btn-sm" id="searchBtn" type="submit">Search</button>
+  </form>
+
   <table class="table table-hover">
     <thead>
       <tr>
@@ -41,14 +46,17 @@ https://github.com/osu-cs340-ecampus/flask-starter-app #}
       </tr>
       {% endfor %}
     </tbody>
+    {% elif no_results%}
+    There are no results with searched vet name.
+    <a href="/vets" class="btn btn-outline-dark">Go Back</a>
+    {% else %}
+    There are no veterinarians currently.
+    {% endif %}
   </table>
-  {% else %}
-  There are no veterinarians currently.
-  {% endif %}
+
 
   <a href="/add_vet" type="button" class="btn btn-outline-primary" id="icon">
     <ion-icon class="icon" name="add-outline"></ion-icon>Add Veterinarian
   </a>
 </div>
-
 {% endblock %}

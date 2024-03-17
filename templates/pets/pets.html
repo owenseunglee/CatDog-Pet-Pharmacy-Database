@@ -10,6 +10,10 @@
 <h1>Browse Pets</h1>
 
 <div class="table-container">
+  <form action="/pets" method="get" class="search-form">
+    <input type="text" name="search" placeholder="Search Pets By Name">
+    <button class="btn btn-primary btn-sm" id="searchBtn" type="submit">Search</button>
+  </form>
   <table class="table table-sm table-hover" id="table">
     <thead>
       <tr>
@@ -42,10 +46,13 @@
       {% endfor %}
 
     </tbody>
+    {% elif no_results%}
+    There are no results with searched pet name.
+    <a href="/owners" class="btn btn-outline-dark">Go Back</a>
+    {% else %}
+    There are no pets currently.
+    {% endif %}
   </table>
-  {% else %}
-  There are no pets currently.
-  {% endif %}
   <a href="/add_pet" type="button" class="btn btn-outline-primary" id="icon">
     <ion-icon class="icon" name="add-outline"></ion-icon>Add Pet
   </a>
