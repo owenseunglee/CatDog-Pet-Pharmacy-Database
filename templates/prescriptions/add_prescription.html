@@ -6,7 +6,8 @@
 --Date: 3/11/24
 --Adapted from: Dr. Curry's Developing in Flask Exploration Video:
 --Dropdowns
---Source URL: https://canvas.oregonstate.edu/courses/1946034/pages/exploration-developing-in-flask?module_item_id=23809337
+--Source URL:
+https://canvas.oregonstate.edu/courses/1946034/pages/exploration-developing-in-flask?module_item_id=23809337
 #}
 
 {% extends 'layouts.html'%}
@@ -18,9 +19,9 @@
 
 <div class="update-container" id="modPrescription">
     <form id="modPrescription" action="/add_prescription" method="POST">
-        <legend><strong>Add Prescription</strong></legend>
         <p>Please enter the prescription information to be added:</p>
-        <label> Note: Prescription cost will be automatically calculated once medication(s) are added to the PrescriptionMedications table. </label> 
+        <label> Note: Prescription cost will be automatically calculated once medication(s) are added to the
+            PrescriptionMedications table. </label>
 
         <fieldset class="fields">
             <label> Order Date: </label> <input type="datetime-local" id="Order Date" name="order_date">
