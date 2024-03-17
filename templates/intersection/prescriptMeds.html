@@ -9,8 +9,11 @@
 <!-- will implement 'includes' templates after CRUD -->
 <h1>PrescriptionMedications Intersection Table</h1>
 
-
 <div class="table-container">
+  <form action="/prescriptMeds" method="get" class="search-form">
+    <input type="text" name="search" placeholder="Search Med or Pet Name">
+    <button class="btn btn-primary btn-sm" id="searchBtn" type="submit">Search</button>
+  </form>
   <table class="table table-sm table-hover" id="table">
     <thead>
       <tr>
@@ -43,10 +46,15 @@
       </tr>
       {% endfor %}
     </tbody>
+    <!-- This section is displayed when no matching results are found-->
+    {% elif no_results%}
+    There are no results with searched PrescriptionMedications assocaited with Pet or Medication name.
+    <a href="/prescriptMeds" class="btn btn-outline-dark">Go Back</a>
+    {% else %}
+    There are no PrescriptionMedications currently.
+    {% endif %}
   </table>
-  {% else %}
-  There are no PrescriptionMedications currently.
-  {% endif %}
+
 
   <a href="/add_prescriptMeds" type="button" class="btn btn-outline-primary" id="icon">
     <ion-icon class="icon" name="add-outline"></ion-icon>Add PrescriptionMedications

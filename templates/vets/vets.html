@@ -46,6 +46,7 @@ https://github.com/osu-cs340-ecampus/flask-starter-app #}
       </tr>
       {% endfor %}
     </tbody>
+    <!-- This section is displayed when no matching results are found-->
     {% elif no_results%}
     There are no results with searched vet name.
     <a href="/vets" class="btn btn-outline-dark">Go Back</a>
@@ -53,8 +54,6 @@ https://github.com/osu-cs340-ecampus/flask-starter-app #}
     There are no veterinarians currently.
     {% endif %}
   </table>
-
-
   <a href="/add_vet" type="button" class="btn btn-outline-primary" id="icon">
     <ion-icon class="icon" name="add-outline"></ion-icon>Add Veterinarian
   </a>

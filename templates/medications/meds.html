@@ -1,6 +1,7 @@
 {# Citation for meds
 --Date: 2/13/24
---Adapted from: Flask Starter App Guide - jinja templating layout, Adapted from Professor Curry's planets.html file - hardcode (omitted)
+--Adapted from: Flask Starter App Guide - jinja templating layout, Adapted from Professor Curry's planets.html file -
+hardcode (omitted)
 --Source URL: https://canvas.oregonstate.edu/courses/1946034/assignments/9456216?module_item_id=23809330,
 https://github.com/osu-cs340-ecampus/flask-starter-app #}
 
@@ -10,10 +11,14 @@ https://github.com/osu-cs340-ecampus/flask-starter-app #}
 <h1>Browse Medications</h1>
 
 <div class="table-container">
+  <form action="/meds" method="get" class="search-form">
+    <input type="text" name="search" placeholder="Search Meds By Name">
+    <button class="btn btn-primary btn-sm" id="searchBtn" type="submit">Search</button>
+  </form>
   <table class="table table-sm table-hover">
     <thead>
       <tr>
-        <!-- Iterate through each key in the first entry to get the
+        <!-- If there are any medications then iterate through each key in the first entry to get the
             column name -->
         {% if Medications %}
         {% for key in Medications[0].keys() %}
@@ -37,15 +42,18 @@ https://github.com/osu-cs340-ecampus/flask-starter-app #}
         {% endfor %}
         <td><a href="/edit_med/{{ med['id_medication'] }}" type="button" class="btn btn-outline-success">Edit</a></td>
         <td><a href="/del_med/{{ med['id_medication'] }}" type="button" class="btn btn-outline-dark">Delete</a></td>
-
       </tr>
+      <!-- End of this for loop -->
       {% endfor %}
     </tbody>
+    <!-- This section is displayed when no matching results are found-->
+    {% elif no_results%}
+    There are no results with searched medication name.
+    <a href="/meds" class="btn btn-outline-dark">Go Back</a>
+    {% else %}
+    There are no medications currently.
+    {% endif %}
   </table>
-  {% else %}
-  There are no medications currently.
-  {% endif %}
-
   <a href="/add_med" type="button" class="btn btn-outline-primary" id="icon">
     <ion-icon class="icon" name="add-outline"></ion-icon>Add Medication
   </a>
