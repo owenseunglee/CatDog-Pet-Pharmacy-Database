@@ -2,73 +2,87 @@
 {% block content %}
 
 <body>
-  <h1>The Overview</h1>
-  <article class="flex-container" style="padding: 20px 70px;">
-    <p id="overview">
-      The CatDog Pet Pharmacy, working closely with a network of 10 local Veterinarians, provides services to an
-      average of 500 pet clients annually.
-      These services are exclusively for owned pets; the pharmacy and its associated veterinarians do not cater to
-      stray animals. Additionally,
-      it is assumed that each pet client is assigned to only one veterinarian to ensure consistency and
-      personalized care. The pharmacy offers a range
-      of Medications, dispensing approximately 1,000 Prescriptions per year, generating an average annual revenue
-      of $50,000. CatDog Pet Pharmacy
-      hopes to deploy a website that will record prescriptions dispensed per year, number of prescriptions that
-      are picked up, annual total revenue,
-      and most frequently prescribed medications. The website will also document the number of Pets each
-      veterinary clinic has with the pharmacy.
-      Furthermore, the system lists the contact information for Veterinarians and Owners, medication information,
-      and pet demographics. Since all clients
-      are based in the United States, there is no need to consider international dialing codes for contact
-      numbers. If the veterinarians are located
-      abroad, they can be reached via their provided email addresses. With this website, CatDog Pet Pharmacy will
-      be able to better understand and meet
-      the needs of their clients. Note there are some limitations to our website. In a real world scenario, our
-      database would have additional transaction
-      type tables but for simplicity, cost is given for each set quantity of medication and a total
-      prescription_cost is calculated for the cost of all
-      medications in a prescription. Furthermore, our practice strives to uphold privacy practices, such that
-      medication and prescription records are
-      deleted completely for clients that we no longer serve.
-    </p>
-  </article>
-  <div class="table-container">
-    <table class="table table-sm table-hover">
-      <thead>
+  <section class="sectionDivider">
+
+    <article id="section1">
+      <h1>About Us</h1>
+      <img src="../static/cat-dog.jpg" alt="img of can and dog" id="cat-dog">
+      <p id="overview">
+        The <em><b>CatDog Pet Pharmacy</b></em>, working closely with a network of 10 local Veterinarians, provides
+        services to
+        an
+        average of 500 pet clients annually.
+        These services are exclusively for owned pets; the pharmacy and its associated veterinarians do not cater to
+        stray animals. Additionally,
+        it is assumed that each pet client is assigned to only one veterinarian to ensure consistency and
+        personalized care. The pharmacy offers a range
+        of <em>Medications</em>, dispensing approximately 1,000 <em>Prescriptions</em> per year, generating an average
+        annual
+        revenue
+        of $50,000. CatDog Pet Pharmacy
+        hopes to deploy a website that will record prescriptions dispensed per year, number of prescriptions that
+        are picked up, annual total revenue,
+        and most frequently prescribed medications. The website will also document the number of Pets each
+        veterinary clinic has with the pharmacy.
+        Furthermore, the system lists the contact information for <em>Veterinarians</em> and <em>Owners</em>, medication
+        information,
+        and pet demographics. Since all clients
+        are based in the United States, there is no need to consider international dialing codes for contact
+        numbers. If the veterinarians are located
+        abroad, they can be reached via their provided email addresses. With this website, CatDog Pet Pharmacy will
+        be able to better understand and meet
+        the needs of their clients. Note there are some limitations to our website. In a real world scenario, our
+        database would have additional transaction
+        type tables but for simplicity, cost is given for each set quantity of medication and a total
+        prescription_cost is calculated for the cost of all
+        medications in a prescription. Furthermore, our practice strives to uphold privacy practices, such that
+        medication and prescription records are
+        deleted completely for clients that we no longer serve.
+      </p>
+    </article>
+  </section>
+  <div class="outer-container">
+    <div class="table-container">
+      <table class="table table-sm table-hover">
+        <thead>
+          <tr>
+            <th>Table Name</th>
+            <th>Description</th>
+          </tr>
+        </thead>
         <tr>
-          <th>Table Name</th>
-          <th>Description</th>
+          <td><a href="/vets">Vets</a></td>
+          <td>Records the details of Vets that do business with us</td>
         </tr>
-      </thead>
-      <tr>
-        <td><a href="/vets">Vets</a></td>
-        <td>Records the details of Vets that do business with us</td>
-      </tr>
-      <tr>
-        <td><a href="/owners">Owners</a></td>
-        <td>Records the details of Owners of our pet clients</td>
-      </tr>
-      <tr>
-        <td><a href="/pets">Pets</a></td>
-        <td>Records the details of Pets that we serve</td>
-      </tr>
-      <tr>
-        <td><a href="/meds">Medications</a></td>
-        <td>Records the details of Medications that our pharmacy dispenses</td>
-      </tr>
-      <tr>
-        <td><a href="/prescriptions">Prescriptions</a></td>
-        <td>Records the details of Prescriptions that we issue</td>
-      </tr>
-      <tr>
-        <td><a href="/prescriptMeds">PrescriptionMedications</a></td>
-        <td>Records the details of Prescriptions and Medications in an intersection table</td>
-      </tr>
+        <tr>
+          <td><a href="/owners">Owners</a></td>
+          <td>Records the details of Owners of our pet clients</td>
+        </tr>
+        <tr>
+          <td><a href="/pets">Pets</a></td>
+          <td>Records the details of Pets that we serve</td>
+        </tr>
+        <tr>
+          <td><a href="/meds">Medications</a></td>
+          <td>Records the details of Medications that our pharmacy dispenses</td>
+        </tr>
+        <tr>
+          <td><a href="/prescriptions">Prescriptions</a></td>
+          <td>Records the details of Prescriptions that we issue</td>
+        </tr>
+        <tr>
+          <td><a href="/prescriptMeds">PrescriptionMedications</a></td>
+          <td>Records the details of Prescriptions and Medications in an intersection table</td>
+        </tr>
 
-    </table>
-
-    <img src="../static/schema.png">
+      </table>
+    </div>
   </div>
+  <section class="sectionDivider">
+    <article id="section1">
+      <img src="../static/schema.png">
+    </article>
+  </section>
 </body>
 
 {% endblock %}

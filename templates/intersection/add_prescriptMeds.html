@@ -6,7 +6,8 @@
 --Date: 3/11/24
 --Adapted from: Professor Curry's Developing in Flask Exploration Video:
 --Dropdowns
---Source URL: https://canvas.oregonstate.edu/courses/1946034/pages/exploration-developing-in-flask?module_item_id=23809337
+--Source URL:
+https://canvas.oregonstate.edu/courses/1946034/pages/exploration-developing-in-flask?module_item_id=23809337
 #}
 
 
@@ -17,7 +18,6 @@
 <h1>Add Prescription Medication</h1>
 <div class="update-container" id="insert">
   <form id="addpm" action="/add_prescriptMeds" method="POST">
-    <legend><strong>Add Prescription Medication</strong></legend>
     <fieldset class="fields">
       <p>Please select the prescription and corresponding medication information to be added:</p>
       <select class="form-control" id="prescription_select" name="prescription_select">
@@ -47,7 +47,7 @@
 
     </fieldset>
     <div class="button-container">
-      <span><a href="/prescriptionMedications" class="btn btn-outline-dark">Go Back</a></span>
+      <span><a href="/prescriptMeds" class="btn btn-outline-dark">Go Back</a></span>
       <button class="btn btn-outline-primary" type="submit" id="icon">
         <ion-icon id="add_button" name="add-outline"></ion-icon>
         Add prescriptionMedications
