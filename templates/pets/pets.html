@@ -6,63 +6,64 @@
 {% extends 'layouts.html'%}
 {% block content %}
 
-<h1>Browse Pets</h1>
-
-<div class="table-container">
-  <form action="/pets" method="get" class="search-form">
-    <input type="text" name="search" placeholder="Search Pets By Name">
-    <button class="btn btn-primary btn-sm" id="searchBtn" type="submit">Search</button>
-  </form>
-  <table class="table table-sm table-hover" id="table">
-    <thead>
-      <tr>
-        <!-- If there are any pets then iterate through each key in the first entry to get the
+<div class="outer-container">
+  <div class="table-container">
+    <h1>Browse Pets</h1>
+    <form action="/pets" method="get" class="search-form">
+      <input type="text" name="search" placeholder="Search Pets By Name">
+      <button class="btn btn-primary btn-sm" id="searchBtn" type="submit">Search</button>
+    </form>
+    <table class="table table-sm table-hover" id="table">
+      <thead>
+        <tr>
+          <!-- If there are any pets then iterate through each key in the first entry to get the
               column name -->
-        {% if Pets %}
-        {% for key in Pets[0].keys() %}
-        <!-- Create a <th> tag with the key inside of it, this will be
+          {% if Pets %}
+          {% for key in Pets[0].keys() %}
+          <!-- Create a <th> tag with the key inside of it, this will be
               our header row -->
-        <th>
-          {{ key_dict[key] if key in key_dict else key }}
-        </th>
-        <!-- End of this for loop -->
-        {% endfor %}
-      </tr>
-    </thead>
+          <th>
+            {{ key_dict[key] if key in key_dict else key }}
+          </th>
+          <!-- End of this for loop -->
+          {% endfor %}
+        </tr>
+      </thead>
 
-    <tbody class="table-group-divider">
-      {% for pet in Pets %}
-      <tr>
-        <!-- Then iterate through every key in the current pet dictionary -->
-        {% for key in pet.keys() %}
-        <td>
-          {# {% if key == 'vet_name' and pet[key] == None %}
-          NULL
-          <!-- Create a <td> element with the value of that key in it -->
-          {% else %}
-          {{ pet[key] }}
-          {% endif %} #}
-          {{pet[key]}}
-        </td>
+      <tbody class="table-group-divider">
+        {% for pet in Pets %}
+        <tr>
+          <!-- Then iterate through every key in the current pet dictionary -->
+          {% for key in pet.keys() %}
+          <td>
+            {# {% if key == 'vet_name' and pet[key] == None %}
+            NULL
+            <!-- Create a <td> element with the value of that key in it -->
+            {% else %}
+            {{ pet[key] }}
+            {% endif %} #}
+            {{pet[key]}}
+          </td>
+          <!-- End of this for loop -->
+          {% endfor %}
+          <td> <a href="/edit_pet/{{ pet['id_pet']}}" type="button" class="btn btn-outline-success">Edit</a> </td>
+          <td> <a href="/del_pet/{{ pet['id_pet']}}" type="button" class="btn btn-outline-dark">Delete</button></td>
+        </tr>
         <!-- End of this for loop -->
         {% endfor %}
-        <td> <a href="/edit_pet/{{ pet['id_pet']}}" type="button" class="btn btn-outline-success">Edit</a> </td>
-        <td> <a href="/del_pet/{{ pet['id_pet']}}" type="button" class="btn btn-outline-dark">Delete</button></td>
-      </tr>
-      <!-- End of this for loop -->
-      {% endfor %}
-    </tbody>
-    <!-- This section is displayed when no matching results are found-->
-    {% elif no_results%}
-    There are no results with searched pet name.
-    <a href="/owners" class="btn btn-outline-dark">Go Back</a>
-    {% else %}
-    There are no pets currently.
-    {% endif %}
-  </table>
-  <a href="/add_pet" type="button" class="btn btn-outline-primary" id="icon">
-    <ion-icon class="icon" name="add-outline"></ion-icon>Add Pet
-  </a>
+      </tbody>
+      <!-- This section is displayed when no matching results are found-->
+      {% elif no_results%}
+      There are no results with searched pet name.
+      <a href="/owners" class="btn btn-outline-dark">Go Back</a>
+      {% else %}
+      There are no pets currently.
+      {% endif %}
+    </table>
+    <a href="/add_pet" type="button" class="btn btn-outline-primary" id="icon">
+      <ion-icon class="icon" name="add-outline"></ion-icon>Add Pet
+    </a>
+  </div>
 </div>
 
 {% endblock %}

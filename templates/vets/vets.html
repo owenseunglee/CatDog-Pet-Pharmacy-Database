@@ -7,55 +7,57 @@ https://github.com/osu-cs340-ecampus/flask-starter-app #}
 {% extends 'layouts.html'%}
 {% block content %}
 
-<h1>Browse Veterinarians</h1>
+<div class="outer-container">
+  <div class="table-container">
+    <h1>Browse Veterinarians</h1>
+    <form action="/vets" method="get" class="search-form">
+      <input type="text" name="search" placeholder="Search Vets By Name">
+      <button class="btn btn-primary btn-sm" id="searchBtn" type="submit">Search</button>
+    </form>
 
-<div class="table-container">
-  <form action="/vets" method="get" class="search-form">
-    <input type="text" name="search" placeholder="Search Vets By Name">
-    <button class="btn btn-primary btn-sm" id="searchBtn" type="submit">Search</button>
-  </form>
-
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        {% if Vets %}
-        <!-- Iterate through each key in the first entry to get the
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          {% if Vets %}
+          <!-- Iterate through each key in the first entry to get the
             column name -->
-        {% for key in Vets[0].keys() %}
-        <!-- Create a <th> tag with the key inside of it, this will be
+          {% for key in Vets[0].keys() %}
+          <!-- Create a <th> tag with the key inside of it, this will be
             our header row -->
-        <th>
-          {{ key_dict[key] if key in key_dict else key }}
-        </th>
-        <!-- End of this for loop -->
-        {% endfor %}
-      </tr>
-    </thead>
+          <th>
+            {{ key_dict[key] if key in key_dict else key }}
+          </th>
+          <!-- End of this for loop -->
+          {% endfor %}
+        </tr>
+      </thead>
 
-    <tbody>
-      {% for veterinarian in Vets %}
-      <tr>
-        <!-- Then iterate through every key in the current veterinarian dictionary -->
-        {% for key in veterinarian.keys() %}
-        <!-- Create a <td> element with the value of that key in it -->
-        <td>{{veterinarian[key]}}</td>
-        {% endfor %}
-        <td><a href="/edit_vet/{{ veterinarian['id_vet'] }}" type="button" class="btn btn-outline-success">Edit</a></td>
-        <td><a href="/del_vet/{{ veterinarian['id_vet'] }}" type="button" class="btn btn-outline-dark">Delete</a></td>
+      <tbody>
+        {% for veterinarian in Vets %}
+        <tr>
+          <!-- Then iterate through every key in the current veterinarian dictionary -->
+          {% for key in veterinarian.keys() %}
+          <!-- Create a <td> element with the value of that key in it -->
+          <td>{{veterinarian[key]}}</td>
+          {% endfor %}
+          <td><a href="/edit_vet/{{ veterinarian['id_vet'] }}" type="button" class="btn btn-outline-success">Edit</a>
+          </td>
+          <td><a href="/del_vet/{{ veterinarian['id_vet'] }}" type="button" class="btn btn-outline-dark">Delete</a></td>
 
-      </tr>
-      {% endfor %}
-    </tbody>
-    <!-- This section is displayed when no matching results are found-->
-    {% elif no_results%}
-    There are no results with searched vet name.
-    <a href="/vets" class="btn btn-outline-dark">Go Back</a>
-    {% else %}
-    There are no veterinarians currently.
-    {% endif %}
-  </table>
-  <a href="/add_vet" type="button" class="btn btn-outline-primary" id="icon">
-    <ion-icon class="icon" name="add-outline"></ion-icon>Add Veterinarian
-  </a>
+        </tr>
+        {% endfor %}
+      </tbody>
+      <!-- This section is displayed when no matching results are found-->
+      {% elif no_results%}
+      There are no results with searched vet name.
+      <a href="/vets" class="btn btn-outline-dark">Go Back</a>
+      {% else %}
+      There are no veterinarians currently.
+      {% endif %}
+    </table>
+    <a href="/add_vet" type="button" class="btn btn-outline-primary" id="icon">
+      <ion-icon class="icon" name="add-outline"></ion-icon>Add Veterinarian
+    </a>
+  </div>
 </div>
 {% endblock %}

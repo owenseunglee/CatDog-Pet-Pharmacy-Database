@@ -6,57 +6,59 @@
 {% extends 'layouts.html'%}
 {% block content %}
 
-<h1>Browse Owners</h1>
-
-<div class="table-container">
-  <form action="/owners" method="get" class="search-form">
-    <input type="text" name="search" placeholder="Search Owners By Name">
-    <button class="btn btn-primary btn-sm" id="searchBtn" type="submit">Search</button>
-  </form>
-  <table class="table table-sm table-hover" id="table">
-    <thead>
-      <tr>
-        <!-- If there are any owners then iterate through each key in the first entry to get the
+<div class="outer-container">
+  <div class="table-container">
+    <h1>Browse Owners</h1>
+    <form action="/owners" method="get" class="search-form">
+      <input type="text" name="search" placeholder="Search Owners By Name">
+      <button class="btn btn-primary btn-sm" id="searchBtn" type="submit">Search</button>
+    </form>
+    <table class="table table-sm table-hover" id="table">
+      <thead>
+        <tr>
+          <!-- If there are any owners then iterate through each key in the first entry to get the
               column name -->
-        {% if Owners %}
-        {% for key in Owners[0].keys() %}
-        <th>
-          <!-- Create a <th> tag with the key inside of it, this will be
+          {% if Owners %}
+          {% for key in Owners[0].keys() %}
+          <th>
+            <!-- Create a <th> tag with the key inside of it, this will be
             our header row -->
-          {{ key_dict[key] if key in key_dict else key }}
-        </th>
+            {{ key_dict[key] if key in key_dict else key }}
+          </th>
+          <!-- End of this for loop -->
+          {% endfor %}
+        </tr>
+      </thead>
+
+      <tbody class="table-group-divider">
+        {% for owner in Owners %}
+        <tr>
+          <!-- Then iterate through every key in the current owner dictionary -->
+          {% for key in owner.keys() %}
+          <!-- Create a <td> element with the value of that key in it -->
+          <td>{{owner[key]}}</td>
+          <!-- End of this for loop -->
+          {% endfor %}
+
+          <td> <a href="/edit_owner/{{ owner['id_owner'] }}" type="button" class="btn btn-outline-success">Edit</a>
+          </td>
+          <td> <a href="/del_owner/{{ owner['id_owner'] }}" button class="btn btn-outline-dark">Delete</button></td>
+        </tr>
         <!-- End of this for loop -->
         {% endfor %}
-      </tr>
-    </thead>
+      </tbody>
+      <!-- This section is displayed when no matching results are found-->
+      {% elif no_results%}
+      There are no results with searched owner name.
+      <a href="/owners" class="btn btn-outline-dark">Go Back</a>
+      {% else %}
+      There are no owners currently.
+      {% endif %}
+    </table>
 
-    <tbody class="table-group-divider">
-      {% for owner in Owners %}
-      <tr>
-        <!-- Then iterate through every key in the current owner dictionary -->
-        {% for key in owner.keys() %}
-        <!-- Create a <td> element with the value of that key in it -->
-        <td>{{owner[key]}}</td>
-        <!-- End of this for loop -->
-        {% endfor %}
-
-        <td> <a href="/edit_owner/{{ owner['id_owner'] }}" type="button" class="btn btn-outline-success">Edit</a> </td>
-        <td> <a href="/del_owner/{{ owner['id_owner'] }}" button class="btn btn-outline-dark">Delete</button></td>
-      </tr>
-      <!-- End of this for loop -->
-      {% endfor %}
-    </tbody>
-    <!-- This section is displayed when no matching results are found-->
-    {% elif no_results%}
-    There are no results with searched owner name.
-    <a href="/owners" class="btn btn-outline-dark">Go Back</a>
-    {% else %}
-    There are no owners currently.
-    {% endif %}
-  </table>
-
-  <a href="/add_owner" type="button" class="btn btn-outline-primary" id="icon">
-    <ion-icon class="icon" name="add-outline"></ion-icon>Add Owner
-  </a>
+    <a href="/add_owner" type="button" class="btn btn-outline-primary" id="icon">
+      <ion-icon class="icon" name="add-outline"></ion-icon>Add Owner
+    </a>
+  </div>
 </div>
 {% endblock %}

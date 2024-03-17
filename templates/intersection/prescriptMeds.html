@@ -6,58 +6,58 @@
 {% extends 'layouts.html'%}
 {% block content %}
 
-<!-- will implement 'includes' templates after CRUD -->
-<h1>PrescriptionMedications Intersection Table</h1>
-
-<div class="table-container">
-  <form action="/prescriptMeds" method="get" class="search-form">
-    <input type="text" name="search" placeholder="Search Med or Pet Name">
-    <button class="btn btn-primary btn-sm" id="searchBtn" type="submit">Search</button>
-  </form>
-  <table class="table table-sm table-hover" id="table">
-    <thead>
-      <tr>
-        <!-- Iterate through each key in the first entry to get the
+<div class="outer-container">
+  <div class="table-container">
+    <h1>PrescriptionMedications Intersection Table</h1>
+    <form action="/prescriptMeds" method="get" class="search-form">
+      <input type="text" name="search" placeholder="Search Med or Pet Name">
+      <button class="btn btn-primary btn-sm" id="searchBtn" type="submit">Search</button>
+    </form>
+    <table class="table table-sm table-hover" id="table">
+      <thead>
+        <tr>
+          <!-- Iterate through each key in the first entry to get the
               column name -->
-        {% if PrescriptionMedications %}
-        {% for key in PrescriptionMedications[0].keys() %}
-        <!-- Create a <th> tag with the key inside of it, this will be
+          {% if PrescriptionMedications %}
+          {% for key in PrescriptionMedications[0].keys() %}
+          <!-- Create a <th> tag with the key inside of it, this will be
               our header row -->
-        <th>
-          {{ key_dict[key] if key in key_dict else key }}
-        </th>
-        <!-- End of this for loop -->
+          <th>
+            {{ key_dict[key] if key in key_dict else key }}
+          </th>
+          <!-- End of this for loop -->
+          {% endfor %}
+
+        </tr>
+      </thead>
+
+      <tbody class="table-group-divider">
+        {% for pm in PrescriptionMedications %}
+        <tr>
+          <!-- Then iterate through every key in the current prescriptionMedication dictionary -->
+          {% for key in pm.keys() %}
+          <!-- Create a <td> element with the value of that key in it -->
+          <td>
+            {{pm[key]}}
+          </td>
+          {% endfor %}
+
+        </tr>
         {% endfor %}
-
-      </tr>
-    </thead>
-
-    <tbody class="table-group-divider">
-      {% for pm in PrescriptionMedications %}
-      <tr>
-        <!-- Then iterate through every key in the current veterinarian dictionary -->
-        {% for key in pm.keys() %}
-        <!-- Create a <td> element with the value of that key in it -->
-        <td>
-          {{pm[key]}}
-        </td>
-        {% endfor %}
-
-      </tr>
-      {% endfor %}
-    </tbody>
-    <!-- This section is displayed when no matching results are found-->
-    {% elif no_results%}
-    There are no results with searched PrescriptionMedications assocaited with Pet or Medication name.
-    <a href="/prescriptMeds" class="btn btn-outline-dark">Go Back</a>
-    {% else %}
-    There are no PrescriptionMedications currently.
-    {% endif %}
-  </table>
+      </tbody>
+      <!-- This section is displayed when no matching results are found-->
+      {% elif no_results%}
+      There are no results with searched PrescriptionMedications assocaited with Pet or Medication name.
+      <a href="/prescriptMeds" class="btn btn-outline-dark">Go Back</a>
+      {% else %}
+      There are no PrescriptionMedications currently.
+      {% endif %}
+    </table>
 
 
-  <a href="/add_prescriptMeds" type="button" class="btn btn-outline-primary" id="icon">
-    <ion-icon class="icon" name="add-outline"></ion-icon>Add PrescriptionMedications
-  </a>
+    <a href="/add_prescriptMeds" type="button" class="btn btn-outline-primary" id="icon">
+      <ion-icon class="icon" name="add-outline"></ion-icon>Add PrescriptionMedications
+    </a>
+  </div>
 </div>
 {% endblock %}
