@@ -1,3 +1,12 @@
+
+
+
+
+https://github.com/owenseunglee/cs340_database/assets/124188879/19e71ca2-95fd-4634-a64b-64f016bd4650
+
+
+
+
 # cs340_database
 CS340 portfolio project
 
@@ -21,7 +30,3 @@ Professor Curry's Developing in Flask Exploration Video
 
 Professor Curry's planets.html file
 - adapted in add_prescriptMeds, add_med, edit_med, meds, add_owner, add_pet, add_prescription, edit_prescription, add_vet, edit_vet for jinja templating layout including labels and forms
-
-
-
-
