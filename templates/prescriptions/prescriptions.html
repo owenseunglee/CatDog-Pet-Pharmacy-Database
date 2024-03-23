@@ -1,52 +1,64 @@
 {% extends 'layouts.html'%}
 {% block content %}
 
-<!-- will implement 'includes' templates after CRUD -->
+<div class="outer-container">
+    <div class="table-container">
+        <h1>Browse Prescriptions</h1>
+        <form action="/prescriptions" method="get" class="search-form">
+            <input type="text" name="search" placeholder="Search By Pet Name">
+            <button class="btn btn-primary btn-sm" id="searchBtn" type="submit">Search</button>
+        </form>
+        <table class="table table-sm table-hover" id="table">
+            <p>*Please first add Prescription before entering a prescribed medication into the "PrescriptionMedications"
+                table, and the Prescription Cost
+                will be automatically calculated.</p>
+            <thead>
+                <tr>
+                    <!-- If there are any medications then iterate through each key in the first entry to get the
+                        column name -->
+                    {% if Prescriptions %}
+                    {% for key in Prescriptions[0].keys() %}
+                    <th>
+                        <!-- Create a <th> tag with the key inside of it, this will be
+                            our header row -->
+                        {{ key_dict[key] if key in key_dict else key }}
+                    </th>
+                    <!-- End of this for loop -->
+                    {% endfor %}
+                </tr>
+            </thead>
 
-<h1>Browse Prescriptions</h1>
-
-<div class="table-container">
-    <table class="table table-sm table-hover" id="table">
-        <p>*Please first add Prescription before entering a prescribed medication into the "PrescriptionMedications"
-            table, and the Prescription Cost
-            will be automatically calculated.</p>
-        <thead>
-            <tr>
-                {% if Prescriptions %}
-                {% for key in Prescriptions[0].keys() %}
-                <th>
-                    {{ key_dict[key] if key in key_dict else key }}
-                </th>
+            <tbody>
+                {% for prescription in Prescriptions %}
+                <tr>
+                    <!-- Then iterate through every key in the current veterinarian dictionary -->
+                    {% for key in prescription.keys() %}
+                    <!-- Create a <td> element with the value of that key in it -->
+                    <td>{{prescription[key]}}</td>
+                    <!-- End of this for loop -->
+                    {% endfor %}
+                    <td> <a href="/edit_prescription/{{ prescription['id_prescription']}}" type="button"
+                            class="btn btn-outline-success">Edit</a> </td>
+                    <td> <a href="/del_prescription/{{ prescription['id_prescription']}}" type="button"
+                            class="btn btn-outline-dark">Delete</a></td>
+                </tr>
+                <!-- End of this for loop -->
                 {% endfor %}
-            </tr>
-        </thead>
+            </tbody>
+            <!-- This section is displayed when no matching results are found-->
+            {% elif no_results%}
+            There are no results with searched prescription with associated pet name.
+            <a href="/meds" class="btn btn-outline-dark">Go Back</a>
+            {% else %}
+            There are no prescriptions currently.
+            {% endif %}
+        </table>
 
-        <tbody>
-            {% for prescription in Prescriptions %}
-            <tr>
-                {% for key in prescription.keys() %}
-                <td>{{prescription[key]}}</td>
-                {% endfor %}
+        <a href="/add_prescription" type="button" class="btn btn-outline-primary" id="icon">
+            <ion-icon class="icon" name="add-outline"></ion-icon>Add Prescription
+        </a>
 
-                <td> <a href="/edit_prescription/{{ prescription['id_prescription']}}" type="button"
-                        class="btn btn-outline-success">Edit</a> </td>
-                <td> <a href="/del_prescription/{{ prescription['id_prescription']}}" type="button"
-                        class="btn btn-outline-dark">Delete</a></td>
-            </tr>
-            {% endfor %}
-
-
-        </tbody>
-    </table>
-    {% else %}
-    There are no prescriptions currently.
-    {% endif %}
-
-
-    <a href="/add_prescription" type="button" class="btn btn-outline-primary" id="icon">
-        <ion-icon class="icon" name="add-outline"></ion-icon>Add Prescription
-    </a>
-
+    </div>
 </div>
 
 {% endblock %}

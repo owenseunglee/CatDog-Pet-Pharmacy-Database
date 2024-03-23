@@ -55,9 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             alert(`Please Enter a Corerct ${fieldId.replace('_', ' ')}`);
                             break;
                         }
-                    }
-                    // check for their values for conditionals
-                    else if (!field || field.value === '' || field.value <= 0) {
+                        // check for their values for conditionals
+                    } else if (!field || field.value === '' || field.value <= 0) {
                         e.preventDefault();
                         alert(`Please Enter a Correct ${fieldId.replace('_', ' ')}`);
                         break;
@@ -80,3 +79,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // 'Adding prescriptionMedications'
     checkFormFields('addpm', ['Quantity']);
 });
+
+/*
+document.addEventListener('DOMContentLoaded', () => {
+    let emailForm = document.getElementById('modVet');
+    emailForm.onsubmit = () => {
+        let emailFormat = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        let checkEmail = document.getElementById('Email').value;
+        console.log(checkEmail);
+        if (checkEmail != emailFormat) {
+            return alert(`Please Enter a Correct Email Address`);
+        }
+    }
+})*/

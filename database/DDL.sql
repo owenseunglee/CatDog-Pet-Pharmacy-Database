@@ -1,6 +1,9 @@
 SET FOREIGN_KEY_CHECKS=0;
 SET AUTOCOMMIT = 0;
 
+-- This DDL.sql contains our data definition queries which include the creation
+-- of our tables and 3-5 rows of sample data for the CS340 Portfolio Project
+
 -- Create Vets table with id_vet as the primary key
 CREATE OR REPLACE TABLE Vets (
     id_vet int NOT NULL AUTO_INCREMENT,
