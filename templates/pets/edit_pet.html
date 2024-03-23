@@ -1,15 +1,5 @@
-{# Citation for edit_pet
-  Date: 2/27/24
-  Adapted from: Professor Curry's Developing in Flask Exploration Video
-  Retrieving table row to display, dropdown
-  Source URL: https://canvas.oregonstate.edu/courses/1946034/pages/exploration-developing-in-flask?module_item_id=23809337
-  #}
-
 {% extends 'layouts.html'%}
 {% block content %}
-
-
-
 
 <h1>Update Pet</h1>
 
@@ -75,7 +65,6 @@
           {% endif %}
           {% endfor %}
         </select>
-
 
         <label> Breed: </label> <input type="text" value="{{ results[0].breed }}" class="form-control" id="Breed"
           name="breed">

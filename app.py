@@ -1,11 +1,3 @@
-# Citation for app.py setup, layout, and CRUD functionalities
-# Date: 2/13/24
-# Adapted from: Flask Starter App Guide
-# Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app
-# Adapted from: Professor Curry's Developing in Flask Exploration Video
-# Source URL: https://canvas.oregonstate.edu/courses/1946034/pages/exploration-developing-in-flask?module_item_id=23809337
-# All code is adapted from Flask Starter App Guide and Developing in Flask video 
-# except for update_cost, update_cost_from_editmed, and update_query in del_pet and add_pet
 from flask import Flask, render_template, json
 from flask import request, redirect
 from flask_mysqldb import MySQL

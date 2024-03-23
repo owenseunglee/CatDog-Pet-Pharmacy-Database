@@ -1,6 +1,5 @@
 -- MariaDB dump 10.19  Distrib 10.5.22-MariaDB, for Linux (x86_64)
 --
--- Host: classmysql.engr.oregonstate.edu    Database: cs340_leeowe
 -- ------------------------------------------------------
 -- Server version	10.6.16-MariaDB-log
 

@@ -1,61 +1,56 @@
-{# Citation for add_pet
---Date: 2/13/24
---Adapted from: Professor Curry's planets.html file
---Layout, Label, Forms
---Source URL: https://canvas.oregonstate.edu/courses/1946034/assignments/9456216?module_item_id=23809330
-#}
 {% extends 'layouts.html'%}
 {% block content %}
 
 <html>
 
 <h1>Add Pet</h1>
+<div class="outer-container">
+    <div class="table-container" id="insert">
+        <form id="modPet" action="/add_pet" method="POST">
+            <fieldset class="fields">
+                <label>Name: </label> <input type="text" id="Name" name="name">
+                <label>Breed:</label> <input type="text" id="Breed" name="breed">
+                <label>Age:</label>
+                <input type="number" step="1" min="0" id="Age" name="age">
+                <label>Gender: </label>
+                <select name="gender" id="Gender">
+                    <option value="0">--Select--</option>
+                    <option value="1">F</option>
+                    <option value="2">M</option>
+                </select>
 
-<div class="table-container" id="insert">
-    <form id="modPet" action="/add_pet" method="POST">
-        <fieldset class="fields">
-            <label>Name: </label> <input type="text" id="Name" name="name">
-            <label>Breed:</label> <input type="text" id="Breed" name="breed">
-            <label>Age:</label>
-            <input type="number" step="1" min="0" id="Age" name="age">
-            <label>Gender: </label>
-            <select name="gender" id="Gender">
-                <option value="0">--Select--</option>
-                <option value="1">F</option>
-                <option value="2">M</option>
-            </select>
+                <label>Please select the owner of this pet:</label>
+                <select class="form-control" id="owner_select" name="owner_select">
+                    {% for o in Owner_Dropdown %}
+                    {% if o == Owner_Dropdown[0] %}
+                    <option value="{{ o['id_owner'] }}" selected>{{ o['owner_name_and_id'] }}</option>
+                    {% else %}
+                    <option value="{{ o['id_owner'] }}">{{ o['owner_name_and_id'] }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                <label>Please select the veterinarian of this pet:</label>
+                <select class="form-control" id="vet_select" name="vet_select">
+                    <option value="">--None--</option>
+                    {% for v in Vet_Dropdown %}
+                    {% if v == Vet_Dropdown[0] %}
+                    <option value="{{ v['id_vet'] }}" selected>{{ v['vet_name_and_id'] }}</option>
+                    {% else %}
+                    <option value="{{ v['id_vet'] }}">{{ v['vet_name_and_id'] }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
 
-            <label>Please select the owner of this pet:</label>
-            <select class="form-control" id="owner_select" name="owner_select">
-                {% for o in Owner_Dropdown %}
-                {% if o == Owner_Dropdown[0] %}
-                <option value="{{ o['id_owner'] }}" selected>{{ o['owner_name_and_id'] }}</option>
-                {% else %}
-                <option value="{{ o['id_owner'] }}">{{ o['owner_name_and_id'] }}</option>
-                {% endif %}
-                {% endfor %}
-            </select>
-            <label>Please select the veterinarian of this pet:</label>
-            <select class="form-control" id="vet_select" name="vet_select">
-                <option value="">--None--</option>
-                {% for v in Vet_Dropdown %}
-                {% if v == Vet_Dropdown[0] %}
-                <option value="{{ v['id_vet'] }}" selected>{{ v['vet_name_and_id'] }}</option>
-                {% else %}
-                <option value="{{ v['id_vet'] }}">{{ v['vet_name_and_id'] }}</option>
-                {% endif %}
-                {% endfor %}
-            </select>
-
-        </fieldset>
-        <div class="button-container">
-            <span><a href="/pets" class="btn btn-outline-dark">Go Back</a></span>
-            <button class="btn btn-outline-primary" type="submit" id="icon">
-                <ion-icon id="add_button" name="add-outline"></ion-icon>
-                Add Pet
-            </button>
-        </div>
-    </form>
+            </fieldset>
+            <div class="button-container">
+                <span><a href="/pets" class="btn btn-outline-dark">Go Back</a></span>
+                <button class="btn btn-outline-primary" type="submit" id="icon">
+                    <ion-icon id="add_button" name="add-outline"></ion-icon>
+                    Add Pet
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
 
 </html>
