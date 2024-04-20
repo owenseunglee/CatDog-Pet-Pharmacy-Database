@@ -3,10 +3,10 @@ https://github.com/owenseunglee/CatDog-Pet-Pharmacy-Database/assets/124188879/36
 
 CatDog-Pet-Pharmarcy is a challeneging real world web application in Python Flask using a MySQL database backend.
 
-##Overview
+#**Overview**
 CatDog-Pet-Pharmacy specializes in offering pharmaceutical services exclusively to owned pets, ensuring that each pet receives personalized care by being asigned to a single veterinarian.
 
-##Goals of the Website
+#**Goals of the Website**
 The primary goal of deploying this website is to create a centralized platform where CatDog Pet Pharmacy can efficiently track and manage:
 
 The total number of prescriptions dispensed per year.
@@ -20,7 +20,7 @@ Contact details for veterinarians and pet owners.
 Detailed medication information.
 Demographic data concerning the pets under care.
 
-##Limitations
+#**Limitations**
 While our website aims to be comprehensive, it's designed with simplicity in mind. Therefore, instead of incorporating complex transaction-type tables, medication costs are presented for set quantities, and a total prescription cost is calculated for all the medications within a prescription. Additionally, in alignment with our commitment to privacy and confidentiality, medication and prescription records for clients no longer served are completely removed from our system.
 
 Flask Starter App Guide
